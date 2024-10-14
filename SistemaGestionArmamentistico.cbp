@@ -35,6 +35,7 @@
 		<Unit filename="Cabeceras.h" />
 		<Unit filename="Clases/Menu.cpp" />
 		<Unit filename="Clases/Menu.h" />
+		<Unit filename="Clases/rlutil.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
