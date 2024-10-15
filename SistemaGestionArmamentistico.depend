@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1728934034 source:c:\users\54117\documents\github\sistemagestionarmamentistico\main.cpp
+	"Cabeceras.h"
+
+1728933980 c:\users\54117\documents\github\sistemagestionarmamentistico\cabeceras.h
+	"Clases\Menu.h"
+
+1728933894 source:c:\users\54117\documents\github\sistemagestionarmamentistico\clases\menu.cpp
+	<iostream>
+	<stdio.h>
+	<windows.h>
+	"rlutil.h"
+	"Menu.h"
+
+1728930798 c:\users\54117\documents\github\sistemagestionarmamentistico\clases\menu.h
+
+1728932449 c:\users\54117\documents\github\sistemagestionarmamentistico\clases\rlutil.h
+	<iostream>
+	<string>
+	<cstdio>
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	<conio.h>
+	<termios.h>
+	<unistd.h>
+	<sys/ioctl.h>
+	<sys/types.h>
+	<sys/time.h>
+
