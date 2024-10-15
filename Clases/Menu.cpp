@@ -14,7 +14,7 @@ void Menu::dibujarCuadro(int x1, int y1, int x2, int y2){
 
     for(i=x1; i<x2; i++){
         gotoxy(i, y1);
-        printf("\304"); // LINEA HORIZONTAL SUPERIOR
+        printf("\304"); // LINEA HORIZONTAL SUPERIOR     //304
         gotoxy(i, y2);
         printf("\304"); // LINEA HORIZONTAL INFERIOR
     }
@@ -27,9 +27,9 @@ void Menu::dibujarCuadro(int x1, int y1, int x2, int y2){
     }
 
     gotoxy(x1, y1);
-    printf("\332");
+    printf("\332");       //332
     gotoxy(x1, y2);
-    printf("\300");
+    printf("\300");        //300
     gotoxy(x2, y1);
     printf("\277");
     gotoxy(x2, y2);
@@ -49,7 +49,7 @@ void Menu::gotoxy(int x, int y){
 void Menu::cabecera(){
     cls();//rlutil.h
     system("mode con: cols=80 lines=25"); // DEFINE DIMENSIONES VENTANA PROGRAMA 80 COLUMNAS 25 FILAS
-    system("COLOR 70"); // COLOR FONDO y COLOR LETRAS
+    system("COLOR 70"); // COLOR FONDO y COLOR LETRAS  //70
     dibujarCuadro(0, 0, 78, 24); // DIBUJO CUADRO PRINCIPAL
     dibujarCuadro(1, 1, 77, 3); // DIBUJO CUADRO TITULO
     gotoxy(22, 2);
