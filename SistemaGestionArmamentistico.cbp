@@ -33,6 +33,8 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Cabeceras.h" />
+		<Unit filename="Clases/Entidad.cpp" />
+		<Unit filename="Clases/Entidad.h" />
 		<Unit filename="Clases/Menu.cpp" />
 		<Unit filename="Clases/Menu.h" />
 		<Unit filename="Clases/rlutil.h" />
