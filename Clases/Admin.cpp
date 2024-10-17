@@ -3,10 +3,10 @@
 #include<cstring>//para las funciones strcpy
 using namespace std;//para no andar escribiendo "std::cout"
 
-void Admin::cargar(int _Id){
+void Admin::cargar(int id){
     char aux[30];
     //RECORDA ADMIN DERIVA DE ENTIDAD
-    Entidad::setId(_Id);//le setea el id obtenido con la funcion contar registros A LA PROPIEDAD DE ENTIDAD.
+    Entidad::setId(id);//le setea el id obtenido con la funcion contar registros A LA PROPIEDAD DE ENTIDAD.
 
     cout << "CARGANDO ID: " << Entidad::getId() << endl;//muestra el nuevo id autonumerico
 
