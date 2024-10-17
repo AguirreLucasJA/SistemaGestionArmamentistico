@@ -31,7 +31,7 @@ void Admin::mostrar(){
     cout << "USUARIO: " << Entidad::getUsuario() << endl;
     cout << "CLAVE: " << Entidad::getClave() << endl;
     cout << "DESCRIPCION: " << Entidad::getDescripcion() << endl;
-    cout << "PROPIEDAD ADMIN: " << Entidad::getTipoUsuario() << endl;
+    cout << "TIPO DE USUARIO: " << Entidad::getTipoUsuario() << endl;
     cout << "ESTADO: " << Entidad::getEstado() << endl;
     cout << "ID: " << Entidad::getId() << endl;
 }
