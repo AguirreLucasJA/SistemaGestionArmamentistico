@@ -40,5 +40,5 @@ void Pais::cargar(int _Id)
 
     Entidad::setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = ADMINISTRADOR.
     Entidad::setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
-    _dineroCaja = 0;//LE ESTABLECE POR DEFECTO 0
+    _dineroCaja = 0;//LE ESTABLECE POR DEFECTO 0.
 }
