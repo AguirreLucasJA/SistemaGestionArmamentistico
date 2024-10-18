@@ -3,6 +3,7 @@
 #include<cstring>//para las funciones strcpy
 using namespace std;//para no andar escribiendo "std::cout"
 
+//METODOS
 void Admin::cargar(int id){
     char aux[30];
     //RECORDA ADMIN DERIVA DE ENTIDAD
