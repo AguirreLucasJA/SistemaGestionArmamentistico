@@ -39,6 +39,8 @@
 		<Unit filename="Clases/Entidad.h" />
 		<Unit filename="Clases/Menu.cpp" />
 		<Unit filename="Clases/Menu.h" />
+		<Unit filename="Clases/Pais.cpp" />
+		<Unit filename="Clases/Pais.h" />
 		<Unit filename="Clases/rlutil.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
