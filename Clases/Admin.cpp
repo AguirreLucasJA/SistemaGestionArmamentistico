@@ -25,7 +25,7 @@ void Admin::cargar(int id){
     Entidad::setDescripcion(aux);
 
     Entidad::setTipoUsuario(0);//SETEO EL TIPO DE USUARIO 0 = ADMINISTRADOR.
-    Entidad::setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
+    Entidad::setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO
 }
 
 void Admin::mostrar(){
