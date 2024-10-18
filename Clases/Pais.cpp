@@ -38,7 +38,7 @@ void Pais::cargar(int _Id)
     cin >> aux;
     Entidad::setDescripcion(aux);
 
-    Entidad::setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = ADMINISTRADOR.
+    Entidad::setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = CLIENTE/PAIS.
     Entidad::setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
     _dineroCaja = 0;//LE ESTABLECE POR DEFECTO 0.
 }
