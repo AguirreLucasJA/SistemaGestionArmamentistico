@@ -23,7 +23,7 @@ void Admin::cargar(int id){
     cin >> aux;
     Entidad::setDescripcion(aux);
 
-    Entidad::setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = ADMINISTRADOR.
+    Entidad::setTipoUsuario(0);//SETEO EL TIPO DE USUARIO 0 = ADMINISTRADOR.
     Entidad::setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
 }
 
