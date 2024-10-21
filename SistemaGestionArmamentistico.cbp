@@ -36,6 +36,7 @@
 		<Unit filename="Clases/Admin.cpp" />
 		<Unit filename="Clases/Admin.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoAdmin.h" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoPais.h" />
 		<Unit filename="Clases/Entidad.cpp" />
 		<Unit filename="Clases/Entidad.h" />
 		<Unit filename="Clases/Menu.cpp" />
