@@ -9,6 +9,7 @@ public:
     void cabecera();
 
     bool menuOpcion(); // MENU INGRESO USERS/ADMINS
+    void menuPrincipalAdmin();// MENU PRINCIPAL ADMIN
 
 
 private:

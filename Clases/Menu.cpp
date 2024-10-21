@@ -70,7 +70,7 @@ void Menu::cabecera()
     cout << "PROGRAMANDO TU DEFENSA" << endl;
 }
 /// MENU INGRESO
-bool Menu::menuOpcion()  // MENU INGRESO USERS/ADMINS
+bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 {
     /* -Es lo primero que ejecuta tu programa, si coinciden las credenciales con un ADMIN o PAIS sera al siguiente menu que ejecutara
     -si no es ninguno de los 3 te va a decir "credenciales invalidas"
@@ -129,9 +129,10 @@ bool Menu::menuOpcion()  // MENU INGRESO USERS/ADMINS
         getch();//rlutil.h
     }
 
-     int respuesta = -1;
+    int respuesta = -1;
 
-     while(respuesta < 0 || respuesta > 1){//para ver si queres volver a ingresar al sistema.
+    while(respuesta < 0 || respuesta > 1) //para ver si queres volver a ingresar al sistema.
+    {
         system("cls");
         cabecera();
         gotoxy (29,6);
@@ -143,18 +144,81 @@ bool Menu::menuOpcion()  // MENU INGRESO USERS/ADMINS
         gotoxy (29,10);
         cout<<"OPCION: ";
         cin>>respuesta;
-        if(respuesta < 0 || respuesta > 1){
+        if(respuesta < 0 || respuesta > 1)
+        {
             cout << "Ingreso incorrecto... re ingrese.." << endl;
             getch();
         }
     }
 
-    if(respuesta == 0){
+    if(respuesta == 0)
+    {
         return false;// si no quiere reingresar
-    } else{
+    }
+    else
+    {
         return true;// si quiere reingresar
     }
 
     gotoxy (2,22);
     anykey();//espera una el ingreso de una tecla para continuar
+}
+
+/// MENU PRINCIPAL ADMINISTRADOR
+void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS SUBMENU.
+{
+    int opcion = -1;
+    while(opcion!=0)
+    {
+
+        cabecera();
+
+        gotoxy (2,6);
+        cout << "MENU ADMINISTRADOR";
+        gotoxy (2,7);
+        cout << "------------------";
+        gotoxy (2,10);
+        cout << "INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout << "1 - USUARIOS: ";
+        gotoxy (2,14);
+        cout << "2 - STOCK: ";
+        gotoxy (2,15);
+        cout << "3 - CLIENTES: ";
+        gotoxy (2,16);
+        cout << "4 - LISTADOS: ";
+        gotoxy (2,17);
+        cout << "5 - REPORTES: ";
+        gotoxy (2,18);
+        cout << "0 - SALIR DEL PROGRAMA: ";
+        gotoxy (2,19);
+        cout << "->: ";
+
+        cin >> opcion;
+
+
+        switch(opcion)
+        {
+        case 1:
+            //Usuarios(); FALTA HACER***
+            break;
+        case 2:
+            //Stock(); FALTA HACER***
+            break;
+        case 3:
+            //Clientes(); FALTA HACER***
+            break;
+        case 4:
+            //Listados(); FALTA HACER***
+            break;
+        case 5:
+            //Reportes(); FALTA HACER***
+            break;
+        case 0:
+            break;
+        default:
+            break;
+        }
+    }
 }
