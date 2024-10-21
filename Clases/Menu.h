@@ -11,6 +11,8 @@ public:
     bool menuOpcion(); // MENU INGRESO USERS/ADMINS
     void menuPrincipalAdmin();// MENU PRINCIPAL ADMIN
 
+    void Usuarios();//SUBmenu ADMIN ABML usuarios
+
 
 private:
     int opcion;

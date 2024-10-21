@@ -106,12 +106,12 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     regAdmin = archivoAdmin.buscarNombre(user);//en el archivoAdmin va a buscar el nombre de usuario que ingresaste y te DEVUELVE EL REGISTRO.
     if ((strcmp(regAdmin.getUsuario(), user) == 0)&&(strcmp(regAdmin.getClave(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regAdmin
     {
-        //menuPrincipalAdmin(); FALTA HACER***
+        menuPrincipalAdmin();
         ingresoAdmin = true;
     }
     else if(((nombre == "admin")&&(clave == "admin"))) // sino se pregunta si se ingresa el admin HARCODEADO PARA 1RA CARGA.
     {
-        //menuPrincipalAdmin(); FALTA HACER***
+        menuPrincipalAdmin();
         ingresoAdmin = true;
     }
     else
@@ -120,7 +120,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     }
     if ((strcmp(regPais.getUsuario(), user) == 0)&&(strcmp(regPais.getClave(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regPais
     {
-        //menuPrincipalPais(regPais); FALTA HACER***
+        //menuPrincipalPais(regPais); //TODO: FALTA HACER***
     }
     else if(ingresoAdmin==false)  //si no, nunca se ingreso un admin?
     {
@@ -201,19 +201,19 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
         switch(opcion)
         {
         case 1:
-            //Usuarios(); FALTA HACER***
+            Usuarios();
             break;
         case 2:
-            //Stock(); FALTA HACER***
+            //Stock(); //TODO: FALTA HACER***
             break;
         case 3:
-            //Clientes(); FALTA HACER***
+            //Clientes(); //TODO: FALTA HACER***
             break;
         case 4:
-            //Listados(); FALTA HACER***
+            //Listados(); //TODO: FALTA HACER***
             break;
         case 5:
-            //Reportes(); FALTA HACER***
+            //Reportes(); //TODO: FALTA HACER***
             break;
         case 0:
             break;
@@ -221,4 +221,58 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             break;
         }
     }
+}
+
+/// MENU USUARIOS
+//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
+void Menu::Usuarios(){
+    opcion = -1;
+
+    while(opcion!=0){//si es ==0 vuelve al MENU PRINCIPAL ADMIN
+
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"MENU ADMINISTRADOR USUARIOS";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout<<"1 - ALTA DE USUARIO: ";
+        gotoxy (2,14);
+        cout<<"2 - LISTAR USUARIOS: ";
+        gotoxy (2,15);
+        cout<<"3 - MODIFICACION DE USUARIO: ";
+        gotoxy (2,16);
+        cout<<"4 - BAJA DE USUARIO: ";
+        gotoxy (2,17);
+        cout<<"0 - VOLVER ATRAS: ";
+        gotoxy (2,18);
+        cout<<"->: ";
+        cin>>opcion;
+
+        system("cls");
+
+            switch(opcion){
+                case 1:
+                    //altaUsuario();//TODO: FALTA HACER***
+                    break;
+                case 2:
+                    //listarUsuarios();//TODO: FALTA HACER***
+                    break;
+                case 3:
+                    //modificarUsuario();//TODO: FALTA HACER***
+                    break;
+                case 4:
+                    //eliminarUsuario();//TODO: FALTA HACER***
+                    break;
+                case 0:
+                    opcion = 0;
+                    break;
+                default:
+                    break;
+             }
+        }
 }
