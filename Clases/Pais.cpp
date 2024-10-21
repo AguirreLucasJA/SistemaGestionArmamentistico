@@ -42,3 +42,11 @@ void Pais::cargar(int _Id)
     Entidad::setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
     _dineroCaja = 0;//LE ESTABLECE POR DEFECTO 0.
 }
+
+void Pais::mostrar(){
+    cout << "USUARIO: " << Entidad::getUsuario() << endl;
+    cout << "CLAVE: " << Entidad::getClave() << endl;
+    cout << "DESCRIPCION: " << Entidad::getDescripcion() << endl;
+    cout << "ESTADO: " << Entidad::getEstado() << endl;
+    cout << "ID: " << Entidad::getId() << endl;
+}

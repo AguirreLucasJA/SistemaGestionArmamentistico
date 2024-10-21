@@ -174,7 +174,7 @@ Pais ArchivoPais::buscarNombre(const char *n){
             aux.setUsuario(reg.getUsuario());
             aux.setClave(reg.getClave());
             aux.setDescripcion(reg.getDescripcion());
-            aux.setTipoUsuario()(getTipoUsuario());
+            aux.setTipoUsuario(reg.getTipoUsuario());
             aux.setEstado(reg.getEstado());
             aux.setId(reg.getId());
             aux.setDineroCaja(reg.getDineroCaja());

@@ -7,7 +7,7 @@ class ArchivoAdmin{
             char _nombre[30];
     public:
             ArchivoAdmin(const char* n = "ARCHIVOS/ADMIN.DAT"){
-                strcpy(Nombre, n);
+                strcpy(_nombre, n);
             }
 
             bool grabarRegistro(Admin reg);
@@ -22,7 +22,7 @@ class ArchivoAdmin{
 bool ArchivoAdmin::grabarRegistro(Admin reg){
     FILE *pf;
 
-    pf = fopen(Nombre, "ab");
+    pf = fopen(_nombre, "ab");
 
     if(pf == NULL){
         cout << "NO PUEDE ABRIRSE EL ARCHIVO EN grabarRegistro()" << endl;
@@ -45,7 +45,7 @@ Admin ArchivoAdmin::leerRegistro(int pos){
     FILE *pf;
     Admin reg;
 
-    pf = fopen(Nombre, "rb");
+    pf = fopen(_nombre, "rb");
 
     if(pf == NULL){
         cout << "NO PEUDE ABRIRSE EL ARCHIVO EN leerRegistro()" << endl;
@@ -63,7 +63,7 @@ int ArchivoAdmin::buscarRegistro(int Id){
     Admin reg;
     int c = 0;
 
-    pf = fopen(Nombre, "rb");
+    pf = fopen(_nombre, "rb");
 
     if(pf == NULL){
         cout << "NO PUEDE ABRIRSE EL ARCHIVO EN leerRegistro()" << endl;
@@ -87,7 +87,7 @@ int ArchivoAdmin::contarRegistros(){
     //arranca en -1 para indexar.
     int regContador = -1, tam;
 
-    pf = fopen(Nombre, "rb");
+    pf = fopen(_nombre, "rb");
 
     if(pf == NULL){
         cout << "NO PUEDE ABRIRSE EL ARCHIVO EN contarRegistro()" << endl;
@@ -107,7 +107,7 @@ int ArchivoAdmin::contarRegistros(){
 bool ArchivoAdmin::modificarRegistro(Admin reg, int pos){
     FILE *pf;
 
-    pf = fopen(Nombre, "rb+");
+    pf = fopen(_nombre, "rb+");
 
     if(pf == NULL){
         cout << "NO PEUDE ABRIRSE EL ARCHIVO EN grabarRegistro()" << endl;
@@ -132,7 +132,7 @@ bool ArchivoAdmin::listarRegistros(){
     FILE *pf;
     Admin reg;
 
-    pf = fopen(Nombre, "rb");
+    pf = fopen(_nombre, "rb");
 
     if(pf == NULL){
         cout << "NO PEUDE ABRIRSE EL ARCHIVO EN leerRegistro()" << endl;
@@ -154,10 +154,10 @@ Admin ArchivoAdmin::buscarNombre(const char *n){
     Admin reg;
     Admin aux;
 
-    pf = fopen(Nombre, "rb");
+    pf = fopen(_nombre, "rb");
 
     if(pf == NULL){
-        cout << "NO PUEDE ABRIRSE EL ARCHIVO: " << Nombre << " EN MODO RB - buscarRegistro()" << endl;
+        cout << "NO PUEDE ABRIRSE EL ARCHIVO: " << _nombre << " EN MODO RB - buscarRegistro()" << endl;
         system("pause");
         return reg;
     }
@@ -168,7 +168,7 @@ Admin ArchivoAdmin::buscarNombre(const char *n){
             aux.setUsuario(reg.getUsuario());
             aux.setClave(reg.getClave());
             aux.setDescripcion(reg.getDescripcion());
-            aux.setTipoUsuario()(getTipoUsuario());
+            aux.setTipoUsuario(reg.getTipoUsuario());
             aux.setEstado(reg.getEstado());
             aux.setId(reg.getId());
             return aux;
