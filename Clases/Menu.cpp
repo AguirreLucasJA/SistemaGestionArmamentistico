@@ -225,10 +225,12 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
 
 /// MENU USUARIOS
 //SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
-void Menu::Usuarios(){
+void Menu::Usuarios()
+{
     opcion = -1;
 
-    while(opcion!=0){//si es ==0 vuelve al MENU PRINCIPAL ADMIN
+    while(opcion!=0) //si es ==0 vuelve al MENU PRINCIPAL ADMIN
+    {
 
         cabecera();
 
@@ -255,24 +257,25 @@ void Menu::Usuarios(){
 
         system("cls");
 
-            switch(opcion){
-                case 1:
-                    //altaUsuario();//TODO: FALTA HACER***
-                    break;
-                case 2:
-                    //listarUsuarios();//TODO: FALTA HACER***
-                    break;
-                case 3:
-                    //modificarUsuario();//TODO: FALTA HACER***
-                    break;
-                case 4:
-                    //eliminarUsuario();//TODO: FALTA HACER***
-                    break;
-                case 0:
-                    opcion = 0;
-                    break;
-                default:
-                    break;
-             }
+        switch(opcion)
+        {
+        case 1:
+            //altaUsuario();//TODO: FALTA HACER***
+            break;
+        case 2:
+            //listarUsuarios();//TODO: FALTA HACER***
+            break;
+        case 3:
+            //modificarUsuario();//TODO: FALTA HACER***
+            break;
+        case 4:
+            //eliminarUsuario();//TODO: FALTA HACER***
+            break;
+        case 0:
+            opcion = 0;
+            break;
+        default:
+            break;
         }
+    }
 }
