@@ -258,7 +258,7 @@ void Menu::Usuarios()
         switch(opcion)
         {
         case 1:
-            altaUsuario();//TODO: FALTA HACER***
+            altaUsuario();
             break;
         case 2:
             //eliminarUsuario();//TODO: FALTA HACER***
