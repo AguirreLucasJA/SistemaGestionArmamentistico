@@ -78,13 +78,13 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     */
     cabecera();
 
-    char user[15];
-    char pass[15];
-
     ArchivoPais archivoPais;
     Pais regPais;
     Admin regAdmin;
     ArchivoAdmin archivoAdmin;
+
+    string usuario;
+    string clave;
 
     gotoxy (29,6);
     cout<<"INGRESO AL SISTEMA";
@@ -93,32 +93,31 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 
     gotoxy (20,10);
     cout<<"INGRESE SU USUARIO: ";
-    cin>>user;
+    cin.ignore();
+    getline(cin, usuario);
 
     gotoxy (20,12);
     cout<<"INGRESE SU CLAVE: ";
-    cin>>pass;
+    getline(cin, clave);
 
-    string nombre = user;
-    string clave = pass;
     bool ingresoAdmin = false;
 
-    regAdmin = archivoAdmin.buscarNombre(user);//en el archivoAdmin va a buscar el nombre de usuario que ingresaste y te DEVUELVE EL REGISTRO.
-    if ((strcmp(regAdmin.getUsuario().c_str(), user) == 0)&&(strcmp(regAdmin.getClave().c_str(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regAdmin
+    regAdmin = archivoAdmin.buscarNombre(usuario.c_str());//en el archivoAdmin va a buscar el nombre de usuario que ingresaste y te DEVUELVE EL REGISTRO.
+    if ((regAdmin.getUsuario() == usuario) && (regAdmin.getClave() == clave)) //si tanto el user y pass ingresados coinciden con el regAdmin
     {
         menuPrincipalAdmin();
         ingresoAdmin = true;
     }
-    else if(((nombre == "admin")&&(clave == "admin"))) // sino se pregunta si se ingresa el admin HARCODEADO PARA 1RA CARGA.
+    else if(((usuario == "admin")&&(clave == "admin"))) // sino se pregunta si se ingresa el admin HARCODEADO PARA 1RA CARGA.
     {
         menuPrincipalAdmin();
         ingresoAdmin = true;
     }
     else
     {
-        regPais = archivoPais.buscarNombre(user);//en el archivoPais va a buscar el usuario que ingresaste.
+        regPais = archivoPais.buscarNombre(usuario.c_str());//en el archivoPais va a buscar el usuario que ingresaste.
     }
-    if ((strcmp(regPais.getUsuario().c_str(), user) == 0)&&(strcmp(regPais.getClave().c_str(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regPais
+    if ((regPais.getUsuario() == usuario) && (regPais.getClave() == clave)) //si tanto el user y pass ingresados coinciden con el regPais
     {
         //menuPrincipalPais(regPais); //TODO: FALTA HACER***
     }
@@ -244,15 +243,14 @@ void Menu::Usuarios()
         gotoxy (2,13);
         cout<<"1 - ALTA DE USUARIO: ";
         gotoxy (2,14);
-        cout<<"2 - LISTAR USUARIOS: ";
+        cout<<"2 - BAJA DE USUARIO: ";
         gotoxy (2,15);
         cout<<"3 - MODIFICACION DE USUARIO: ";
         gotoxy (2,16);
-        cout<<"4 - BAJA DE USUARIO: ";
-        gotoxy (2,17);
         cout<<"0 - VOLVER ATRAS: ";
-        gotoxy (2,18);
+        gotoxy (2,17);
         cout<<"->: ";
+
         cin>>opcion;
 
         system("cls");
@@ -263,13 +261,10 @@ void Menu::Usuarios()
             altaUsuario();//TODO: FALTA HACER***
             break;
         case 2:
-            listarUsuarios();//TODO: FALTA HACER***
+            //eliminarUsuario();//TODO: FALTA HACER***
             break;
         case 3:
             //modificarUsuario();//TODO: FALTA HACER***
-            break;
-        case 4:
-            //eliminarUsuario();//TODO: FALTA HACER***
             break;
         case 0:
             opcion = 0;
@@ -303,8 +298,7 @@ void Menu::altaUsuario()
     }
 }
 
-/// LISTAR USUARIOS *ERROR*
-//TODO:DESCRIPCION NO ACEPTA ESPACIOS VER EL PROBLEMA EN CARGAR ADMIN.HACE QUE EL MENU USUARIOS ENTRE EN UN BUCLE INFINITO POR EL ENTER DEL ESPACIO.
+/// LISTAR USUARIOS
 void Menu::listarUsuarios()
 {
 
