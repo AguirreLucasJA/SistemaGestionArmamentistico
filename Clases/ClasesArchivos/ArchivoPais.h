@@ -163,7 +163,7 @@ Pais ArchivoPais::buscarNombre(const char *n){
     pf = fopen(Nombre, "rb");
 
     if(pf == NULL){
-        cout << "NO PUEDE ABRIRSE EL ARCHIVO: " << Nombre << " EN MODO RB - buscarRegistro()" << endl;
+        cout << "NO PUEDE ABRIRSE EL ARCHIVO: " << Nombre << " EN MODO RB - buscarNombre()" << endl;
         system("pause");
         return reg;
     }

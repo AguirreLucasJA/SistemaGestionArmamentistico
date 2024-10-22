@@ -122,7 +122,6 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     }
     else if(ingresoAdmin==false)  //si no, nunca se ingreso un admin?
     {
-        gotoxy(2,14);
         cout << "Credenciales invalidas.";
         getch();//rlutil.h
     }
@@ -143,10 +142,10 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
         cout<<"OPCION: ";
         cin>>respuesta;
         cin.ignore();
-        if(respuesta < 0 || respuesta > 1)
+        if(respuesta < 0 || respuesta > 1)//si ingresaste algo distinto q 1 ó 0 te pide reingresar opcion
         {
             cout << "Ingreso incorrecto... re ingrese.." << endl;
-            getch();
+            getch();//espera precionar tecla para continuar
         }
     }
 
@@ -267,7 +266,7 @@ void Menu::Usuarios()
             modificarUsuario();
             break;
         case 4:
-            listarUsuarios();
+            listarUsuarios(); //TODO::HAY QUE ELIMINARLO ES PARA PRUEBAS NOMAS
             break;
         case 0:
             opcion = 0;
@@ -329,7 +328,7 @@ void Menu::listarUsuarios()
 }
 
 /// MODIFICAR USUARIO
-//te pregunta si queres modificar la clave y la descripcion
+//modifica usuario existente al archivo
 void Menu::modificarUsuario()
 {
 
