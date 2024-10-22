@@ -142,6 +142,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
         gotoxy (29,10);
         cout<<"OPCION: ";
         cin>>respuesta;
+        cin.ignore();
         if(respuesta < 0 || respuesta > 1)
         {
             cout << "Ingreso incorrecto... re ingrese.." << endl;
@@ -317,25 +318,36 @@ void Menu::listarUsuarios()
 
     for(int j=0; j<cant; j++)
     {
-        cabecera();
         if(admin[j].getEstado()==1)
         {
             admin[j].mostrar();
             cout<<endl;
             system("pause");
+            system("cls");
         }
     }
 }
 
-/// MODIFICAR USUARIO *ERROR***
+/// MODIFICAR USUARIO
 //te pregunta si queres modificar la clave y la descripcion
 void Menu::modificarUsuario()
 {
 
     ArchivoAdmin ArchAdmin;
     int Id;
+    string respuesta;
+    cin.ignore();//arregla de menu usuarios el "cin>>opcion;" sino se saltea el LISTAR USUARIOS.
+    cout << "LISTAR USUARIOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        listarUsuarios();
+    }
+
     cout << "INGRESE EL ID A BUSCAR: ";
     cin >> Id;
+    cin.ignore();
     int pos = ArchAdmin.buscarRegistro(Id);
     Admin reg = ArchAdmin.leerRegistro(pos);
     reg.mostrar();
@@ -346,31 +358,19 @@ void Menu::modificarUsuario()
         return;
     }
 
-    char respuesta;
     cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
-    cin >> respuesta;
-    char dato[30];
+    getline(cin, respuesta);
+    string dato;
     //si le ingresas cualquier otra cosa que no sea s/S RETURN al SUBmenu USUARIOS
-    if(respuesta == 's' || respuesta == 'S')
+    if(respuesta == "s" || respuesta == "S")
     {
-        cout << "MODIFICAR CLAVE? (s / n): ";
-        cin >> respuesta;
-        if(respuesta == 's' || respuesta == 'S')
-        {
-            cout << "INGRESE NUEVA CLAVE: ";
+        cout << "INGRESE NUEVA CLAVE: ";
+        getline(cin, dato);
+        reg.setClave(dato);//caga modificaciones al reg aux Admin
 
-            cin >> dato;
-            reg.setClave(dato);//caga modificaciones al reg aux Admin
-        }
-
-        cout << "MODIFICAR DESCRIPCION? (s / n): ";
-        cin >> respuesta;
-        if(respuesta == 's' || respuesta == 'S')
-        {
-            cout << "INGRESE NUEVA DESCRIPCION: ";
-            cin >> dato;
-            reg.setDescripcion(dato);//caga modificaciones al reg aux Admin
-        }
+        cout << "INGRESE NUEVA DESCRIPCION: ";
+        getline(cin, dato);
+        reg.setDescripcion(dato);//caga modificaciones al reg aux Admin
     }
     else
     {
@@ -379,7 +379,6 @@ void Menu::modificarUsuario()
     if(ArchAdmin.modificarRegistro(reg, pos)) //lo carga en el archivo y si lo pudo cargar muestra
     {
         cout << "MODIFICACION EXITOSA..." << endl;
-        //system("pause");//ESTE ACA ESTA DEMAS ARREGLAS QIE TE APARECE DOBLE TOCA UNA TECLA PARA CONTINUAL CON LA DEL FINAL YA ESTA BIEN***
     }
     else
     {
