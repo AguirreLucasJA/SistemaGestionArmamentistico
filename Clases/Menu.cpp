@@ -310,6 +310,13 @@ void Menu::listarUsuarios()
     int cant = ArchAdmin.contarRegistros();
     Admin *admin= new Admin[cant];
 
+    if(admin == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
     for(int i=0; i<cant; i++)
     {
         admin[i] = ArchAdmin.leerRegistro(i);
@@ -325,6 +332,7 @@ void Menu::listarUsuarios()
             system("cls");
         }
     }
+    delete [] admin;
 }
 
 /// MODIFICAR USUARIO
