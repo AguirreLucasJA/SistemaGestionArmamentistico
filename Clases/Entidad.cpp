@@ -1,16 +1,16 @@
 #include "Entidad.h"
-#include<cstring>
+#include<cstring>//para utilizar strcpy
 
 //SETTERS
-void Entidad::setUsuario(string usuario)
+void Entidad::setUsuario(std::string usuario)
 {
     if(usuario.size() < sizeof(_usuario))
     {
-        strcpy(_usuario, usuario.c_str());
-    }
+        strcpy(_usuario, usuario.c_str());//devuelve el puntero que tiene en la heap
+    }//copia un puntero char dentro del otro puntero char
 }
 
-void Entidad::setClave(string clave)
+void Entidad::setClave(std::string clave)
 {
     if(clave.size() < sizeof(_clave))
     {
@@ -18,7 +18,7 @@ void Entidad::setClave(string clave)
     }
 }
 
-void Entidad::setDescripcion(string descripcion)
+void Entidad::setDescripcion(std::string descripcion)
 {
     if(descripcion.size() < sizeof(_descripcion))
     {
@@ -42,17 +42,17 @@ void Entidad::setId(int id)
 }
 
 //GETTERS
-string Entidad::getUsuario()
+std::string Entidad::getUsuario()
 {
     return _usuario;
 }
 
-string Entidad::getClave()
+std::string Entidad::getClave()
 {
     return _clave;
 }
 
-string Entidad::getDescripcion()
+std::string Entidad::getDescripcion()
 {
     return _descripcion;
 }

@@ -104,7 +104,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     bool ingresoAdmin = false;
 
     regAdmin = archivoAdmin.buscarNombre(user);//en el archivoAdmin va a buscar el nombre de usuario que ingresaste y te DEVUELVE EL REGISTRO.
-    if ((strcmp(regAdmin.getUsuario(), user) == 0)&&(strcmp(regAdmin.getClave(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regAdmin
+    if ((strcmp(regAdmin.getUsuario().c_str(), user) == 0)&&(strcmp(regAdmin.getClave().c_str(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regAdmin
     {
         menuPrincipalAdmin();
         ingresoAdmin = true;
@@ -118,7 +118,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     {
         regPais = archivoPais.buscarNombre(user);//en el archivoPais va a buscar el usuario que ingresaste.
     }
-    if ((strcmp(regPais.getUsuario(), user) == 0)&&(strcmp(regPais.getClave(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regPais
+    if ((strcmp(regPais.getUsuario().c_str(), user) == 0)&&(strcmp(regPais.getClave().c_str(), pass)== 0)) //si tanto el user y pass ingresados coinciden con el regPais
     {
         //menuPrincipalPais(regPais); //TODO: FALTA HACER***
     }

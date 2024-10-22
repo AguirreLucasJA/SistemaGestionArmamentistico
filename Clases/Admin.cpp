@@ -15,18 +15,16 @@ void Admin::cargar(int id){
 
     cout << "ING NOMBRE USUARIO: ";
     cin.ignore();
-    cin >> usuario;
+    getline(cin, usuario);
     //COMO ADMIN DERIVA DE ENTIDAD hace uso de sus metodos para setear las propiedades de entidad.
     Entidad::setUsuario(usuario);
 
     cout << "ING CLAVE: ";
-    cin.ignore();
-    cin >> clave;
+    getline(cin, clave);
     Entidad::setClave(clave);
 
     cout << "ING DESCRPCION: ";
-    cin.ignore();
-    cin >> descripcion;
+    getline(cin, descripcion);
     Entidad::setDescripcion(descripcion);
 
     Entidad::setTipoUsuario(0);//SETEO EL TIPO DE USUARIO 0 = ADMINISTRADOR.

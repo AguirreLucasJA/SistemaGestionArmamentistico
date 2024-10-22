@@ -169,7 +169,7 @@ Pais ArchivoPais::buscarNombre(const char *n){
     }
 
     while(fread(&reg, sizeof(Pais), 1, pf)){
-        if(strcmp(reg.getUsuario(), n) == 0){
+        if(strcmp(reg.getUsuario().c_str(), n) == 0){
             fclose(pf);
             aux.setUsuario(reg.getUsuario());
             aux.setClave(reg.getClave());
