@@ -260,10 +260,10 @@ void Menu::Usuarios()
         switch(opcion)
         {
         case 1:
-            //altaUsuario();//TODO: FALTA HACER***
+            altaUsuario();//TODO: FALTA HACER***
             break;
         case 2:
-            //listarUsuarios();//TODO: FALTA HACER***
+            listarUsuarios();//TODO: FALTA HACER***
             break;
         case 3:
             //modificarUsuario();//TODO: FALTA HACER***
@@ -276,6 +276,57 @@ void Menu::Usuarios()
             break;
         default:
             break;
+        }
+    }
+}
+
+/// ALTA USUARIO
+//carga un nuevo usuario al archivo
+void Menu::altaUsuario()
+{
+
+    int Id;
+    Admin reg;
+    ArchivoAdmin ArchAdmin;
+    //devuelve la cantidad -1 de los reg del archivo
+    Id = ArchAdmin.contarRegistros(); //obtiene nuevo ID autonumerico.
+    reg.cargar(Id);//carga un nuevo reg admin setenadole el ID obtenido
+    if(ArchAdmin.grabarRegistro(reg)) //lo cargan en archivo admin
+    {
+        cout << "ALTA EXITOSA...";
+        system("pause");
+    }
+    else
+    {
+        cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+        system("pause");
+    }
+}
+
+/// LISTAR USUARIOS *ERROR*
+//TODO:DESCRIPCION NO ACEPTA ESPACIOS VER EL PROBLEMA EN CARGAR ADMIN.HACE QUE EL MENU USUARIOS ENTRE EN UN BUCLE INFINITO POR EL ENTER DEL ESPACIO.
+void Menu::listarUsuarios()
+{
+
+    Admin reg;
+    ArchivoAdmin ArchAdmin;
+
+    int cant = ArchAdmin.contarRegistros();
+    Admin *admin= new Admin[cant];
+
+    for(int i=0; i<cant; i++)
+    {
+        admin[i] = ArchAdmin.leerRegistro(i);
+    }
+
+    for(int j=0; j<cant; j++)
+    {
+        cabecera();
+        if(admin[j].getEstado()==1)
+        {
+            admin[j].mostrar();
+            cout<<endl;
+            system("pause");
         }
     }
 }

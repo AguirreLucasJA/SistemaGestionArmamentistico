@@ -12,6 +12,8 @@ public:
     void menuPrincipalAdmin();// MENU PRINCIPAL ADMIN
 
     void Usuarios();//SUBmenu ADMIN ABML usuarios
+    void altaUsuario();
+    void listarUsuarios();
 
 
 private:
