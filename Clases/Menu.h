@@ -11,8 +11,10 @@ public:
     bool menuOpcion(); // MENU INGRESO USERS/ADMINS
     void menuPrincipalAdmin();// MENU PRINCIPAL ADMIN
 
-    void Usuarios();//SUBmenu ADMIN ABML usuarios
-    void altaUsuario();//
+    void Usuarios();//METODO del SUBmenu ADMIN ABM usuarios
+    void altaUsuario();//METODO del SUBmenu ADMIN ABM usuarios
+    void modificarUsuario();//METODO del SUBmenu ADMIN ABM usuarios
+
     void listarUsuarios();
 
 

@@ -93,7 +93,6 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 
     gotoxy (20,10);
     cout<<"INGRESE SU USUARIO: ";
-    cin.ignore();
     getline(cin, usuario);
 
     gotoxy (20,12);
@@ -103,12 +102,12 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     bool ingresoAdmin = false;
 
     regAdmin = archivoAdmin.buscarNombre(usuario.c_str());//en el archivoAdmin va a buscar el nombre de usuario que ingresaste y te DEVUELVE EL REGISTRO.
-    if ((regAdmin.getUsuario() == usuario) && (regAdmin.getClave() == clave)) //si tanto el user y pass ingresados coinciden con el regAdmin
+    if (regAdmin.getUsuario() == usuario && regAdmin.getClave() == clave) //si tanto el user y pass ingresados coinciden con el regAdmin
     {
         menuPrincipalAdmin();
         ingresoAdmin = true;
     }
-    else if(((usuario == "admin")&&(clave == "admin"))) // sino se pregunta si se ingresa el admin HARCODEADO PARA 1RA CARGA.
+    else if(usuario == "admin" && clave == "admin") // sino se pregunta si se ingresa el admin HARCODEADO PARA 1RA CARGA.
     {
         menuPrincipalAdmin();
         ingresoAdmin = true;
@@ -117,7 +116,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     {
         regPais = archivoPais.buscarNombre(usuario.c_str());//en el archivoPais va a buscar el usuario que ingresaste.
     }
-    if ((regPais.getUsuario() == usuario) && (regPais.getClave() == clave)) //si tanto el user y pass ingresados coinciden con el regPais
+    if (regPais.getUsuario() == usuario && regPais.getClave() == clave) //si tanto el user y pass ingresados coinciden con el regPais
     {
         //menuPrincipalPais(regPais); //TODO: FALTA HACER***
     }
@@ -264,7 +263,10 @@ void Menu::Usuarios()
             //eliminarUsuario();//TODO: FALTA HACER***
             break;
         case 3:
-            //modificarUsuario();//TODO: FALTA HACER***
+            modificarUsuario();
+            break;
+        case 4:
+            listarUsuarios();
             break;
         case 0:
             opcion = 0;
@@ -323,4 +325,66 @@ void Menu::listarUsuarios()
             system("pause");
         }
     }
+}
+
+/// MODIFICAR USUARIO *ERROR***
+//te pregunta si queres modificar la clave y la descripcion
+void Menu::modificarUsuario()
+{
+
+    ArchivoAdmin ArchAdmin;
+    int Id;
+    cout << "INGRESE EL ID A BUSCAR: ";
+    cin >> Id;
+    int pos = ArchAdmin.buscarRegistro(Id);
+    Admin reg = ArchAdmin.leerRegistro(pos);
+    reg.mostrar();
+    if(reg.getEstado()== false)
+    {
+        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
+        system("pause");
+        return;
+    }
+
+    char respuesta;
+    cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
+    cin >> respuesta;
+    char dato[30];
+    //si le ingresas cualquier otra cosa que no sea s/S RETURN al SUBmenu USUARIOS
+    if(respuesta == 's' || respuesta == 'S')
+    {
+        cout << "MODIFICAR CLAVE? (s / n): ";
+        cin >> respuesta;
+        if(respuesta == 's' || respuesta == 'S')
+        {
+            cout << "INGRESE NUEVA CLAVE: ";
+
+            cin >> dato;
+            reg.setClave(dato);//caga modificaciones al reg aux Admin
+        }
+
+        cout << "MODIFICAR DESCRIPCION? (s / n): ";
+        cin >> respuesta;
+        if(respuesta == 's' || respuesta == 'S')
+        {
+            cout << "INGRESE NUEVA DESCRIPCION: ";
+            cin >> dato;
+            reg.setDescripcion(dato);//caga modificaciones al reg aux Admin
+        }
+    }
+    else
+    {
+        return;
+    }
+    if(ArchAdmin.modificarRegistro(reg, pos)) //lo carga en el archivo y si lo pudo cargar muestra
+    {
+        cout << "MODIFICACION EXITOSA..." << endl;
+        //system("pause");//ESTE ACA ESTA DEMAS ARREGLAS QIE TE APARECE DOBLE TOCA UNA TECLA PARA CONTINUAL CON LA DEL FINAL YA ESTA BIEN***
+    }
+    else
+    {
+        cout << "ERROR, NO SE HA REALIZADO LA MODIFICACION..." << endl;
+    }
+    system("pause");
+
 }
