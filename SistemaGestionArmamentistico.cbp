@@ -43,6 +43,8 @@
 		<Unit filename="Clases/Menu.h" />
 		<Unit filename="Clases/Pais.cpp" />
 		<Unit filename="Clases/Pais.h" />
+		<Unit filename="Clases/Producto.cpp" />
+		<Unit filename="Clases/Producto.h" />
 		<Unit filename="Clases/rlutil.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
