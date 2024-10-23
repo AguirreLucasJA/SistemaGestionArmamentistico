@@ -222,8 +222,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
 }
 
 /// MENU USUARIOS
-//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
-void Menu::Usuarios()
+void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
     opcion = -1;
 
@@ -260,7 +259,7 @@ void Menu::Usuarios()
             altaUsuario();
             break;
         case 2:
-            //eliminarUsuario();//TODO: FALTA HACER***
+            eliminarUsuario();
             break;
         case 3:
             modificarUsuario();
@@ -324,7 +323,7 @@ void Menu::listarUsuarios()
 
     for(int j=0; j<cant; j++)
     {
-        if(admin[j].getEstado()==1)
+        if(admin[j].getEstado()==1)//si esta eliminado no lo muestra
         {
             admin[j].mostrar();
             cout<<endl;
@@ -354,7 +353,7 @@ void Menu::modificarUsuario()
 
     cout << "INGRESE EL ID A BUSCAR: ";
     cin >> Id;
-    cin.ignore();
+    cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
     int pos = ArchAdmin.buscarRegistro(Id);
     Admin reg = ArchAdmin.leerRegistro(pos);
     reg.mostrar();
@@ -393,4 +392,60 @@ void Menu::modificarUsuario()
     }
     system("pause");
 
+}
+
+/// ELIMINAR USUARIO
+void Menu::eliminarUsuario()
+{
+
+    int Id;
+    ArchivoAdmin ArchAdmin;
+    Admin reg;
+
+    string respuesta;
+    cin.ignore();//arregla de menu usuarios el "cin>>opcion;" sino se saltea el LISTAR USUARIOS.
+    cout << "LISTAR USUARIOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        listarUsuarios();
+    }
+
+    cout << "INGRESE EL ID A BUSCAR: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    int pos = ArchAdmin.buscarRegistro(Id);
+    reg = ArchAdmin.leerRegistro(pos);
+    reg.mostrar();
+
+    //verificar el estado del registro
+    if(reg.getEstado()== false)
+    {
+        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
+        system("pause");
+        return;
+    }
+
+    cout << "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        reg.setEstado(false);
+    }
+    else
+    {
+        return;
+    }
+    if(ArchAdmin.modificarRegistro(reg, pos))
+    {
+        cout << "BAJA EXITOSA..." << endl;
+    }
+    else
+    {
+        cout << "ERROR, NO SE HA REALIZADO LA BAJA..." << endl;
+    }
+    system("pause");
 }

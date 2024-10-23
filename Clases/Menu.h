@@ -14,6 +14,7 @@ public:
     void Usuarios();//METODO del SUBmenu ADMIN ABM usuarios
     void altaUsuario();//METODO del SUBmenu ADMIN ABM usuarios
     void modificarUsuario();//METODO del SUBmenu ADMIN ABM usuarios
+    void eliminarUsuario();
 
     void listarUsuarios();
 
