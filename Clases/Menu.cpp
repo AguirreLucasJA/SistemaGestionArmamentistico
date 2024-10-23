@@ -277,8 +277,7 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
 }
 
 /// ALTA USUARIO
-//carga un nuevo usuario al archivo
-void Menu::altaUsuario()
+void Menu::altaUsuario()//carga un nuevo usuario al archivo
 {
 
     int Id;
@@ -300,7 +299,7 @@ void Menu::altaUsuario()
 }
 
 /// LISTAR USUARIOS
-void Menu::listarUsuarios()
+void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
 {
 
     Admin reg;
@@ -335,8 +334,7 @@ void Menu::listarUsuarios()
 }
 
 /// MODIFICAR USUARIO
-//modifica usuario existente al archivo
-void Menu::modificarUsuario()
+void Menu::modificarUsuario()//modifica usuario existente en archivo
 {
 
     ArchivoAdmin ArchAdmin;
@@ -395,7 +393,7 @@ void Menu::modificarUsuario()
 }
 
 /// ELIMINAR USUARIO
-void Menu::eliminarUsuario()
+void Menu::eliminarUsuario()//Eliminacion logica de usuario existente en archivo
 {
 
     int Id;
