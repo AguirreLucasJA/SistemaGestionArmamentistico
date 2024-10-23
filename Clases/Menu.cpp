@@ -264,9 +264,6 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
         case 3:
             modificarUsuario();
             break;
-        case 4:
-            listarUsuarios(); //TODO::HAY QUE ELIMINARLO ES PARA PRUEBAS NOMAS
-            break;
         case 0:
             opcion = 0;
             break;
@@ -288,7 +285,7 @@ void Menu::altaUsuario()//carga un nuevo usuario al archivo
     reg.cargar(Id);//carga un nuevo reg admin setenadole el ID obtenido
     if(ArchAdmin.grabarRegistro(reg)) //lo cargan en archivo admin
     {
-        cout << "ALTA EXITOSA...";
+        cout << "ALTA EXITOSA..." << endl;
         system("pause");
     }
     else
