@@ -25,29 +25,35 @@ void Producto::setId(int id)
     _id = id;
 }
 
-void Producto::setNombre(string nombre)
+bool Producto::setNombre(string nombre)
 {
     if(nombre.size() < sizeof(_nombre))
     {
         strcpy(_nombre, nombre.c_str());
         //devuelve el puntero que tiene en la heap."copia un puntero char dentro del otro puntero char"
+        return true;
     }
+    return false;
 }
 
-void Producto::setPaisOrigen(string paisOrigen)
+bool Producto::setPaisOrigen(string paisOrigen)
 {
     if(paisOrigen.size() < sizeof(_paisOrigen))
     {
         strcpy(_paisOrigen, paisOrigen.c_str());
+        return true;
     }
+    return false;
 }
 
-void Producto::setDescripcion(string descripcion)
+bool Producto::setDescripcion(string descripcion)
 {
     if(descripcion.size() < sizeof(_descripcion))
     {
         strcpy(_descripcion, descripcion.c_str());
+        return true;
     }
+    return false;
 }
 
 //void Producto::setFecha(Fecha fecha){
@@ -60,31 +66,38 @@ void Producto::setLote(int lote)
 }
 
 //GETTERS
-long long Producto::getPrecio(){
+long long Producto::getPrecio()
+{
     return _precio;
 }
 
-bool Producto::getEstado(){
+bool Producto::getEstado()
+{
     return _estado;
 }
 
-int Producto::getStock(){
+int Producto::getStock()
+{
     return _stock;
 }
 
-int Producto::getId(){
+int Producto::getId()
+{
     return _id;
 }
 
-string Producto::getNombre(){
+string Producto::getNombre()
+{
     return _nombre;
 }
 
-string Producto::getPaisOrigen(){
+string Producto::getPaisOrigen()
+{
     return _paisOrigen;
 }
 
-string Producto::getDescripcion(){
+string Producto::getDescripcion()
+{
     return _descripcion;
 }
 
@@ -92,7 +105,8 @@ string Producto::getDescripcion(){
 //    return _fechaAlta;
 //}
 
-int Producto::getLote(){
+int Producto::getLote()
+{
     return _lote;
 }
 //TODO: FALTA CARGAR Y MOSTRAR E INCLUIR A CLASE FECHA.
