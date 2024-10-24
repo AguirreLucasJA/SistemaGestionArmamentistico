@@ -322,9 +322,8 @@ void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
         if(admin[j].getEstado()==1)//si esta eliminado no lo muestra
         {
             admin[j].mostrar();
-            cout<<endl;
-            system("pause");
-            system("cls");
+            cout << "------------------------------" << endl;
+
         }
     }
     delete [] admin;
@@ -361,17 +360,32 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
 
     cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
     getline(cin, respuesta);
-    string dato;
+    string clave;
+    string descripcion;
     //si le ingresas cualquier otra cosa que no sea s/S RETURN al SUBmenu USUARIOS
     if(respuesta == "s" || respuesta == "S")
     {
-        cout << "INGRESE NUEVA CLAVE: ";
-        getline(cin, dato);
-        reg.setClave(dato);//caga modificaciones al reg aux Admin
+        cout << "MAX 30 CARACTERES -> ING NUEVA CLAVE: ";
+        getline(cin, clave);
+        while(!reg.setClave(clave))
+        {
+            cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+            system("pause");
+            system("cls");
+            cout << "REINGRESE CLAVE:";
+            getline(cin, clave);
+        }
 
-        cout << "INGRESE NUEVA DESCRIPCION: ";
-        getline(cin, dato);
-        reg.setDescripcion(dato);//caga modificaciones al reg aux Admin
+        cout << "MAX 30 CARACTERES -> ING NUEVA DESCRIPCION: ";
+        getline(cin, descripcion);
+        while(!reg.setDescripcion(descripcion))
+        {
+            cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+            system("pause");
+            system("cls");
+            cout << "REINGRESE DESCRIPCION:";
+            getline(cin, descripcion);
+        }
     }
     else
     {
