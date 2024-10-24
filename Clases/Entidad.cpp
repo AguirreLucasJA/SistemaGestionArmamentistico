@@ -2,28 +2,35 @@
 #include<cstring>//para utilizar strcpy
 
 //SETTERS
-void Entidad::setUsuario(std::string usuario)
+bool Entidad::setUsuario(std::string usuario)
 {
     if(usuario.size() < sizeof(_usuario))
     {
         strcpy(_usuario, usuario.c_str());//devuelve el puntero que tiene en la heap
+        return true;
     }//copia un puntero char dentro del otro puntero char
+
+    return false;
 }
 
-void Entidad::setClave(std::string clave)
+bool Entidad::setClave(std::string clave)
 {
     if(clave.size() < sizeof(_clave))
     {
         strcpy(_clave, clave.c_str());
+        return true;
     }
+    return false;
 }
 
-void Entidad::setDescripcion(std::string descripcion)
+bool Entidad::setDescripcion(std::string descripcion)
 {
     if(descripcion.size() < sizeof(_descripcion))
     {
         strcpy(_descripcion, descripcion.c_str());
+        return true;
     }
+    return false;
 }
 
 void Entidad::setTipoUsuario(int tipoUsuario)

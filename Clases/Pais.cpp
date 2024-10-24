@@ -18,35 +18,60 @@ long long Pais::getDineroCaja()
 
 //METODOS
 //
-void Pais::cargar(int _Id)
+void Pais::cargar(int id)
 {
-    char aux[30];
+    string usuario;
+    string clave;
+    string descripcion;
     //RECORDA PAIS DERIVA DE ENTIDAD
-    Entidad::setId(_Id);//le setea el id obtenido con la funcion contar registros A LA PROPIEDAD DE ENTIDAD.
-    cout << "CARGANDO ID: " << Entidad::getId() << endl;//muestra el nuevo id autonumerico
+    setId(id);//le setea el id obtenido con la funcion contar registros A LA PROPIEDAD DE ENTIDAD.
 
-    cout << "ING NOMBRE CLIENTE PAIS: ";
-    cin >> aux;
-    //COMO PAIS DERIVA DE ENTIDAD hace uso de sus metodos para setear las propiedades de entidad.
-    Entidad::setUsuario(aux);
+    cout << "CARGANDO ID: " << getId() << endl;//muestra el nuevo id autonumerico
 
-    cout << "ING CLAVE: ";
-    cin >> aux;
-    Entidad::setClave(aux);
+    cout << "MAX 30 CARACTERES -> ING NOMBRE USUARIO: ";
+    cin.ignore();// sino se saltea el ingreso del usuario.
+    getline(cin, usuario);
+    while(!setUsuario(usuario))
+    {
+        cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+        system("pause");
+        system("cls");
+        cout << "REINGRESE USUARIO:";
+        getline(cin, usuario);
+    }
 
-    cout << "ING DESCRIPCION: ";
-    cin >> aux;
-    Entidad::setDescripcion(aux);
+    cout << "MAX 30 CARACTERES -> ING CLAVE: ";
+    getline(cin, clave);
+    while(!setClave(clave))
+    {
+        cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+        system("pause");
+        system("cls");
+        cout << "REINGRESE CLAVE:";
+        getline(cin, clave);
+    }
 
-    Entidad::setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = CLIENTE/PAIS.
-    Entidad::setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
+    cout << "MAX 30 CARACTERES -> ING DESCRIPCION: ";
+    getline(cin, descripcion);
+    while(!setDescripcion(descripcion))
+    {
+        cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+        system("pause");
+        system("cls");
+        cout << "REINGRESE DESCRIPCION:";
+        getline(cin, descripcion);
+    }
+
+    setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = CLIENTE/PAIS.
+    setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
     _dineroCaja = 0;//LE ESTABLECE POR DEFECTO 0.
 }
 
-void Pais::mostrar(){
-    cout << "USUARIO: " << Entidad::getUsuario() << endl;
-    cout << "CLAVE: " << Entidad::getClave() << endl;
-    cout << "DESCRIPCION: " << Entidad::getDescripcion() << endl;
-    cout << "ESTADO: " << Entidad::getEstado() << endl;
-    cout << "ID: " << Entidad::getId() << endl;
+void Pais::mostrar()
+{
+    cout << "USUARIO: " << getUsuario() << endl;
+    cout << "CLAVE: " << getClave() << endl;
+    cout << "DESCRIPCION: " << getDescripcion() << endl;
+    cout << "ESTADO: " << getEstado() << endl;
+    cout << "ID: " << getId() << endl;
 }

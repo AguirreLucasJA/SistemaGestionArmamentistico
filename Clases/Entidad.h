@@ -7,9 +7,9 @@ class Entidad
 public:
     Entidad() {};
 
-    void setUsuario(std::string usuario);
-    void setClave(std::string clave);
-    void setDescripcion(std::string descripcion);
+    bool setUsuario(std::string usuario);
+    bool setClave(std::string clave);
+    bool setDescripcion(std::string descripcion);
     void setTipoUsuario(int tipoUsuario);
     void setEstado(bool estado);
     void setId(int id);

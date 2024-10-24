@@ -1,5 +1,8 @@
 #include "Producto.h"
+#include <iostream>//para los cout, cin.
 #include<cstring>//para utilizar strcpy
+#include <iostream>//para los cout, cin.
+using namespace std;//para no andar escribiendo "std::cout"
 
 //SETTERS
 void Producto::setPrecio(long long precio)
@@ -22,7 +25,7 @@ void Producto::setId(int id)
     _id = id;
 }
 
-void Producto::setNombre(std::string nombre)
+void Producto::setNombre(string nombre)
 {
     if(nombre.size() < sizeof(_nombre))
     {
@@ -31,7 +34,7 @@ void Producto::setNombre(std::string nombre)
     }
 }
 
-void Producto::setPaisOrigen(std::string paisOrigen)
+void Producto::setPaisOrigen(string paisOrigen)
 {
     if(paisOrigen.size() < sizeof(_paisOrigen))
     {
@@ -39,7 +42,7 @@ void Producto::setPaisOrigen(std::string paisOrigen)
     }
 }
 
-void Producto::setDescripcion(std::string descripcion)
+void Producto::setDescripcion(string descripcion)
 {
     if(descripcion.size() < sizeof(_descripcion))
     {
@@ -73,15 +76,15 @@ int Producto::getId(){
     return _id;
 }
 
-std::string Producto::getNombre(){
+string Producto::getNombre(){
     return _nombre;
 }
 
-std::string Producto::getPaisOrigen(){
+string Producto::getPaisOrigen(){
     return _paisOrigen;
 }
 
-std::string Producto::getDescripcion(){
+string Producto::getDescripcion(){
     return _descripcion;
 }
 
@@ -92,10 +95,32 @@ std::string Producto::getDescripcion(){
 int Producto::getLote(){
     return _lote;
 }
-
 //TODO: FALTA CARGAR Y MOSTRAR E INCLUIR A CLASE FECHA.
+/*
+void Producto::cargar(int id){
+    string nombre;
+    string paisOrigen;
+    string descripcion
 
+    setId(id);//le setea el id obtenido con la funcion contar registros de la Clase Archivo del Producto
+    cout << "CARGANDO ID: " << getId() << endl;//muestra el nuevo id autonumerico
 
+    cout<<"NOMBRE: ";
+    cin.getline(Nombre, sizeof(Nombre));
+    cout<<"Precio: u$d ";
+    cin>>Precio;
+    cout<<"Stock: ";
+    cin>>Stock;
+    cin.ignore();
+    cout<<"Pais de Origen: ";
+    cin.getline(PaisOrigen, sizeof(PaisOrigen));
+    cout<<"Descripcion: ";
+    cin.getline(Descripcion, sizeof(Descripcion));
+    Estado = true;
+    system("cls");
 
+}
+
+*/
 
 
