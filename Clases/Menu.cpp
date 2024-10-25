@@ -323,7 +323,6 @@ void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
         {
             admin[j].mostrar();
             cout << "------------------------------" << endl;
-
         }
     }
     delete [] admin;

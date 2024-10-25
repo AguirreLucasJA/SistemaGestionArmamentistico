@@ -27,7 +27,7 @@ public:
     //Fecha getFechaAlta();
     int getLote();
 
-    void cargar();
+    void cargar(int id);
     void mostrar();
 
 private:
