@@ -204,7 +204,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             Usuarios();
             break;
         case 2:
-            //Stock(); //TODO: FALTA HACER***
+            Stock();
             break;
         case 3:
             Clientes();
@@ -519,5 +519,54 @@ void Menu::Clientes()
     }
 
 }
+
+/// MENU STOCK
+void Menu::Stock(){
+    int opcion;
+
+    cabecera();
+
+    gotoxy(30, 6);
+    cout << "MENU STOCK";
+    gotoxy(30, 8);
+    cout << "1 - MISILES";
+    gotoxy(30, 10);
+    cout << "2 - AVIONES";
+    gotoxy(30, 12);
+    cout << "3 - BUQUES";
+    gotoxy(30, 14);
+    cout << "4 - TANQUES";
+    gotoxy(30, 16);
+    cout << "0 - VOLVER";
+    gotoxy(30, 18);
+    cout << "INGRESE UNA OPCION: ";
+    cin >> opcion;
+
+    switch(opcion) {
+        case 1:
+            //StockMisiles(); //TODO: FALTA HACER***
+            break;
+
+        case 2:
+            //StockAviones(); //TODO: FALTA HACER***
+            break;
+
+        case 3:
+            //StockBuques(); //TODO: FALTA HACER***
+            break;
+
+        case 4:
+            //StockTanques(); //TODO: FALTA HACER***
+            break;
+
+        case 0:
+            break;
+
+        default:
+            break;
+    }
+}
+
+
 
 
