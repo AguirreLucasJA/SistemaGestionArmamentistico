@@ -67,7 +67,7 @@ void Pais::cargar(int id)
     }
     setDescripcion(descripcion);
 
-    setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = CLIENTE/PAIS.
+    setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = PAIS.
     setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
     _dineroCaja = 0;//LE ESTABLECE POR DEFECTO 0.
 }
@@ -77,7 +77,7 @@ void Pais::mostrar()
     cout << "USUARIO: " << getUsuario() << endl;
     cout << "CLAVE: " << getClave() << endl;
     cout << "DESCRIPCION: " << getDescripcion() << endl;
-    cout << "TIPO DE USUARIO: " << (getTipoUsuario() == 0 ? "ADMIN" : "PAIS") << endl;
+    cout << "TIPO DE USUARIO: " << ((getTipoUsuario() == 0) ? "ADMIN" : (getTipoUsuario() == 1 ? "PAIS" : "DESCONOCIDO")) << endl;
     cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
     cout << "ID: " << getId() << endl;
 }

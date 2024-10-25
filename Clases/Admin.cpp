@@ -53,7 +53,7 @@ void Admin::cargar(int id)
     }
     setDescripcion(descripcion);
 
-    setTipoUsuario(2);//SETEO EL TIPO DE USUARIO 0 = ADMINISTRADOR.
+    setTipoUsuario(0);//SETEO EL TIPO DE USUARIO 0 = ADMINISTRADOR.
     setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO
 }
 
@@ -62,8 +62,7 @@ void Admin::mostrar()
     cout << "USUARIO: " << getUsuario() << endl;
     cout << "CLAVE: " << getClave() << endl;
     cout << "DESCRIPCION: " << getDescripcion() << endl;
-    cout << "TIPO DE USUARIO: " << getTipoUsuario() << endl;
-    cout << "TIPO DE USUARIO: " << ((getTipoUsuario() == 0) ? "ADMIN" : ((getEstado() == 1) ? "PAIS" : "DESCONOCIDO")) << endl;
+    cout << "TIPO DE USUARIO: " << ((getTipoUsuario() == 0) ? "ADMIN" : (getTipoUsuario() == 1 ? "PAIS" : "DESCONOCIDO")) << endl;
     cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
     cout << "ID: " << getId() << endl;
 }
