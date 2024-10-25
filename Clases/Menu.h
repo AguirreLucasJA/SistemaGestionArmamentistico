@@ -17,9 +17,14 @@ public:
     void modificarUsuario();//ABM USUARIOS
     void eliminarUsuario();//ABM USUARIOS
 
-    void listarUsuariosYClientes();//SE USA EN "B", "M" DE USUARIOS/CLIENTES
+    void listarUsuarios();//SE USA EN "BAJA", "MODIFICACION" DE USUARIOS
+    void listarClientes();//SE USA EN "BAJA", "MODIFICACION" DE PAISES
 
     void Clientes();//SUBMENU CLIENTES/PAISES DENTRO DE MENU PRINCIPAL ADMIN
+    void altaCliente();//ABM PAISES
+    void modificarCliente();//ABM PAISES
+    void eliminarCliente();//ABM PAISES
+
 
 
 
