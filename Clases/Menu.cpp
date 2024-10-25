@@ -144,7 +144,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
         cout<<"OPCION: ";
         cin>>respuesta;
         cin.ignore();
-        if(respuesta < 0 || respuesta > 1)//si ingresaste algo distinto q 1 ó 0 te pide reingresar opcion
+        if(respuesta < 0 || respuesta > 1)//si ingresaste algo distinto q 1 Ã³ 0 te pide reingresar opcion
         {
             cout << "Ingreso incorrecto... re ingrese.." << endl;
             getch();//espera precionar tecla para continuar
@@ -279,12 +279,12 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
 void Menu::altaUsuario()//carga un nuevo usuario al archivo
 {
 
-    int Id;
+    int id;
     Admin reg;
     ArchivoAdmin ArchAdmin;
     //devuelve la cantidad -1 de los reg del archivo
-    Id = ArchAdmin.contarRegistros(); //obtiene nuevo ID autonumerico.
-    reg.cargar(Id);//carga un nuevo reg admin setenadole el ID obtenido
+    id = ArchAdmin.contarRegistros(); //obtiene nuevo ID autonumerico.
+    reg.cargar(id);//carga un nuevo reg admin setenadole el ID obtenido
     if(ArchAdmin.grabarRegistro(reg)) //lo cargan en archivo admin
     {
         cout << "ALTA EXITOSA..." << endl;
@@ -297,11 +297,10 @@ void Menu::altaUsuario()//carga un nuevo usuario al archivo
     }
 }
 
-/// LISTAR USUARIOS/CLIENTES
-void Menu::listarUsuariosYClientes()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO/CLIENTES
+/// LISTAR USUARIOS
+void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
 {
 
-    Admin reg;
     ArchivoAdmin ArchAdmin;
 
     int cant = ArchAdmin.contarRegistros();
@@ -335,7 +334,7 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
 {
     Validar validar;
     ArchivoAdmin ArchAdmin;
-    int Id;
+    int id;
     string respuesta;
     cin.ignore();//arregla de menu usuarios el "cin>>opcion;" sino se saltea el LISTAR USUARIOS.
     cout << "LISTAR USUARIOS? (s / n): ";
@@ -343,13 +342,13 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarUsuariosYClientes();
+        listarUsuarios();
     }
 
     cout << "INGRESE EL ID A BUSCAR: ";
-    cin >> Id;
+    cin >> id;
     cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
-    int pos = ArchAdmin.buscarRegistro(Id);
+    int pos = ArchAdmin.buscarRegistro(id);
     Admin reg = ArchAdmin.leerRegistro(pos);
     reg.mostrar();
     if(reg.getEstado()== false)
@@ -421,7 +420,7 @@ void Menu::eliminarUsuario()//Eliminacion logica de usuario existente en archivo
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarUsuariosYClientes();
+        listarUsuarios();
     }
 
     cout << "INGRESE EL ID A BUSCAR: ";
@@ -463,7 +462,7 @@ void Menu::eliminarUsuario()//Eliminacion logica de usuario existente en archivo
 }
 
 /// MENU CLIENTES
-void Menu::Clientes()
+void Menu::Clientes()//SUBMENU ABML PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
     opcion = -1;
 
@@ -490,7 +489,7 @@ void Menu::Clientes()
         gotoxy (2,17);
         cout<<"->: ";
 
-            cin>>opcion;
+        cin>>opcion;
 
         system("cls");
 
@@ -498,15 +497,15 @@ void Menu::Clientes()
         {
 
         case 1:
-            //altaCliente();
+            altaCliente();
             break;
 
         case 2:
-            //eliminarCliente();
+            eliminarCliente();
             break;
 
         case 3:
-            //modificarCliente();
+            modificarCliente();
             break;
 
         case 0:
@@ -1303,5 +1302,194 @@ void Menu::StockTanques(){
              }
         }
 }
+
+/// ALTA CLIENTE
+void Menu::altaCliente()
+{
+    int id;
+    Pais reg;
+    ArchivoPais ArchPais;
+    //devuelve la cantidad -1 de los reg del archivo
+    id = ArchPais.contarRegistros();//obtiene nuevo ID autonumerico.
+    reg.cargar(id);//carga un nuevo reg admin setenadole el ID obtenido
+    if(ArchPais.grabarRegistro(reg))
+    {
+        cout << "ALTA EXITOSA...";
+        system("pause");
+    }
+    else
+    {
+        cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+        system("pause");
+    }
+}
+
+/// LISTAR CLIENTE
+void Menu::listarClientes()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO/CLIENTES
+{
+
+    ArchivoPais ArchPais;
+
+    int cant = ArchPais.contarRegistros();
+    Pais *pais= new Pais[cant];
+
+    if(pais == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    for(int i=0; i<cant; i++)
+    {
+        pais[i] = ArchPais.leerRegistro(i);
+    }
+
+    for(int j=0; j<cant; j++)
+    {
+        if(pais[j].getEstado()==1)//si esta eliminado no lo muestra
+        {
+            pais[j].mostrar();
+            cout << "------------------------------" << endl;
+        }
+    }
+    delete [] pais;
+}
+
+/// MODIFICAR CLIENTE
+void Menu::modificarCliente()
+{
+
+    Validar validar;
+    ArchivoPais ArchPais;
+    int id;
+    string respuesta;
+    cin.ignore();//arregla de menu cliente/paise el "cin>>opcion;" sino se saltea el LISTAR USUARIOS.
+    cout << "LISTAR USUARIOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        listarClientes();
+    }
+
+    cout << "INGRESE EL ID A BUSCAR: ";
+    cin >> id;
+    cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
+    int pos = ArchPais.buscarRegistro(id);
+    Pais reg = ArchPais.leerRegistro(pos);
+    reg.mostrar();
+
+    if(reg.getEstado()==false)
+    {
+        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
+        system("pause");
+        return;
+    }
+
+    cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
+    getline(cin, respuesta);
+    string clave;
+    string descripcion;
+    //si le ingresas cualquier otra cosa que no sea s/S RETURN al SUBmenu USUARIOS
+    if(respuesta == "s" || respuesta == "S")
+    {
+        cout << "MAX 30 CARACTERES -> INGRESE NUEVA CLAVE: ";
+        getline(cin, clave);
+        while(!validar.esStringValido(clave,30))
+        {
+            cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+            system("pause");
+            system("cls");
+            cout << "REINGRESE CLAVE:";
+            getline(cin, clave);
+        }
+        reg.setClave(clave);
+
+        cout << "MAX 30 CARACTERES -> ING NUEVA DESCRIPCION: ";
+        getline(cin, descripcion);
+        while(!validar.esStringValido(descripcion,30))
+        {
+            cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+            system("pause");
+            system("cls");
+            cout << "REINGRESE DESCRIPCION:";
+            getline(cin, descripcion);
+        }
+        reg.setDescripcion(descripcion);
+    }
+    else
+    {
+        return;
+    }
+    if(ArchPais.modificarRegistro(reg, pos))//lo carga en el archivo y si lo pudo cargar muestra
+    {
+        cout << "MODIFICACION EXITOSA..." << endl;
+    }
+    else
+    {
+        cout << "ERROR, NO SE HA REALIZADO LA MODIFICACION..." << endl;
+    }
+    system("pause");
+}
+
+/// ELIMINAR CLIENTE
+void Menu::eliminarCliente()
+{
+
+    int Id;
+    Pais reg;
+    ArchivoPais ArchPais;
+
+    string respuesta;
+    cin.ignore();//arregla de menu usuarios el "cin>>opcion;" sino se saltea el LISTAR USUARIOS.
+    cout << "LISTAR USUARIOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        listarClientes();
+    }
+
+    cout << "INGRESE EL ID A BUSCAR: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    int pos = ArchPais.buscarRegistro(Id);
+    reg = ArchPais.leerRegistro(pos);
+    reg.mostrar();
+
+    //verificar el estado del registro
+    if(reg.getEstado()== false)
+    {
+        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
+        system("pause");
+        return;
+    }
+
+    cout << "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): ";
+    getline(cin, respuesta);
+    if(respuesta == "s" || respuesta == "S")
+    {
+        reg.setEstado(false);
+    }
+    else
+    {
+        return;
+    }
+    if(ArchPais.modificarRegistro(reg, pos))//lo carga en el archivo y si lo pudo cargar muestra
+    {
+        cout << "BAJA EXITOSA..." << endl;
+    }
+    else
+    {
+        cout << "ERROR, NO SE HA REALIZADO LA BAJA..." << endl;
+    }
+    system("pause");
+}
+
+
+
+
 
 
