@@ -9,10 +9,10 @@ public:
 
     void setPrecio(long long precio);
     void setEstado(bool estado);
-    bool setNombre(std::string nombre);
-    bool setDescripcion(std::string descripcion);
+    void setNombre(std::string nombre);
+    void setDescripcion(std::string descripcion);
     void setId(int id);
-    bool setPaisOrigen(std::string paisOrigen);
+    void setPaisOrigen(std::string paisOrigen);
     void setStock(int stock);
     //void setFecha(Fecha fecha);
     void setLote(int lote);

@@ -1,4 +1,5 @@
 #include "Producto.h"
+#include "Validar.h"
 #include <iostream>//para los cout, cin.
 #include<cstring>//para utilizar strcpy
 #include <iostream>//para los cout, cin.
@@ -25,35 +26,21 @@ void Producto::setId(int id)
     _id = id;
 }
 
-bool Producto::setNombre(string nombre)
+void Producto::setNombre(string nombre)
 {
-    if(nombre.size() < sizeof(_nombre))
-    {
-        strcpy(_nombre, nombre.c_str());
-        //devuelve el puntero que tiene en la heap."copia un puntero char dentro del otro puntero char"
-        return true;
-    }
-    return false;
+    strcpy(_nombre, nombre.c_str());
 }
 
-bool Producto::setPaisOrigen(string paisOrigen)
+void Producto::setPaisOrigen(string paisOrigen)
 {
-    if(paisOrigen.size() < sizeof(_paisOrigen))
-    {
-        strcpy(_paisOrigen, paisOrigen.c_str());
-        return true;
-    }
-    return false;
+    strcpy(_paisOrigen, paisOrigen.c_str());
 }
 
-bool Producto::setDescripcion(string descripcion)
+void Producto::setDescripcion(string descripcion)
 {
-    if(descripcion.size() < sizeof(_descripcion))
-    {
-        strcpy(_descripcion, descripcion.c_str());
-        return true;
-    }
-    return false;
+
+    strcpy(_descripcion, descripcion.c_str());
+
 }
 
 //void Producto::setFecha(Fecha fecha){
@@ -113,6 +100,7 @@ int Producto::getLote()
 
 void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar reg.
 {
+    Validar validar;
     string nombre;
     string paisOrigen;
     string descripcion;
@@ -123,7 +111,7 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
     cout<<"MAX 30 CARACTERES -> ING NOMBRE: ";
     cin.ignore();// sino se saltea el ingreso.
     getline(cin, nombre);
-    while(!setNombre(nombre))
+    while(!validar.esStringValido(nombre,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
         system("pause");
@@ -131,6 +119,7 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
         cout << "REINGRESE NOMBRE:";
         getline(cin, nombre);
     }
+    setNombre(nombre);
     cout<<"ING PRECIO: u$d ";
     cin>>_precio;
     cout<<"ING STOCK: ";
@@ -139,7 +128,7 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
     cin.ignore();
     cout<<"MAX 30 CARACTERES -> ING PAIS DE ORIGEN: ";
     getline(cin, paisOrigen);
-    while(!setPaisOrigen(paisOrigen))
+    while(!validar.esStringValido(paisOrigen,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
         system("pause");
@@ -147,10 +136,11 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
         cout << "REINGRESE PAIS DE ORIGEN:";
         getline(cin, paisOrigen);
     }
+    setPaisOrigen(paisOrigen);
 
     cout<<"MAX 30 CARACTERES -> ING DESCRIPCION: ";
     getline(cin, descripcion);
-    while(!setDescripcion(descripcion))
+    while(!validar.esStringValido(descripcion,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
         system("pause");
@@ -158,17 +148,18 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
         cout << "REINGRESE DESCRIPCION:";
         getline(cin, descripcion);
     }
+    setDescripcion(descripcion);
 
     _estado = true;
     system("cls");
 }
 
-void Producto::mostrar(){
+void Producto::mostrar()
+{
     cout<<"ID: " << getId() << endl;
     cout<<"NOMBRE: " << getNombre() << endl;
     cout<<"PRECIO: u$d " << getPrecio() << endl;
-    //cout<<"ESTADO: " << (Estado ? "ACTIVO" : "DESACTIVADO") << endl;//TODO:VER QUE COMO MOSTRARLO XQ EL USER NO ENTIENDE LO Q ES 0 Ó 1 /true o false
-    cout<<"ESTADO: " << getEstado() << endl;
+    cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
     cout<<"STOCK: " << getStock() << endl;
     cout<<"PAIS DE ORIGEN: " << getPaisOrigen() << endl;
     cout<<"DESCRIPCION: " << getDescripcion() << endl;

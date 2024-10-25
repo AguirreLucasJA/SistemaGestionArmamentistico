@@ -1,5 +1,6 @@
 #include "Pais.h"
 #include <string>
+#include "Validar.h"
 #include <cstring>//PARA STRCPY
 #include <iostream>//PARA LOS COUT
 using namespace std;//PARA NO ANDAR HACIENDO STD::COUT
@@ -20,6 +21,7 @@ long long Pais::getDineroCaja()
 //
 void Pais::cargar(int id)
 {
+    Validar validar;
     string usuario;
     string clave;
     string descripcion;
@@ -31,7 +33,7 @@ void Pais::cargar(int id)
     cout << "MAX 30 CARACTERES -> ING NOMBRE USUARIO: ";
     cin.ignore();// sino se saltea el ingreso del usuario.
     getline(cin, usuario);
-    while(!setUsuario(usuario))
+    while(!validar.esStringValido(usuario,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
         system("pause");
@@ -39,10 +41,11 @@ void Pais::cargar(int id)
         cout << "REINGRESE USUARIO:";
         getline(cin, usuario);
     }
+    setUsuario(usuario);
 
     cout << "MAX 30 CARACTERES -> ING CLAVE: ";
     getline(cin, clave);
-    while(!setClave(clave))
+    while(!validar.esStringValido(clave,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
         system("pause");
@@ -50,10 +53,11 @@ void Pais::cargar(int id)
         cout << "REINGRESE CLAVE:";
         getline(cin, clave);
     }
+    setClave(clave);
 
     cout << "MAX 30 CARACTERES -> ING DESCRIPCION: ";
     getline(cin, descripcion);
-    while(!setDescripcion(descripcion))
+    while(!validar.esStringValido(descripcion,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
         system("pause");
@@ -61,6 +65,7 @@ void Pais::cargar(int id)
         cout << "REINGRESE DESCRIPCION:";
         getline(cin, descripcion);
     }
+    setDescripcion(descripcion);
 
     setTipoUsuario(1);//SETEO EL TIPO DE USUARIO 1 = CLIENTE/PAIS.
     setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
@@ -72,6 +77,7 @@ void Pais::mostrar()
     cout << "USUARIO: " << getUsuario() << endl;
     cout << "CLAVE: " << getClave() << endl;
     cout << "DESCRIPCION: " << getDescripcion() << endl;
-    cout << "ESTADO: " << getEstado() << endl;
+    cout << "TIPO DE USUARIO: " << (getTipoUsuario() == 0 ? "ADMIN" : "PAIS") << endl;
+    cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
     cout << "ID: " << getId() << endl;
 }

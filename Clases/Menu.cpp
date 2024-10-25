@@ -6,6 +6,8 @@
 using namespace std;//std::
 using namespace rlutil;//rlutil::
 
+#include "Validar.h"
+
 #include "Menu.h"
 #include "Admin.h"
 #include "Pais.h"
@@ -331,7 +333,7 @@ void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
 /// MODIFICAR USUARIO
 void Menu::modificarUsuario()//modifica usuario existente en archivo
 {
-
+    Validar validar;
     ArchivoAdmin ArchAdmin;
     int Id;
     string respuesta;
@@ -366,7 +368,7 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
     {
         cout << "MAX 30 CARACTERES -> ING NUEVA CLAVE: ";
         getline(cin, clave);
-        while(!reg.setClave(clave))
+        while(!validar.esStringValido(clave,30))
         {
             cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
             system("pause");
@@ -374,10 +376,11 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
             cout << "REINGRESE CLAVE:";
             getline(cin, clave);
         }
+        reg.setClave(clave);
 
         cout << "MAX 30 CARACTERES -> ING NUEVA DESCRIPCION: ";
         getline(cin, descripcion);
-        while(!reg.setDescripcion(descripcion))
+        while(!validar.esStringValido(descripcion,30))
         {
             cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
             system("pause");
@@ -385,6 +388,7 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
             cout << "REINGRESE DESCRIPCION:";
             getline(cin, descripcion);
         }
+        reg.setDescripcion(descripcion);
     }
     else
     {
