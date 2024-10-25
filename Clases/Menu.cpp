@@ -279,12 +279,12 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
 void Menu::altaUsuario()//carga un nuevo usuario al archivo
 {
 
-    int Id;
+    int id;
     Admin reg;
     ArchivoAdmin ArchAdmin;
     //devuelve la cantidad -1 de los reg del archivo
-    Id = ArchAdmin.contarRegistros(); //obtiene nuevo ID autonumerico.
-    reg.cargar(Id);//carga un nuevo reg admin setenadole el ID obtenido
+    id = ArchAdmin.contarRegistros(); //obtiene nuevo ID autonumerico.
+    reg.cargar(id);//carga un nuevo reg admin setenadole el ID obtenido
     if(ArchAdmin.grabarRegistro(reg)) //lo cargan en archivo admin
     {
         cout << "ALTA EXITOSA..." << endl;
@@ -519,5 +519,25 @@ void Menu::Clientes()
     }
 
 }
+
+/// ALTA CLIENTE
+void Menu::altaCliente(){
+
+    int id;
+    Pais reg;
+    ArchivoPais ArchPais;
+    //devuelve la cantidad -1 de los reg del archivo
+    id = ArchPais.contarRegistros();
+    reg.cargar(id);
+    if(ArchPais.grabarRegistro(reg)){
+        cout << "ALTA EXITOSA...";
+        system("pause");
+    } else {
+        cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+        system("pause");
+    }
+}
+
+
 
 
