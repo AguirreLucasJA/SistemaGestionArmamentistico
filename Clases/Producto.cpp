@@ -96,7 +96,7 @@ int Producto::getLote()
 {
     return _lote;
 }
-//TODO: FALTA CARGAR Y MOSTRAR E INCLUIR A CLASE FECHA.
+//TODO: INCLUIR A CLASE FECHA Y AGREGAR LOS ARCHIVOS FECHA.
 
 void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar reg.
 {

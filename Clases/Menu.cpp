@@ -207,7 +207,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             //Stock(); //TODO: FALTA HACER***
             break;
         case 3:
-            //Clientes(); //TODO: FALTA HACER***
+            Clientes();
             break;
         case 4:
             //Listados(); //TODO: FALTA HACER***
@@ -234,18 +234,18 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
         cabecera();
 
         gotoxy (2,6);
-        cout<<"MENU ADMINISTRADOR USUARIOS";
+        cout<<"MENU USUARIOS ADMINISTRADORES";
         gotoxy (2,7);
         cout<<"------------------";
         gotoxy (2,10);
         cout<<"INGRESE UNA OPCION: ";
 
         gotoxy (2,13);
-        cout<<"1 - ALTA DE USUARIO: ";
+        cout<<"1 - ALTA DE ADMINISTRADOR: ";
         gotoxy (2,14);
-        cout<<"2 - BAJA DE USUARIO: ";
+        cout<<"2 - BAJA DE ADMINISTRADOR: ";
         gotoxy (2,15);
-        cout<<"3 - MODIFICACION DE USUARIO: ";
+        cout<<"3 - MODIFICACION DE ADMINISTRADOR: ";
         gotoxy (2,16);
         cout<<"0 - VOLVER ATRAS: ";
         gotoxy (2,17);
@@ -297,8 +297,8 @@ void Menu::altaUsuario()//carga un nuevo usuario al archivo
     }
 }
 
-/// LISTAR USUARIOS
-void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
+/// LISTAR USUARIOS/CLIENTES
+void Menu::listarUsuariosYClientes()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO/CLIENTES
 {
 
     Admin reg;
@@ -343,7 +343,7 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarUsuarios();
+        listarUsuariosYClientes();
     }
 
     cout << "INGRESE EL ID A BUSCAR: ";
@@ -421,7 +421,7 @@ void Menu::eliminarUsuario()//Eliminacion logica de usuario existente en archivo
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarUsuarios();
+        listarUsuariosYClientes();
     }
 
     cout << "INGRESE EL ID A BUSCAR: ";
@@ -461,3 +461,63 @@ void Menu::eliminarUsuario()//Eliminacion logica de usuario existente en archivo
     }
     system("pause");
 }
+
+/// MENU CLIENTES
+void Menu::Clientes()
+{
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"MENU USUARIOS CLIENTES PAISES";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout<<"1 - ALTA DE PAIS: ";
+        gotoxy (2,14);
+        cout<<"2 - BAJA DE PAIS: ";
+        gotoxy (2,15);
+        cout<<"3 - MODIFICACION DE PAIS: ";
+        gotoxy (2,16);
+        cout<<"0 - VOLVER ATRAS: ";
+        gotoxy (2,17);
+        cout<<"->: ";
+
+            cin>>opcion;
+
+        system("cls");
+
+        switch(opcion)
+        {
+
+        case 1:
+            //altaCliente();
+            break;
+
+        case 2:
+            //eliminarCliente();
+            break;
+
+        case 3:
+            //modificarCliente();
+            break;
+
+        case 0:
+            opcion = 0;
+            break;
+
+        default:
+            break;
+        }
+    }
+
+}
+
+

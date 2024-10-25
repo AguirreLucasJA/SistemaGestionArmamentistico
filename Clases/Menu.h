@@ -9,14 +9,20 @@ public:
     void cabecera();
 
     bool menuOpcion(); // MENU INGRESO USERS/ADMINS
+
     void menuPrincipalAdmin();// MENU PRINCIPAL ADMIN
 
-    void Usuarios();//METODO del SUBmenu ADMIN ABM usuarios
-    void altaUsuario();//METODO del SUBmenu ADMIN ABM usuarios
-    void modificarUsuario();//METODO del SUBmenu ADMIN ABM usuarios
-    void eliminarUsuario();
+    void Usuarios();//SUBMENU USUARIOS DENTRO DE MENU PRINCIPAL ADMIN
+    void altaUsuario();//ABM USUARIOS
+    void modificarUsuario();//ABM USUARIOS
+    void eliminarUsuario();//ABM USUARIOS
 
-    void listarUsuarios();
+    void listarUsuariosYClientes();//SE USA EN "B", "M" DE USUARIOS/CLIENTES
+
+    void Clientes();//SUBMENU CLIENTES/PAISES DENTRO DE MENU PRINCIPAL ADMIN
+
+
+
 
 
 private:
