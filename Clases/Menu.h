@@ -26,7 +26,11 @@ public:
     void eliminarCliente();//ABM PAISES
 
 
-
+	void Stock(); //SUBMENU ADMINISTRADOR DENTRO DEL MENU PRINCIPAL ADMIN STOCK
+	void StockMisiles();
+	void StockAviones();
+	void StockBuques();
+	void StockTanques();
 
 
 
