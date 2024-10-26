@@ -1,53 +1,69 @@
 #include "Entidad.h"
-#include<cstring>
+#include<cstring>//para utilizar strcpy
 
 //SETTERS
-void Entidad::setUsuario(char* usuario){
-    strcpy(_usuario, usuario);
+void Entidad::setUsuario(std::string usuario)
+{
+
+    strcpy(_usuario, usuario.c_str());//devuelve el puntero que tiene en la heap
+
 }
 
-void Entidad::setClave(char* clave){
-    strcpy(_clave, clave);
+void Entidad::setClave(std::string clave)
+{
+    strcpy(_clave, clave.c_str());
 }
 
-void Entidad::setDescripcion(char* descripcion){
-    strcpy(_descripcion, descripcion);
+void Entidad::setDescripcion(std::string descripcion)
+{
+
+    strcpy(_descripcion, descripcion.c_str());
+
 }
 
-void Entidad::setTipoUsuario(int tipoUsuario){
+void Entidad::setTipoUsuario(int tipoUsuario)
+{
     _tipoUsuario = tipoUsuario;
 }
 
-void Entidad::setEstado(bool estado){
+void Entidad::setEstado(bool estado)
+{
     _estado = estado;
 }
 
-void Entidad::setId(int id){
+void Entidad::setId(int id)
+{
     _id = id;
 }
 
 //GETTERS
-char* Entidad::getUsuario(){
+std::string Entidad::getUsuario()
+{
     return _usuario;
 }
 
-char* Entidad::getClave(){
+std::string Entidad::getClave()
+{
     return _clave;
 }
 
-char* Entidad::getDescripcion(){
+std::string Entidad::getDescripcion()
+{
     return _descripcion;
 }
 
-int Entidad::getTipoUsuario(){
+int Entidad::getTipoUsuario()
+{
     return _tipoUsuario;
 }
 
-bool Entidad::getEstado(){
+bool Entidad::getEstado()
+{
     return _estado;
 }
 
-int Entidad::getId(){
+int Entidad::getId()
+{
     return _id;
 }
 

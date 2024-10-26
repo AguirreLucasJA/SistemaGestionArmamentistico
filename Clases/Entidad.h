@@ -1,4 +1,5 @@
 #pragma once
+#include <string>//para poder usar string
 
 class Entidad
 {
@@ -6,16 +7,16 @@ class Entidad
 public:
     Entidad() {};
 
-    void setUsuario(char* usuario);
-    void setClave(char* clave);
-    void setDescripcion(char* descripcion);
+    void setUsuario(std::string usuario);
+    void setClave(std::string clave);
+    void setDescripcion(std::string descripcion);
     void setTipoUsuario(int tipoUsuario);
     void setEstado(bool estado);
     void setId(int id);
 
-    char* getUsuario();
-    char* getClave();
-    char* getDescripcion();
+    std::string getUsuario();
+    std::string getClave();
+    std::string getDescripcion();
     int getTipoUsuario();
     bool getEstado();
     int getId();
