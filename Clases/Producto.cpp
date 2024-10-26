@@ -100,6 +100,7 @@ int Producto::getLote()
 //METODOS
 void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar reg.
 {
+    //TODO: SE CARGA TODO MENOS _fechaAlta. ver si es necesario aca o cuando...
     Validar validar;
     string nombre;
     string paisOrigen;
@@ -124,6 +125,9 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
     cin>>_precio;
     cout<<"ING STOCK: ";
     cin>>_stock;
+    cout<<"ING LOTE: ";
+    cin>>_lote;
+
 
     cin.ignore();
     cout<<"MAX 30 CARACTERES -> ING PAIS DE ORIGEN: ";
@@ -156,11 +160,13 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
 
 void Producto::mostrar()
 {
+    //TODO: SE MUESTRA TODO MENOS _fechaAlta. ver si es necesario aca o cuando...
     cout<<"ID: " << getId() << endl;
     cout<<"NOMBRE: " << getNombre() << endl;
     cout<<"PRECIO: u$d " << getPrecio() << endl;
     cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
     cout<<"STOCK: " << getStock() << endl;
+    cout<<"LOTE: " << getLote() << endl;
     cout<<"PAIS DE ORIGEN: " << getPaisOrigen() << endl;
     cout<<"DESCRIPCION: " << getDescripcion() << endl;
 }

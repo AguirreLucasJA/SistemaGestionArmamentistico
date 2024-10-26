@@ -39,8 +39,11 @@
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.h" />
 		<Unit filename="Clases/Entidad.cpp" />
 		<Unit filename="Clases/Entidad.h" />
+		<Unit filename="Clases/Fecha.h" />
 		<Unit filename="Clases/Menu.cpp" />
 		<Unit filename="Clases/Menu.h" />
+		<Unit filename="Clases/Misil.cpp" />
+		<Unit filename="Clases/Misil.h" />
 		<Unit filename="Clases/Pais.cpp" />
 		<Unit filename="Clases/Pais.h" />
 		<Unit filename="Clases/Producto.cpp" />
