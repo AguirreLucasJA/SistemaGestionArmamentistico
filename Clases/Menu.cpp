@@ -58,6 +58,7 @@ void Menu::gotoxy(int x, int y)
     dwPos.Y = y;
     SetConsoleCursorPosition(hcon, dwPos);
 }
+
 /// CABECERA
 void Menu::cabecera()
 {
@@ -71,6 +72,7 @@ void Menu::cabecera()
     gotoxy(29, 3);
     cout << "PROGRAMANDO TU DEFENSA" << endl;
 }
+
 /// MENU INGRESO
 bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 {
@@ -218,6 +220,8 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
         case 0:
             break;
         default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
             break;
         }
     }
@@ -253,7 +257,6 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
 
         cin>>opcion;
 
-        system("cls");
 
         switch(opcion)
         {
@@ -270,13 +273,15 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
             opcion = 0;
             break;
         default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
             break;
         }
     }
 }
 
 /// ALTA USUARIO
-void Menu::altaUsuario()//carga un nuevo usuario al archivo
+void Menu::altaUsuario()//carga un nuevo admin al archivo
 {
 
     int id;
@@ -330,7 +335,7 @@ void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
 }
 
 /// MODIFICAR USUARIO
-void Menu::modificarUsuario()//modifica usuario existente en archivo
+void Menu::modificarUsuario()//modifica admin existente en archivo
 {
     Validar validar;
     ArchivoAdmin ArchAdmin;
@@ -406,7 +411,7 @@ void Menu::modificarUsuario()//modifica usuario existente en archivo
 }
 
 /// ELIMINAR USUARIO
-void Menu::eliminarUsuario()//Eliminacion logica de usuario existente en archivo
+void Menu::eliminarUsuario()//Eliminacion logica de admin existente en archivo
 {
 
     int Id;
@@ -491,7 +496,6 @@ void Menu::Clientes()//SUBMENU ABML PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL M
 
         cin>>opcion;
 
-        system("cls");
 
         switch(opcion)
         {
@@ -513,798 +517,16 @@ void Menu::Clientes()//SUBMENU ABML PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL M
             break;
 
         default:
-
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
             break;
         }
     }
 
-}
-
-/// MENU STOCK
-void Menu::Stock(){
-    int opcion;
-
-    cabecera();
-
-    gotoxy(30, 6);
-    cout << "MENU STOCK";
-    gotoxy(30, 8);
-    cout << "1 - MISILES";
-    gotoxy(30, 10);
-    cout << "2 - AVIONES";
-    gotoxy(30, 12);
-    cout << "3 - BUQUES";
-    gotoxy(30, 14);
-    cout << "4 - TANQUES";
-    gotoxy(30, 16);
-    cout << "0 - VOLVER";
-    gotoxy(30, 18);
-    cout << "INGRESE UNA OPCION: ";
-    cin >> opcion;
-
-    switch(opcion) {
-        case 1:
-            StockMisiles();
-            break;
-
-        case 2:
-            StockAviones();
-            break;
-
-        case 3:
-            StockBuques();
-            break;
-
-        case 4:
-            StockTanques();
-            break;
-
-        case 0:
-        	return;
-
-            break;
-
-        default:
-                cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-                system("pause");
-                break;
-    }
-}
-
-
-/// STOCK MISIL
-//SUBMENU ABML MISIL QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockMisiles() {
-   // Misil misil; TODO: FALTA HACER****
-    //ArchivoMisil ArchMisil; TODO: FALTA HACER****
-    char respuesta;
-    int opcion;
-
-    while (true) {
-        system("cls");
-        cabecera();
-
-        gotoxy (2,6);
-        cout<<"MENU MISILES";
-        gotoxy (2,7);
-        cout<<"------------------";
-        gotoxy (2,10);
-        cout<<"INGRESE UNA OPCION: ";
-        gotoxy(2,13);
-        cout << "1 - ALTA MISIL" << endl;
-        gotoxy(2,14);
-        cout << "2 - LISTAR MISILES" << endl;
-        gotoxy(2,15);
-        cout << "3 - MODIFICAR MISIL" << endl;
-        gotoxy(2,16);
-        cout << "4 - AGREGAR A STOCK" << endl;
-        gotoxy(2,17);
-        cout << "5 - BAJA MISIL" << endl;
-        gotoxy(2,18);
-        cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy(2,19);
-        cout << "->: ";
-        cin >> opcion;
-
-        switch (opcion) {
-
-            case 1: {
-                 cls();
-                cabecera();
-                gotoxy(29, 5);
-                cout << "---------------";
-                gotoxy(30, 6);
-                cout << "CARGAR MISIL" << endl;
-                gotoxy(29, 7);
-                cout << "---------------";
-
-				/*
-                misil.cargar(); // TODO: FALTA HACER***
-                ArchMisil.escribirEnDisco(misil);
-
-                cls();
-                cabecera();
-                gotoxy(22, 6);
-                cout << "MISIL CARGADO EXITOSAMENTE." << endl;
-                */
-                break;
-            }
-
-            case 2: {
-
-                cls();
-                cabecera();
-                gotoxy(30, 6);
-                cout << "LISTAR REGISTROS DE MISILES";
-                gotoxy(29, 7);
-                cout << "---------------";
-				/*
-                ArchMisil.listarRegistros(); TODO: FALTA HACER***
-                */
-                break;
-            }
-
-            case 3: {
-                cls();
-                cabecera();
-                gotoxy(29, 5);
-                cout << "---------------";
-                gotoxy(30, 6);
-                cout << "MODIFICAR MISIL";
-                gotoxy(29, 7);
-                cout << "---------------";
-                gotoxy(23, 10);
-                cout << "INGRESE EL CODIGO DEL PRODUCTO: ";
-                int codigo;
-                cin >> codigo;
-				/*
-                int posicion = ArchMisil.buscarRegistro(codigo);
-                misil = ArchMisil.leerRegistro(posicion); TODO: FALTA HACER***
-
-                misil.mostrar();
-                system("pause");
-
-                cls();
-                cabecera();
-                int respuesta;
-                cout << "DESEA MODIFICAR ESTE PRODUCTO?(1-SI / 2-NO) ";
-                cin >> respuesta;
-                if(respuesta==1){
-                    misil.cargar();
-                    if(ArchMisil.ModificarEnDisco(misil, posicion)){
-                        cls();
-                        cabecera();
-                        cout << "MODIFICACION EXITOSA...";
-                        system("pause");
-                    } else {
-                        cls();
-                        cabecera();
-                        cout << "NO SE HA PODIDO MODIFICAR...";
-                        system("pause");
-                    }
-                }*/
-                break;
-            }
-
-            case 4:{
-
-                cls();
-                cabecera();
-
-                gotoxy(29, 5);
-                cout << "---------------";
-                gotoxy(30, 6);
-                cout << "AGREGAR STOCK";
-                gotoxy(29, 7);
-                cout << "---------------";
-
-                gotoxy(23, 10);
-                cout << "INGRESE EL CODIGO DEL PRODUCTO: ";
-                int codigo;
-                cin >> codigo;
-				/*
-                int posicion = ArchMisil.buscarRegistro(codigo);
-                misil = ArchMisil.leerRegistro(posicion); // TODO: FALTA HACER***
-
-                cls();
-                cabecera();
-                misil.mostrar();
-                system("pause");
-
-                cls();
-                cabecera();
-                int respuesta;
-                cout << "DESEA ANIADIR STOCK A ESTE PRODUCTO?(1-SI / 2-NO) ";
-                cin >> respuesta;
-                if(respuesta==1){
-                    cout << "INGRESE LA CANTIDAD: ";
-                    int cantidad;
-                    cin >> cantidad;
-                    misil.setStock((misil.getStock() + cantidad));
-                    ArchMisil.modificarStock(misil, posicion);
-                    cls();
-                    cabecera();
-                    misil = ArchMisil.leerRegistro(posicion);
-                    misil.mostrar();
-                    system("pause");
-                } */
-                break;
-
-            }
-
-            case 5: {
-
-                    int Id, pos;
-                    cls();
-                    cabecera();
-                    cout << "INGRESE EL ID A BUSCAR: ";
-                    cin >> Id;
-                    /* //TODO: FALTA HACER***********
-                    pos = ArchMisil.buscarRegistro(Id);
-                    misil = ArchMisil.leerRegistro(pos);
-
-                    cls();
-                    cabecera();
-                    misil.mostrar();
-                    cout << "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): ";
-                    cin >> respuesta;
-                    if(respuesta == 's' || respuesta == 'S'){
-                        misil.setEstado(false);
-                    }
-                    else{
-                        break;
-                    }
-                    if(ArchMisil.ModificarEnDisco(misil, pos)){
-                        cls();
-                        cabecera();
-                        cout << "BAJA EXITOSA..." << endl;
-                    }
-                    else{
-                        cls();
-                        cabecera();
-                        cout << "ERROR, NO SE HA REALIZADO LA BAJA..." << endl;
-                    }
-                    system("pause");
-                    break;
-                } */
-                break;
-
-            case 0:
-                return;
-
-            default:
-                cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-                system("pause");
-                break;
-        }
-    }
-}
-}
-
-
-
-/// STOCK AVION
-//SUBMENU ABML AVION QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockAviones(){
-    opcion = -1;
-    //Avion avion; //TODO: FALTA HACER***
-    //ArchivoAvion ArchAvion; //TODO: FALTA HACER***
-    char respuesta;
-    int Id, pos;
-
-    while(true){
-
-
-		system ("cls");
-        cabecera();
-
-        gotoxy (2,6);
-        cout<<"MENU AVIONES";
-        gotoxy (2,7);
-        cout<<"------------------";
-        gotoxy (2,10);
-        cout<<"INGRESE UNA OPCION: ";
-
-        gotoxy (2,13);
-        cout<<"1 - ALTA DE AVION: ";
-        gotoxy (2,14);
-        cout<<"2 - LISTAR AVIONES: ";
-        gotoxy (2,15);
-        cout<<"3 - MODIFICACION DE AVIONES: ";
-        gotoxy(2,16);
-        cout << "4 - AGREGAR A STOCK" << endl;
-        gotoxy(2,17);
-        cout << "5 - BAJA AVIONES" << endl;
-        gotoxy(2,18);
-        cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy(2,19);
-        cout << "->: ";
-        cin >> opcion;
-
-        //system("cls");
-
-            switch(opcion){
-
-                case 1: {
-                	cls();
-                cabecera();
-                    //avion.cargar();//TODO: FALTA HACER***
-                    //ArchAvion.grabarRegistro(avion); //TODO: FALTA HACER***
-                    break;
-                }
-
-                case 2: {
-                	cls();
-                cabecera();
-                    //ArchAvion.listarRegistros(); //TODO: FALTA HACER***
-                    break;
-                }
-
-                case 3: {
-                	cls();
-                cabecera();
-
-                    system("cls");
-
-                    cout << "INGRESE EL ID A BUSCAR: ";
-                    cin >> Id;
-                    /*pos = ArchAvion.buscarRegistro(Id); //TODO: FALTA HACER***
-                    avion = ArchAvion.leerRegistro(pos);
-                    avion.mostrar();
-                    if(avion.getEstado()==false){
-                        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
-                        system("pause");
-                        break;
-                    }
-                    cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
-                    cin >> respuesta;
-                    if(respuesta == 's' || respuesta == 'S'){
-                        avion.cargar();
-                        if(ArchAvion.modificarRegistro(avion, pos)){
-                        cout << "MODIFICACION EXITOSA..." << endl;
-                        system("pause");
-                        }
-                    } else {
-                        cout << "ERROR, NO SE HA REALIZADO LA MODIFICACION..." << endl;
-                    }
-
-                    system("pause");
-                    */
-
-                    break;
-                }
-
-                case 4:{
-                    cls();
-                    cabecera();
-                    //Avion avion; //TODO: FALTA HACER***
-
-                    gotoxy(29, 5);
-                    cout << "---------------";
-                    gotoxy(30, 6);
-                    cout << "AGREGAR STOCK";
-                    gotoxy(29, 7);
-                    cout << "---------------";
-
-                    gotoxy(23, 10);
-                    cout << "INGRESE EL CODIGO DEL PRODUCTO: ";
-                    int codigo;
-                    cin >> codigo;
-
-                    /*int posicion = ArchAvion.buscarRegistro(codigo);  //TODO: FALTA HACER***
-                    avion = ArchAvion.leerRegistro(posicion);
-                    cls();
-                    cabecera();
-                    avion.mostrar();
-                    system("pause");
-                    cls();
-                    cabecera();
-                    int respuesta;
-                    cout << "DESEA ANIADIR STOCK A ESTE PRODUCTO?(1-SI / 2-NO) ";
-                    cin >> respuesta;
-                    if(respuesta==1){
-                        cout << "INGRESE LA CANTIDAD: ";
-                        int cantidad;
-                        cin >> cantidad;
-                        avion.setStock((avion.getStock() + cantidad));
-                        ArchAvion.modificarStock(avion, posicion);
-                        cls();
-                        cabecera();
-                        avion = ArchAvion.leerRegistro(posicion);
-                        avion.mostrar();
-                        system("pause");
-                    }
-                    */
-                    break;
-
-                }
-
-                case 5: {
-                	cls();
-                cabecera();
-                    /*int Id, pos;     //TODO: FALTA HACER***
-                    cout << "INGRESE EL ID A BUSCAR: ";
-                    cin >> Id;
-                    //pos = ArchAvion.buscarRegistro(Id);
-                    //avion = ArchAvion.leerRegistro(pos);
-                    //avion.mostrar();
-                    cout << "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): ";
-                    cin >> respuesta;
-                    if(respuesta == 's' || respuesta == 'S'){
-                        avion.setEstado(false);
-                    }
-                    else{
-                        break;
-                    }
-                    if(ArchAvion.modificarRegistro(avion, pos)){
-                        cout << "BAJA EXITOSA..." << endl;
-                        system("pause");
-                    }
-                    else{
-                        cout << "ERROR, NO SE HA REALIZADO LA BAJA..." << endl;
-                    }
-                    system("pause");
-                    */
-                    break;
-                }
-
-                case 0:
-                    return;
-
-                	default:
-                cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-                system("pause");
-
-                break;
-
-             }
-        }
-}
-
-
-///STOCK BUQUE
-//SUBMENU ABML BUQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockBuques(){
-    opcion = -1;
-    //Buque buque;  //TODO: FALTA HACER************
-    //ArchivoBuque archivoBuque; //TODO: FALTA HACER************
-    char respuesta;
-    int Id, pos;
-
-    while(true){
-		system ("cls");
-
-        cabecera();
-
-        gotoxy (2,6);
-        cout<<"MENU BUQUES";
-        gotoxy (2,7);
-        cout<<"------------------";
-        gotoxy (2,10);
-        cout<<"INGRESE UNA OPCION: ";
-
-        gotoxy (2,13);
-        cout<<"1 - ALTA DE BUQUE";
-        gotoxy (2,14);
-        cout<<"2 - LISTAR BUQUES";
-        gotoxy (2,15);
-        cout<<"3 - MODIFICACION DE BUQUE";
-        gotoxy(2,16);
-        cout << "4 - AGREGAR A STOCK" << endl;
-        gotoxy(2,17);
-        cout << "5 - BAJA DE BUQUE" << endl;
-        gotoxy(2,18);
-        cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy(2,19);
-        cout << "->: ";
-        cin >> opcion;
-
-
-            switch(opcion){
-
-                case 1: {
-                	cls();
-                	cabecera();
-                    /*buque.cargar(); //TODO: FALTA ******
-                    archivoBuque.grabarRegistro(buque);//TODO: FALTA ******
-                    */
-                    break;
-                }
-
-                case 2: {
-                	cls();
-                	cabecera();
-                	/*
-                    archivoBuque.listarRegistros();//TODO: FALTA ******
-                    system("pause");//TODO: FALTA ******
-                    */
-                    break;
-                }
-
-                case 3: {
-                	cls();
-                	cabecera();
-                    cout << "INGRESE EL ID A BUSCAR: ";
-                    cin >> Id;
-                    /*
-                    pos = archivoBuque.buscarRegistro(Id); //TODO: FALTA ******
-                    buque =archivoBuque.leerRegistro(pos);
-                    buque.mostrar();
-                    if(buque.getEstado()==false){
-                        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
-                        system("pause");
-                        break;
-                    }
-                    cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
-                    cin >> respuesta;
-                    if(respuesta == 's' || respuesta == 'S'){
-                        buque.cargar();
-                        if(archivoBuque.modificarRegistro(buque, pos)){
-                        cout << "MODIFICACION EXITOSA..." << endl;
-                        system("pause");
-                        }
-                    } else {
-                        cout << "ERROR, NO SE HA REALIZADO LA MODIFICACION..." << endl;
-                    }
-
-                    system("pause"); */
-                    break;
-                }
-
-                case 4:{
-                    cls();
-                    cabecera();
-                    //Buque buque; //TODO: FALTA ******
-
-                    gotoxy(29, 5);
-                    cout << "---------------";
-                    gotoxy(30, 6);
-                    cout << "AGREGAR STOCK";
-                    gotoxy(29, 7);
-                    cout << "---------------";
-
-                    gotoxy(23, 10);
-                    cout << "INGRESE EL CODIGO DEL PRODUCTO: ";
-                    int codigo;
-                    cin >> codigo;
-
-                    //int posicion = archivoBuque.buscarRegistro(codigo); //TODO: FALTA ******
-                    /*buque = archivoBuque.leerRegistro(posicion); //TODO: FALTA ******
-                    cls();
-                    cabecera();
-                    buque.mostrar();
-                    system("pause");
-                    cls();
-                    cabecera();
-                    int respuesta;
-                    cout << "DESEA ANIADIR STOCK A ESTE PRODUCTO?(1-SI / 2-NO) ";
-                    cin >> respuesta;
-                    if(respuesta==1){
-                        cout << "INGRESE LA CANTIDAD: ";
-                        int cantidad;
-                        cin >> cantidad;
-                        buque.setStock((buque.getStock() + cantidad));
-                        archivoBuque.modificarStock(buque, posicion);
-                        cls();
-                        cabecera();
-                        buque = archivoBuque.leerRegistro(posicion);
-                        buque.mostrar();
-                        system("pause");
-                    }*/
-                    break;
-
-                }
-
-                case 5: {
-                	cls();
-                cabecera();
-                    int Id, pos;
-                    cout << "INGRESE EL ID A BUSCAR: ";
-                    cin >> Id;
-                    /*pos = archivoBuque.buscarRegistro(Id); //TODO: FALTA ******
-                    buque = archivoBuque.leerRegistro(pos);
-                    buque.mostrar();
-                    cout << "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): ";
-                    cin >> respuesta;
-                    if(respuesta == 's' || respuesta == 'S'){
-                        buque.setEstado(false);
-                    }
-                    else{
-                        break;
-                    }
-                    if(archivoBuque.modificarRegistro(buque, pos)){
-                        cout << "BAJA EXITOSA..." << endl;
-                        system("pause");
-                    }
-                    else{
-                        cout << "ERROR, NO SE HA REALIZADO LA BAJA..." << endl;
-                    }
-                    system("pause");*/
-                    break;
-                }
-
-                case 0:
-                    return;
-                    break;
-
-                default:
-                	cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-                system("pause");
-                    break;
-             }
-        }
-}
-
-
-///STOCK TANQUE
-//SUBMENU ABML TANQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockTanques(){
-    //Tanque tanque;
-    //ArchivoTanque archivoTanque;
-    char respuesta;
-    int Id, pos, opcion;
-
-    while(true){
-			system("cls");
-        cabecera();
-        gotoxy (2,6);
-        cout<<"MENU TANQUES";
-        gotoxy (2,7);
-        cout<<"------------------";
-        gotoxy (2,10);
-        cout<<"INGRESE UNA OPCION: ";
-
-        gotoxy (2,13);
-        cout<<"1 - ALTA DE TANQUE: ";
-        gotoxy (2,14);
-        cout<<"2 - LISTAR TANQUES: ";
-        gotoxy (2,15);
-        cout<<"3 - MODIFICACION DE TANQUES: ";
-        gotoxy (2,16);
-        cout<<"4 - BAJA DE TANQUE: ";
-        gotoxy (2,17);
-        cout<<"0 - VOLVER ATRAS: ";
-        gotoxy (2,18);
-        cout<<"->: ";
-        cin>>opcion;
-
-
-
-            switch(opcion){
-
-                case 1:{
-                	cls();
-                	cabecera();
-                    //tanque.cargar(); // TODO: FALTA*******
-                    //archivoTanque.grabarRegistro(tanque); // TODO: FALTA*******
-                    break;
-                }
-
-                case 2: {
-                	cls();
-                	cabecera();
-                    //archivoTanque.listarRegistros(); // TODO: FALTA*******
-                    break;
-                }
-
-                case 3: {
-                    cls();
-                	cabecera();
-                	/*
-                    cout << "INGRESE EL ID A BUSCAR: "; // TODO: FALTA*******
-                    cin >> Id;
-                    pos = archivoTanque.buscarRegistro(Id);
-                    tanque = archivoTanque.leerRegistro(pos);
-                    tanque.mostrar();
-                    if(tanque.getEstado()==false){
-                        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
-                        system("pause");
-                        break;
-                    }
-                    cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
-                    cin >> respuesta;
-                    if(respuesta == 's' || respuesta == 'S'){
-                        tanque.cargar();
-                        if(archivoTanque.modificarRegistro(tanque, pos)){
-                        cout << "MODIFICACION EXITOSA..." << endl;
-                        system("pause");
-                        }
-                    } else {
-                        cout << "ERROR, NO SE HA REALIZADO LA MODIFICACION..." << endl;
-                    }
-                    system("pause");
-                    */
-                    break;
-                }
-
-                case 4: {
-                    cls();
-                    cabecera();
-                    //Tanque tanque; // TODO: FALTA*******
-
-                    gotoxy(29, 5);
-                    cout << "---------------";
-                    gotoxy(30, 6);
-                    cout << "AGREGAR STOCK";
-                    gotoxy(29, 7);
-                    cout << "---------------";
-
-                    gotoxy(23, 10);
-                    cout << "INGRESE EL CODIGO DEL PRODUCTO: ";
-                    int codigo;
-                    cin >> codigo;
-					/*
-                    int posicion = archivoTanque.buscarRegistro(codigo);  // TODO: FALTA*******
-                    tanque = archivoTanque.leerRegistro(posicion);
-                    cls();
-                    cabecera();
-                    tanque.mostrar();
-                    system("pause");
-                    cls();
-                    cabecera();
-                    int respuesta;
-                    cout << "DESEA ANIADIR STOCK A ESTE PRODUCTO?(1-SI / 2-NO) ";
-                    cin >> respuesta;
-                    if(respuesta==1){
-                        cout << "INGRESE LA CANTIDAD: ";
-                        int cantidad;
-                        cin >> cantidad;
-                        tanque.setStock((tanque.getStock() + cantidad));
-                        archivoTanque.modificarStock(tanque, posicion);
-                        cls();
-                        cabecera();
-                        tanque = archivoTanque.leerRegistro(posicion);
-                        tanque.mostrar();
-                        system("pause");
-                    }
-                    */
-                    break;
-                }
-
-                case 5: {
-                	cls();
-                	cabecera();
-                	/*
-                    int Id, pos;                                      // TODO: FALTA*******
-                    cout << "INGRESE EL ID A BUSCAR: ";
-                    cin >> Id;
-                    pos = archivoTanque.buscarRegistro(Id);
-                    tanque = archivoTanque.leerRegistro(pos);
-                    tanque.mostrar();
-                    cout << "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): ";
-                    cin >> respuesta;
-                    if(respuesta == 's' || respuesta == 'S'){
-                        tanque.setEstado(false);
-                    }
-                    else{
-                        break;
-                    }
-                    if(archivoTanque.modificarRegistro(tanque, pos)){
-                        cout << "BAJA EXITOSA..." << endl;
-                        system("pause");
-                    }
-                    else{
-                        cout << "ERROR, NO SE HA REALIZADO LA BAJA..." << endl;
-                    }
-                    system("pause");
-                    */
-                    break;
-                }
-
-                case 0:
-                    return;
-                    break;
-
-                default:
-                	cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-                system("pause");
-                    break;
-             }
-        }
 }
 
 /// ALTA CLIENTE
-void Menu::altaCliente()
+void Menu::altaCliente()//carga un nuevo pais al archivo
 {
     int id;
     Pais reg;
@@ -1357,7 +579,7 @@ void Menu::listarClientes()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO/CLI
 }
 
 /// MODIFICAR CLIENTE
-void Menu::modificarCliente()
+void Menu::modificarCliente()//modifica pais existente en archivo
 {
 
     Validar validar;
@@ -1434,7 +656,7 @@ void Menu::modificarCliente()
 }
 
 /// ELIMINAR CLIENTE
-void Menu::eliminarCliente()
+void Menu::eliminarCliente()//Eliminacion logica de pais existente en archivo
 {
 
     int Id;
@@ -1487,6 +709,323 @@ void Menu::eliminarCliente()
     }
     system("pause");
 }
+
+/// MENU STOCK
+void Menu::Stock()//SUBMENU ABML STOCK QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
+{
+    int opcion;
+
+    cabecera();
+
+    gotoxy(30, 6);
+    cout << "MENU STOCK";
+    gotoxy(30, 8);
+    cout << "1 - MISILES";
+    gotoxy(30, 10);
+    cout << "2 - AVIONES";
+    gotoxy(30, 12);
+    cout << "3 - BUQUES";
+    gotoxy(30, 14);
+    cout << "4 - TANQUES";
+    gotoxy(30, 16);
+    cout << "0 - VOLVER";
+    gotoxy(30, 18);
+    cout << "INGRESE UNA OPCION: ";
+    cin >> opcion;
+
+    switch(opcion)
+    {
+    case 1:
+        StockMisiles();
+        break;
+
+    case 2:
+        StockAviones();
+        break;
+
+    case 3:
+        StockBuques();
+        break;
+
+    case 4:
+        StockTanques();
+        break;
+
+    case 0:
+        return;
+
+        break;
+
+    default:
+        cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+        system("pause");
+        break;
+    }
+}
+
+/// STOCK MISIL
+//SUBMENU ABML MISIL QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
+void Menu::StockMisiles()
+{
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+        system("cls");
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"MENU MISILES";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+        gotoxy(2,13);
+        cout << "1 - ALTA MISIL" << endl;
+        gotoxy(2,14);
+        cout << "2 - MODIFICAR MISIL" << endl;
+        gotoxy(2,15);
+        cout << "3 - AGREGAR A STOCK" << endl;
+        gotoxy(2,16);
+        cout << "4 - BAJA MISIL" << endl;
+        gotoxy(2,17);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy(2,18);
+        cout << "->: ";
+
+        cin >> opcion;
+
+        switch (opcion)
+        {
+
+        case 1:
+            //TODO:FALTA HACER**
+            break;
+
+        case 2:
+            //TODO:FALTA HACER**
+            break;
+
+        case 3:
+            //TODO:FALTA HACER**
+            break;
+
+        case 4:
+            //TODO:FALTA HACER**
+            break;
+
+        case 0:
+            return;
+
+        default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+}
+
+/// STOCK AVION
+//SUBMENU ABML AVION QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
+void Menu::StockAviones()
+{
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+
+
+        system ("cls");
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"MENU AVIONES";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout << "1 - ALTA DE AVION: ";
+        gotoxy (2,14);
+        cout << "2 - MODIFICACION DE AVIONES: ";
+        gotoxy (2,15);
+        cout << "3 - AGREGAR A STOCK" << endl;
+        gotoxy(2,16);
+        cout << "4 - BAJA AVIONES" << endl;
+        gotoxy(2,17);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy(2,18);
+        cout << "->: ";
+
+        cin >> opcion;
+
+
+        switch(opcion)
+        {
+
+        case 1:
+            //TODO:FALTA HACER**
+            break;
+
+
+        case 2:
+            //TODO:FALTA HACER**
+            break;
+
+
+        case 3:
+            //TODO:FALTA HACER**
+            break;
+
+        case 4:
+            //TODO:FALTA HACER**
+            break;
+
+        case 0:
+            return;
+
+        default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
+
+            break;
+
+        }
+    }
+}
+
+///STOCK BUQUE
+//SUBMENU ABML BUQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
+void Menu::StockBuques()
+{
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+        system ("cls");
+
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"MENU BUQUES";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout << "1 - ALTA DE BUQUE";
+        gotoxy (2,14);
+        cout << "2 - MODIFICACION DE BUQUE";
+        gotoxy (2,15);
+        cout << "3 - AGREGAR A STOCK" << endl;
+        gotoxy(2,16);
+        cout << "4 - BAJA DE BUQUE" << endl;
+        gotoxy(2,17);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy(2,18);
+        cout << "->: ";
+
+        cin >> opcion;
+
+
+        switch(opcion)
+        {
+
+        case 1:
+            //TODO:FALTA HACER**
+            break;
+
+        case 2:
+            //TODO:FALTA HACER**
+            break;
+
+        case 3:
+            //TODO:FALTA HACER**
+            break;
+
+        case 4:
+            //TODO:FALTA HACER**
+            break;
+
+        case 0:
+            return;
+            break;
+
+        default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+}
+
+///STOCK TANQUE
+//SUBMENU ABML TANQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
+void Menu::StockTanques()
+{
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+        system("cls");
+        cabecera();
+        gotoxy (2,6);
+        cout<<"MENU TANQUES";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout << "1 - ALTA DE TANQUE";
+        gotoxy (2,14);
+        cout << "2 - MODIFICACION DE TANQUE";
+        gotoxy (2,15);
+        cout << "3 - AGREGAR A STOCK" << endl;
+        gotoxy(2,16);
+        cout << "4 - BAJA DE TANQUE" << endl;
+        gotoxy(2,17);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy(2,18);
+        cout << "->: ";
+
+        cin>>opcion;
+
+
+
+        switch(opcion)
+        {
+
+        case 1:
+            //TODO:FALTA HACER**
+            break;
+
+        case 2:
+            //TODO:FALTA HACER**
+            break;
+
+        case 3:
+            //TODO:FALTA HACER**
+            break;
+
+        case 4:
+            //TODO:FALTA HACER**
+            break;
+
+        case 0:
+            return;
+            break;
+
+        default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+}
+
 
 
 
