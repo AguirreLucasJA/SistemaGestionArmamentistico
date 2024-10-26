@@ -43,9 +43,9 @@ void Producto::setDescripcion(string descripcion)
 
 }
 
-//void Producto::setFecha(Fecha fecha){
-//    _fechaAlta = fecha;
-//}
+void Producto::setFecha(Fecha fecha){
+    _fechaAlta = fecha;
+}
 
 void Producto::setLote(int lote)
 {
@@ -88,16 +88,16 @@ string Producto::getDescripcion()
     return _descripcion;
 }
 
-//Fecha Producto::getFechaAlta(){
-//    return _fechaAlta;
-//}
+Fecha Producto::getFechaAlta(){
+    return _fechaAlta;
+}
 
 int Producto::getLote()
 {
     return _lote;
 }
-//TODO: INCLUIR A CLASE FECHA Y AGREGAR LOS ARCHIVOS FECHA.
 
+//METODOS
 void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar reg.
 {
     Validar validar;

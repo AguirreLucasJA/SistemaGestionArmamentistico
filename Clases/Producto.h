@@ -1,6 +1,6 @@
 #pragma once
 #include <string>//para poder usar string
-//#include"Fecha.h"//TODO:FALTA HACERLA
+#include"Fecha.h"
 
 class Producto
 {
@@ -14,7 +14,7 @@ public:
     void setId(int id);
     void setPaisOrigen(std::string paisOrigen);
     void setStock(int stock);
-    //void setFecha(Fecha fecha);
+    void setFecha(Fecha fecha);
     void setLote(int lote);
 
     long long getPrecio();
@@ -24,7 +24,7 @@ public:
     int getId();
     std::string getPaisOrigen();
     int getStock();
-    //Fecha getFechaAlta();
+    Fecha getFechaAlta();
     int getLote();
 
     void cargar(int id);
@@ -38,6 +38,6 @@ private:
     char _nombre[30];
     char _paisOrigen[30];
     char _descripcion[100];
-    //Fecha _fechaAlta;
+    Fecha _fechaAlta;
     int _lote;
 };

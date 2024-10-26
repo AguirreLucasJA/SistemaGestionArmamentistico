@@ -21,7 +21,6 @@ long long Pais::getDineroCaja()
 //
 void Pais::cargar(int id)
 {
-    Entidad::cargar();
     Validar validar;
     string usuario;
     string clave;
