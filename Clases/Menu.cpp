@@ -212,7 +212,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             Clientes();
             break;
         case 4:
-            Listados(); //TODO: FALTA HACER***
+            Listados();
             break;
         case 5:
             //Reportes(); //TODO: FALTA HACER***
