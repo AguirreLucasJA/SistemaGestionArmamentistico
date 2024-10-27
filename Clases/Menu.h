@@ -31,6 +31,8 @@ public:
 	void StockBuques();//SUBMENU
 	void StockTanques();//SUBMENU
 
+	void Listados(); //SUBMENU ADMIN
+
 
 
 private:
