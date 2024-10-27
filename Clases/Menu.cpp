@@ -149,7 +149,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
         if(respuesta < 0 || respuesta > 1)//si ingresaste algo distinto q 1 ó 0 te pide reingresar opcion
         {
             cout << "Ingreso incorrecto... re ingrese.." << endl;
-            getch();//espera precionar tecla para continuar
+            getch();//espera presionar tecla para continuar
         }
     }
 
@@ -163,7 +163,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     }
 
     gotoxy (2,22);
-    anykey();//espera una el ingreso de una tecla para continuar
+    anykey();//espera el ingreso de una tecla para continuar
 }
 
 /// MENU PRINCIPAL ADMINISTRADOR
@@ -215,7 +215,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             //Listados(); //TODO: FALTA HACER***
             break;
         case 5:
-            //Reportes(); //TODO: FALTA HACER***
+            Reportes();
             break;
         case 0:
             break;
@@ -1027,7 +1027,64 @@ void Menu::StockTanques()
 }
 
 
+/// MENU REPORTES
+//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
+void Menu::Reportes()
+{
 
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"REPORTES";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout<<"1 - VER FACTURAS";
+        gotoxy (2,14);
+        cout<<"2 - RANKING DE CLIENTES";
+        gotoxy (2,15);
+        cout<<"3 - RANKING DE PRODUCTOS";
+        gotoxy (2,16);
+        cout<<"0 - MENU ANTERIOR ";
+        gotoxy (2,17);
+        cout<<"->: ";
+        cin>>opcion;
+        system("cls");
+
+        switch(opcion)
+        {
+
+        /*case 1: //TODO:FALTA HACER**
+            mostrarFacturas();
+            break;
+
+        case 2: //TODO:FALTA HACER**
+            rankingClientes();
+            break;
+
+        case 3: //TODO:FALTA HACER**
+            rankingProductos();
+            break;*/
+
+        case 0:
+            opcion = 0;
+            break;
+
+        default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+}
 
 
 

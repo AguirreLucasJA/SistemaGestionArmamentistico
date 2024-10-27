@@ -31,7 +31,10 @@ public:
 	void StockBuques();//SUBMENU
 	void StockTanques();//SUBMENU
 
-
+	void Reportes();
+    void Facturas();
+    void rankingClientes();
+    void rankingProductos();
 
 private:
     int opcion;
