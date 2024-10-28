@@ -212,7 +212,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             Clientes();
             break;
         case 4:
-            //Listados(); //TODO: FALTA HACER***
+            Listados();
             break;
         case 5:
             //Reportes(); //TODO: FALTA HACER***
@@ -1027,6 +1027,59 @@ void Menu::StockTanques()
 }
 
 
+
+/// MENU LISTADOS
+////SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
+void Menu::Listados(){
+
+	int opcion;
+    opcion = -1;
+
+    while(opcion!=0){
+		system("cls");
+        cabecera();
+        gotoxy(30, 6);
+    cout << "MENU LISTADOS";
+    gotoxy(30, 8);
+    cout << "1 - CLIENTES(PAISES)";
+    gotoxy(30, 10);
+    cout << "2 - PRODUCTOS";
+    gotoxy(30, 12);
+    cout << "3 - ADMINISTRADORES";
+    gotoxy(30, 14);
+    cout << "0 - VOLVER";
+    gotoxy(30, 18);
+    cout << "INGRESE UNA OPCION: ";
+    cin >> opcion;
+
+    switch(opcion) {
+        case 1: //TODO: FALTA HACER************
+
+            break;
+
+        case 2: //TODO: FALTA HACER************
+
+            break;
+
+        case 3: //TODO: FALTA HACER************
+
+            break;
+
+        case 4: //TODO: FALTA HACER************
+
+            break;
+
+        case 0: //TODO: FALTA HACER************
+        	return;
+            break;
+
+        default:
+        	cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
+            break;
+    }
+}
+}
 
 
 
