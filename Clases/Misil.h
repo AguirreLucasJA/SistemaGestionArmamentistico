@@ -11,7 +11,6 @@ public:
     void setCantCabezasExplosivas(int cantCabezasExplosivas);
     void setVelocidadMax(int velocidadMax);
     void setPeso(int peso);
-    void setCodigoUnico(int codigo);
     void setTipoCombustible(std::string tipoCombustible);
     void setTipoCarga(std::string tipoCarga);
     void setTipo(std::string tipo);
@@ -23,7 +22,6 @@ public:
     int getCantCabezasExplosivas();
     int getVelocidadMax();
     int getPeso();
-    int getCodigoUnico();
     std::string getTipoCombustible();
     std::string getTipoCarga();
     std::string getTipo();
@@ -39,7 +37,6 @@ private:
     int _cantCabezasExplosivas;
     int _velocidadMax;
     int _peso;
-    int _codigoUnico
     char _tipoCombustible[30];
     char _tipoCarga[30];
     char _tipo[30];
