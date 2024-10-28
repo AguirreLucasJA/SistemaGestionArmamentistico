@@ -257,6 +257,7 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
 
         cin>>opcion;
 
+        system("cls");
 
         switch(opcion)
         {
@@ -496,6 +497,7 @@ void Menu::Clientes()//SUBMENU ABML PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL M
 
         cin>>opcion;
 
+        system("cls");
 
         switch(opcion)
         {
