@@ -13,7 +13,7 @@ public:
     void setPeso(int peso);
     void setTipoCombustible(std::string tipoCombustible);
     void setTipoCarga(std::string tipoCarga);
-    void setTipo(std::string tipo);
+    void setTipoAtaque(std::string tipo);
     void setTipoPropulsion(std::string tipoPropulsion);
     void setTipoGuia(std::string tipoGuia);
     void setHipersonico(bool hipersonico);
@@ -24,7 +24,7 @@ public:
     int getPeso();
     std::string getTipoCombustible();
     std::string getTipoCarga();
-    std::string getTipo();
+    std::string getTipoAtaque();
     std::string getTipoPropulsion();
     std::string getTipoGuia();
     bool gethipersonico();
@@ -39,7 +39,7 @@ private:
     int _peso;
     char _tipoCombustible[30];
     char _tipoCarga[30];
-    char _tipo[30];
+    char _tipoAtaque[30];
     char _tipoPropulsion[30];
     char _tipoGuia[30];
     bool _hipersonico;
