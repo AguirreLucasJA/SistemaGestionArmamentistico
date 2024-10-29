@@ -282,7 +282,7 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
 }
 
 /// ALTA USUARIO
-void Menu::altaUsuario()//carga un nuevo admin al archivo
+void Menu::altaUsuario()//CARGA UN NUEVO ADMIN AL ARCHIVO
 {
 
     int id;
@@ -304,7 +304,7 @@ void Menu::altaUsuario()//carga un nuevo admin al archivo
 }
 
 /// LISTAR USUARIOS
-void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
+void Menu::listarUsuarios()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR USUARIO
 {
 
     ArchivoAdmin ArchAdmin;
@@ -336,7 +336,7 @@ void Menu::listarUsuarios()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO
 }
 
 /// MODIFICAR USUARIO
-void Menu::modificarUsuario()//modifica admin existente en archivo
+void Menu::modificarUsuario()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
 {
     Validar validar;
     ArchivoAdmin ArchAdmin;
@@ -412,7 +412,7 @@ void Menu::modificarUsuario()//modifica admin existente en archivo
 }
 
 /// ELIMINAR USUARIO
-void Menu::eliminarUsuario()//Eliminacion logica de admin existente en archivo
+void Menu::eliminarUsuario()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
 {
 
     int Id;
@@ -528,7 +528,7 @@ void Menu::Clientes()//SUBMENU ABML PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL M
 }
 
 /// ALTA CLIENTE
-void Menu::altaCliente()//carga un nuevo pais al archivo
+void Menu::altaCliente()//CARGA UN NUEVO PAIS AL ARCHIVO
 {
     int id;
     Pais reg;
@@ -549,7 +549,7 @@ void Menu::altaCliente()//carga un nuevo pais al archivo
 }
 
 /// LISTAR CLIENTE
-void Menu::listarClientes()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO/CLIENTES
+void Menu::listarClientes()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR USUARIO/CLIENTES
 {
 
     ArchivoPais ArchPais;
@@ -581,7 +581,7 @@ void Menu::listarClientes()//Se utiliza dentro de MODIFICAR/ELIMINAR USUARIO/CLI
 }
 
 /// MODIFICAR CLIENTE
-void Menu::modificarCliente()//modifica pais existente en archivo
+void Menu::modificarCliente()//MODIFICA PAIS EXISTENTE EN ARCHIVO
 {
 
     Validar validar;
@@ -658,7 +658,7 @@ void Menu::modificarCliente()//modifica pais existente en archivo
 }
 
 /// ELIMINAR CLIENTE
-void Menu::eliminarCliente()//Eliminacion logica de pais existente en archivo
+void Menu::eliminarCliente()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
 {
 
     int Id;
@@ -766,8 +766,7 @@ void Menu::Stock()//SUBMENU ABML STOCK QUE ESTA DENTRO DE LAS OPCIONES DEL MENU 
 }
 
 /// STOCK MISIL
-//SUBMENU ABML MISIL QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockMisiles()
+void Menu::StockMisiles()//SUBMENU ABML MISIL QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
 {
     opcion = -1;
 
@@ -828,8 +827,7 @@ void Menu::StockMisiles()
 }
 
 /// STOCK AVION
-//SUBMENU ABML AVION QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockAviones()
+void Menu::StockAviones()//SUBMENU ABML AVION QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
 {
     opcion = -1;
 
@@ -898,8 +896,7 @@ void Menu::StockAviones()
 }
 
 ///STOCK BUQUE
-//SUBMENU ABML BUQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockBuques()
+void Menu::StockBuques()//SUBMENU ABML BUQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
 {
     opcion = -1;
 
@@ -964,8 +961,7 @@ void Menu::StockBuques()
 }
 
 ///STOCK TANQUE
-//SUBMENU ABML TANQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
-void Menu::StockTanques()
+void Menu::StockTanques()//SUBMENU ABML TANQUE QUE ESTA DENTRO DE LAS OPCIONES DEL MENU STOCK ADMIN
 {
     opcion = -1;
 
@@ -1028,33 +1024,33 @@ void Menu::StockTanques()
     }
 }
 
-
-
 /// MENU LISTADOS
-////SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
-void Menu::Listados(){
+void Menu::Listados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
+{
 
-	int opcion;
+    int opcion;
     opcion = -1;
 
-    while(opcion!=0){
-		system("cls");
+    while(opcion!=0)
+    {
+        system("cls");
         cabecera();
         gotoxy(30, 6);
-    cout << "MENU LISTADOS";
-    gotoxy(30, 8);
-    cout << "1 - CLIENTES(PAISES)";
-    gotoxy(30, 10);
-    cout << "2 - PRODUCTOS";
-    gotoxy(30, 12);
-    cout << "3 - ADMINISTRADORES";
-    gotoxy(30, 14);
-    cout << "0 - VOLVER";
-    gotoxy(30, 18);
-    cout << "INGRESE UNA OPCION: ";
-    cin >> opcion;
+        cout << "MENU LISTADOS";
+        gotoxy(30, 8);
+        cout << "1 - CLIENTES(PAISES)";
+        gotoxy(30, 10);
+        cout << "2 - PRODUCTOS";
+        gotoxy(30, 12);
+        cout << "3 - ADMINISTRADORES";
+        gotoxy(30, 14);
+        cout << "0 - VOLVER";
+        gotoxy(30, 18);
+        cout << "INGRESE UNA OPCION: ";
+        cin >> opcion;
 
-    switch(opcion) {
+        switch(opcion)
+        {
         case 1: //TODO: FALTA HACER************
 
             break;
@@ -1072,15 +1068,15 @@ void Menu::Listados(){
             break;
 
         case 0: //TODO: FALTA HACER************
-        	return;
+            return;
             break;
 
         default:
-        	cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
             system("pause");
             break;
+        }
     }
-}
 }
 
 
