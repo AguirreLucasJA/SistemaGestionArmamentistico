@@ -17,7 +17,6 @@ public:
     void setTipoPropulsion(std::string tipoPropulsion);
     void setTipoGuia(std::string tipoGuia);
     void setHipersonico(bool hipersonico);
-    void setEstado(bool estado);
 
     int getCantCabezasExplosivas();
     int getVelocidadMax();
@@ -28,7 +27,6 @@ public:
     std::string getTipoPropulsion();
     std::string getTipoGuia();
     bool getHipersonico();
-    bool getEstado();
 
     void cargar(int id);
     void mostrar();
@@ -43,5 +41,4 @@ private:
     char _tipoPropulsion[30];
     char _tipoGuia[30];
     bool _hipersonico;
-    bool _estado;
 };

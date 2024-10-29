@@ -49,11 +49,6 @@ void Misil::setHipersonico(bool hipersonico)
     _hipersonico = hipersonico;
 }
 
-void Misil::setEstado(bool estado)
-{
-    _estado= estado;
-}
-
 //GETTERS
 int Misil::getCantCabezasExplosivas()
 {
@@ -98,11 +93,6 @@ std::string Misil::getTipoGuia()
 bool Misil::getHipersonico()
 {
     return _hipersonico;
-}
-
-bool Misil::getEstado()
-{
-    return _estado;
 }
 
 //METODOS
@@ -303,8 +293,20 @@ void Misil::cargar(int id)
         _hipersonico = false;
         break;
     }
+}
 
-    _estado = true;
+void Misil::mostrar()
+{
+    Producto::mostrar();
+    cout << "CANTIDAD CABEZAS EXPLOSIVAS: " << _cantCabezasExplosivas << endl;
+    cout << "VELOCIDAD MAXIMA: " << _velocidadMax << endl;
+    cout << "PESO: " << _peso << endl;
+    cout << "TIPO DE COMBUSTIBLE: " << _tipoCombustible << endl;
+    cout << "TIPO DE CARGA: " << _tipoCarga << endl;
+    cout << "TIPO ATAQUE: " << _tipoAtaque << endl;
+    cout << "TIPO DE PROPULSION: " << _tipoPropulsion << endl;
+    cout << "TIPO DE GUIA: " << _tipoGuia << endl;
+    cout << "HIPERSONICO: " << (_hipersonico ? "Si" : "No") << endl;
 }
 
 
