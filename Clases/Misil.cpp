@@ -1,5 +1,7 @@
 #include "Misil.h"
+#include <iostream>//PARA LOS COUT
 #include<cstring>//para utilizar strcpy
+using namespace std;
 
 //SETTERS
 void Misil::setCantCabezasExplosivas(int cantCabezasExplosivas)
@@ -42,13 +44,267 @@ void Misil::setTipoGuia(std::string tipoGuia)
     strcpy(_tipoGuia, tipoGuia.c_str());
 }
 
-void Misil::setHipersonico(bool hipersonico) {
+void Misil::setHipersonico(bool hipersonico)
+{
     _hipersonico = hipersonico;
 }
 
+void Misil::setEstado(bool estado)
+{
+    _estado= estado;
+}
+
 //GETTERS
-//TODO: FALTA HACER
+int Misil::getCantCabezasExplosivas()
+{
+    return _cantCabezasExplosivas;
+}
+
+int Misil::getVelocidadMax()
+{
+    return _velocidadMax;
+}
+
+int Misil::getPeso()
+{
+    return _peso;
+}
+
+std::string Misil::getTipoCombustible()
+{
+    return _tipoCombustible;
+}
+
+std::string Misil::getTipoCarga()
+{
+    return _tipoCarga;
+}
+
+std::string Misil::getTipoAtaque()
+{
+    return _tipoAtaque;
+}
+
+std::string Misil::getTipoPropulsion()
+{
+    return _tipoPropulsion;
+}
+
+std::string Misil::getTipoGuia()
+{
+    return _tipoGuia;
+}
+
+bool Misil::getHipersonico()
+{
+    return _hipersonico;
+}
+
+bool Misil::getEstado()
+{
+    return _estado;
+}
 
 //METODOS
-//TODO: FALTA HACER
+void Misil::cargar(int id)
+{
+    int opcion = 0;
+    int cantCabezasExplosivas;
+    int velocidadMax;
+    int peso;
+    Producto::cargar(id);
+
+    cout << "ING TIPO DE PROPULSION: " << endl;
+    cout << "1- COHETE" << endl;
+    cout << "2- REACCION" << endl;
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(opcion != 1 && opcion != 2)
+    {
+        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
+    }
+
+    switch(opcion)
+    {
+    case 1:
+        strcpy(_tipoPropulsion, "COHETE");
+        break;
+    case 2:
+        strcpy(_tipoPropulsion, "REACCION");
+        break;
+    }
+
+    cout << "ING TIPO DE GUIA: " << endl;
+    cout << "1- TOTAL" << endl;
+    cout << "2- PARCIAL" << endl;
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(opcion != 1 && opcion != 2)
+    {
+        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
+    }
+
+    switch(opcion)
+    {
+    case 1:
+        strcpy(_tipoGuia, "TOTAL");
+        break;
+    case 2:
+        strcpy(_tipoGuia, "PARCIAL");
+        break;
+    }
+
+    cout << "MAX 10 -> ING CANTIDAD DE CABEZAS EXPLOSIVAS: ";
+    cin >> cantCabezasExplosivas;
+
+    while(cantCabezasExplosivas > 10 || cantCabezasExplosivas < 0)
+    {
+        cout << "Cantidad ingresada incorrecta, re ingrese..." << endl;
+        cout << "MAX 10 -> ING CANTIDAD DE CABEZAS EXPLOSIVAS: ";
+        cin >> cantCabezasExplosivas;
+    }
+    setCantCabezasExplosivas(cantCabezasExplosivas);
+
+    cout << "ENTRE (101 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
+    cin >> velocidadMax;
+
+    while(velocidadMax < 100 || velocidadMax > 10000)
+    {
+        cout << "Velocidad ingresada incorrecta, re ingrese..." << endl;
+        cout << "ENTRE (101 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
+        cin >> velocidadMax;
+    }
+
+    setVelocidadMax(velocidadMax);
+
+    cout << "ENTRE (1 - 4)TN -> ING PESO: ";
+    cin >> peso;
+
+    while(peso < 0 || peso > 5)
+    {
+        cout << "Peso ingresado incorrecto, re ingrese..." << endl;
+        cout << "ENTRE (1 - 4)TN -> ING PESO: ";
+        cin >> peso;
+    }
+
+    setPeso(peso);
+
+    cout << "ING TIPO DE COMBUSTIBLE: " << endl;
+    cout << "1- SOLIDO" << endl;
+    cout << "2- LIQUIDO" << endl;
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(opcion != 1 && opcion != 2)
+    {
+        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
+    }
+
+    switch(opcion)
+    {
+    case 1:
+        strcpy(_tipoCombustible, "SOLIDO");
+        break;
+    case 2:
+        strcpy(_tipoCombustible, "LIQUIDO");
+        break;
+    }
+
+    cout << "ING TIPO DE CARGA: " << endl;
+    cout << "1- EXPLOSIVA" << endl;
+    cout << "2- NUCLEAR" << endl;
+    cout << "3- QUIMICA" << endl;
+    cout << "4- BIOLOGICA" << endl;
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(opcion < 1 || opcion > 4)
+    {
+        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
+    }
+
+    switch(opcion)
+    {
+    case 1:
+        strcpy(_tipoCarga, "EXPLOSIVA");
+        break;
+    case 2:
+        strcpy(_tipoCarga, "NUCLEAR");
+        break;
+    case 3:
+        strcpy(_tipoCarga, "QUIMICA");
+        break;
+    case 4:
+        strcpy(_tipoCarga, "BIOLOGIA");
+        break;
+
+    }
+
+    cout << "ING TIPO DE ATAQUE: " << endl;
+    cout << "1- AIRE-AIRE" << endl;
+    cout << "2- AIRE-TIERRA" << endl;
+    cout << "3- TIERRA-AIRE" << endl;
+    cout << "4- TIERRA-TIERRA" << endl;
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(opcion < 1 || opcion > 4)
+    {
+        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
+    }
+
+    switch(opcion)
+    {
+    case 1:
+        strcpy(_tipoAtaque, "AIRE-AIRE");
+        break;
+    case 2:
+        strcpy(_tipoAtaque, "AIRE-TIERRA");
+        break;
+    case 3:
+        strcpy(_tipoAtaque, "TIERRA-AIRE");
+        break;
+    case 4:
+        strcpy(_tipoAtaque, "TIERRA-TIERRA");
+        break;
+    }
+
+    cout << "ES HIPERSONICO: " << endl;
+    cout << "1- SI" << endl;
+    cout << "2- NO" << endl;
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(opcion != 1 && opcion != 2)
+    {
+        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
+    }
+
+    switch(opcion)
+    {
+    case 1:
+        _hipersonico = true;
+        break;
+    case 2:
+        _hipersonico = false;
+        break;
+    }
+
+    _estado = true;
+}
+
 

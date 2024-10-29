@@ -27,10 +27,10 @@ public:
     std::string getTipoAtaque();
     std::string getTipoPropulsion();
     std::string getTipoGuia();
-    bool gethipersonico();
+    bool getHipersonico();
     bool getEstado();
 
-    void cargar();
+    void cargar(int id);
     void mostrar();
 
 private:
