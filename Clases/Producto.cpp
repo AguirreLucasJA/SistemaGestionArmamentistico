@@ -100,11 +100,13 @@ int Producto::getLote()
 //METODOS
 void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar reg.
 {
-    //TODO: SE CARGA TODO MENOS _fechaAlta. ver si es necesario aca o cuando...
+    Fecha fechaAlta;
     Validar validar;
     string nombre;
     string paisOrigen;
     string descripcion;
+
+    setFecha(fechaAlta);
 
     setId(id);//le setea el id obtenido con la funcion contar registros de la Clase Archivo del Producto
     cout << "CARGANDO ID: " << getId() << endl;//muestra el nuevo id autonumerico
@@ -160,15 +162,15 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
 
 void Producto::mostrar()
 {
-    //TODO: SE MUESTRA TODO MENOS _fechaAlta. ver si es necesario aca o cuando...
-    cout<<"ID: " << getId() << endl;
-    cout<<"NOMBRE: " << getNombre() << endl;
-    cout<<"PRECIO: u$d " << getPrecio() << endl;
+    cout << "ID: " << getId() << endl;
+    cout << "NOMBRE: " << getNombre() << endl;
+    cout << "DESCRIPCION: " << getDescripcion() << endl;
+    cout << "PAIS DE ORIGEN: " << getPaisOrigen() << endl;
+    cout << "STOCK: " << getStock() << endl;
+    cout << "PRECIO: u$d " << getPrecio() << endl;
+    cout << "LOTE: " << getLote() << endl;
+    cout << "FECHA ALTA: " << getFechaAlta().toString() << endl;
     cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
-    cout<<"STOCK: " << getStock() << endl;
-    cout<<"LOTE: " << getLote() << endl;
-    cout<<"PAIS DE ORIGEN: " << getPaisOrigen() << endl;
-    cout<<"DESCRIPCION: " << getDescripcion() << endl;
 }
 
 
