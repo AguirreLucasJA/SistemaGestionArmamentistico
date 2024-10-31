@@ -35,6 +35,7 @@
 		<Unit filename="Cabeceras.h" />
 		<Unit filename="Clases/Admin.cpp" />
 		<Unit filename="Clases/Admin.h" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoAdmin.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoAdmin.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.h" />
 		<Unit filename="Clases/Entidad.cpp" />

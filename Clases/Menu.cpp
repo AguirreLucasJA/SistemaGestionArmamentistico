@@ -105,7 +105,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 
     bool ingresoAdmin = false;
 
-    regAdmin = archivoAdmin.buscarNombre(usuario.c_str());//en el archivoAdmin va a buscar el nombre de usuario que ingresaste y te DEVUELVE EL REGISTRO.
+    regAdmin = archivoAdmin.buscarXUsuario(usuario);//en el archivoAdmin va a buscar el nombre de usuario que ingresaste y te DEVUELVE EL REGISTRO.
     if (regAdmin.getUsuario() == usuario && regAdmin.getClave() == clave) //si tanto el user y pass ingresados coinciden con el regAdmin
     {
         menuPrincipalAdmin();
@@ -289,18 +289,17 @@ void Menu::altaUsuario()//CARGAR UN NUEVO ADMIN AL ARCHIVO
     Admin reg;
     ArchivoAdmin ArchAdmin;
     //devuelve la cantidad -1 de los reg del archivo
-    id = ArchAdmin.contarRegistros(); //obtiene nuevo ID autonumerico.
+    id = ArchAdmin.getNuevoId(); //obtiene nuevo ID autonumerico.
     reg.cargar(id);//carga un nuevo reg admin setenadole el ID obtenido
-    if(ArchAdmin.grabarRegistro(reg)) //lo cargan en archivo admin
+    if(ArchAdmin.guardar(reg)) //lo cargan en archivo admin
     {
         cout << "ALTA EXITOSA..." << endl;
-        system("pause");
     }
     else
     {
         cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
-        system("pause");
     }
+    system("pause");
 }
 
 /// LISTAR USUARIOS
@@ -308,31 +307,31 @@ void Menu::listarUsuarios()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR USUARIO
 {
 
     ArchivoAdmin ArchAdmin;
+    Admin *vecAdmin = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
 
-    int cant = ArchAdmin.contarRegistros();
-    Admin *admin= new Admin[cant];
+    int cant = ArchAdmin.getCantidadReg();
 
-    if(admin == nullptr)
+    vecAdmin = new Admin[cant];
+
+    //verifico memoria
+    if(vecAdmin == nullptr)
     {
         cout << "No se pudo pedir memoria... " << endl;
         system("pause");
         return;
     }
 
+    ArchAdmin.leerTodos(vecAdmin,cant);
+
     for(int i=0; i<cant; i++)
     {
-        admin[i] = ArchAdmin.leerRegistro(i);
-    }
-
-    for(int j=0; j<cant; j++)
-    {
-        if(admin[j].getEstado()==1)//si esta eliminado no lo muestra
+        if(vecAdmin[i].getEstado())//si esta eliminado no lo muestra
         {
-            admin[j].mostrar();
+            vecAdmin[i].mostrar();
             cout << "------------------------------" << endl;
         }
     }
-    delete [] admin;
+    delete [] vecAdmin;
 }
 
 /// MODIFICAR USUARIO
@@ -340,6 +339,7 @@ void Menu::modificarUsuario()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
 {
     Validar validar;
     ArchivoAdmin ArchAdmin;
+    Admin reg;
     int id;
     string respuesta;
     cin.ignore();//arregla de menu usuarios el "cin>>opcion;" sino se saltea el LISTAR USUARIOS.
@@ -354,61 +354,71 @@ void Menu::modificarUsuario()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
     cout << "INGRESE EL ID A BUSCAR: ";
     cin >> id;
     cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
-    int pos = ArchAdmin.buscarRegistro(id);
-    Admin reg = ArchAdmin.leerRegistro(pos);
-    reg.mostrar();
-    if(reg.getEstado()== false)
-    {
-        cout << "REGISTRO DADO DE BAJA, NO SE PUEDE MODIFICAR..." << endl;
-        system("pause");
-        return;
-    }
+    int pos = ArchAdmin.buscar(id);
 
-    cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
-    getline(cin, respuesta);
-    string clave;
-    string descripcion;
-    //si le ingresas cualquier otra cosa que no sea s/S RETURN al SUBmenu USUARIOS
-    if(respuesta == "s" || respuesta == "S")
+    if(pos != -1) // SI encontro el admin
     {
-        cout << "MAX 30 CARACTERES -> ING NUEVA CLAVE: ";
-        getline(cin, clave);
-        while(!validar.esStringValido(clave,30))
-        {
-            cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
-            system("pause");
-            system("cls");
-            cout << "REINGRESE CLAVE:";
-            getline(cin, clave);
-        }
-        reg.setClave(clave);
+        reg = ArchAdmin.leer(pos);
 
-        cout << "MAX 30 CARACTERES -> ING NUEVA DESCRIPCION: ";
-        getline(cin, descripcion);
-        while(!validar.esStringValido(descripcion,30))
+        if(reg.getEstado())//SI no esta eliminado
         {
-            cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
-            system("pause");
-            system("cls");
-            cout << "REINGRESE DESCRIPCION:";
-            getline(cin, descripcion);
+            reg.mostrar();
+            cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+            string clave;
+            string descripcion;
+            //si le ingresas cualquier otra cosa que no sea s/S RETURN al SUBmenu USUARIOS
+            if(respuesta == "s" || respuesta == "S")
+            {
+                cout << "MAX 30 CARACTERES -> ING NUEVA CLAVE: ";
+                getline(cin, clave);
+                while(!validar.esStringValido(clave,30))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE CLAVE:";
+                    getline(cin, clave);
+                }
+                reg.setClave(clave);
+
+                cout << "MAX 30 CARACTERES -> ING NUEVA DESCRIPCION: ";
+                getline(cin, descripcion);
+                while(!validar.esStringValido(descripcion,30))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE DESCRIPCION:";
+                    getline(cin, descripcion);
+                }
+                reg.setDescripcion(descripcion);
+
+                if(ArchAdmin.guardar(reg,pos))
+                {
+                    cout << "MODIFICACION EXITOSA..." << endl;
+                }
+                else
+                {
+                    cout << "ERROR, NO SE HA REALIZADO LA MODIFICACION..." << endl;
+                }
+
+            }
+            else//NO eligio modificar el admin.
+            {
+                cout << "El admin no fue modificado" << endl;
+            }
         }
-        reg.setDescripcion(descripcion);
+        else
+        {
+            cout << "El admin no se encuentra en el sistema." << endl;
+        }
     }
     else
     {
-        return;
-    }
-    if(ArchAdmin.modificarRegistro(reg, pos)) //lo carga en el archivo y si lo pudo cargar muestra
-    {
-        cout << "MODIFICACION EXITOSA..." << endl;
-    }
-    else
-    {
-        cout << "ERROR, NO SE HA REALIZADO LA MODIFICACION..." << endl;
+        cout << "El admin no se encuentra en el sistema." << endl;
     }
     system("pause");
-
 }
 
 /// ELIMINAR USUARIO
@@ -433,8 +443,8 @@ void Menu::eliminarUsuario()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
     cin >> Id;
     cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
 
-    int pos = ArchAdmin.buscarRegistro(Id);
-    reg = ArchAdmin.leerRegistro(pos);
+    int pos = ArchAdmin.buscar(Id);
+    reg = ArchAdmin.leer(pos);
     reg.mostrar();
 
     //verificar el estado del registro
@@ -456,7 +466,7 @@ void Menu::eliminarUsuario()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
     {
         return;
     }
-    if(ArchAdmin.modificarRegistro(reg, pos))
+    if(ArchAdmin.guardar(reg, pos))
     {
         cout << "BAJA EXITOSA..." << endl;
     }
