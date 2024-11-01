@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Pais.h"
+
 class Menu
 {
 public:
@@ -32,6 +34,10 @@ public:
 	void StockTanques();//SUBMENU
 
 	void Listados(); //SUBMENU ADMIN
+
+	void Reportes(); //SUBMENU ADMIN reportes
+
+	void menuPrincipalPais(Pais pais); //MENU PRINCIPAL PAIS CLIENTE
 
 
 

@@ -15,7 +15,8 @@ using namespace rlutil;//rlutil::
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
 
-
+///----------------------------------------------------------------------------------------------------------------
+///----------------------ESTRUCTURA VISUAL CABECERA+RLUTIL----------------------------------------------------------------------
 
 /// DIBUJAR RECUADRO
 void Menu::dibujarCuadro(int x1, int y1, int x2, int y2)
@@ -72,6 +73,9 @@ void Menu::cabecera()
     gotoxy(29, 3);
     cout << "PROGRAMANDO TU DEFENSA" << endl;
 }
+
+///----------------------------------------------------------------------------------------------------------------
+///-----------------------MENU INGRESO (USUARIOS EN GRAL)----------------------------------------------------------------------
 
 /// MENU INGRESO
 bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
@@ -166,6 +170,10 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     anykey();//espera una el ingreso de una tecla para continuar
 }
 
+
+///----------------------------------------------------------------------------------------------------------------
+///-----------------------MENU Y SUBMENUS ADMINISTRADOR----------------------------------------------------------------------
+
 /// MENU PRINCIPAL ADMINISTRADOR
 void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS SUBMENU.
 {
@@ -215,7 +223,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             Listados();
             break;
         case 5:
-            //Reportes(); //TODO: FALTA HACER***
+            Reportes();
             break;
         case 0:
             break;
@@ -1081,6 +1089,136 @@ void Menu::Listados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU
 }
 
 
+/// MENU REPORTES
+void Menu::Reportes()
+{
+
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+		system("cls");
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"REPORTES";
+        gotoxy (2,7);
+        cout<<"------------------";
+        gotoxy (2,10);
+        cout<<"INGRESE UNA OPCION: ";
+
+        gotoxy (2,13);
+        cout<<"1 - VER FACTURAS";
+        gotoxy (2,14);
+        cout<<"2 - BUSCAR FACTURAS";
+        gotoxy (2,15);
+        cout<<"3 - RANKING DE CLIENTES";
+        gotoxy (2,16);
+        cout<<"4 - RANKING DE PRODUCTOS";
+        gotoxy (2,17);
+        cout<<"0 - MENU ANTERIOR ";
+        gotoxy (2,27);
+        cout<<"->: "; //TODO:: SALE SEGUIDO DE MENÚ ANTERIOR EN PANTALLA
+        cin>>opcion;
+        system("cls");
+
+        switch(opcion)
+        {
+
+        case 1:
+        	//TODO:: FALTA HACER*********************
+
+            break;
+
+        case 2:
+        	//TODO:: FALTA HACER*********************
+
+            break;
+
+        case 3:
+        	//TODO:: FALTA HACER*********************
+
+            break;
+
+        case 4:
+        	//TODO:: FALTA HACER*********************
+
+            break;
+
+        case 0:
+            return;
+            break;
+
+        default:
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            system("pause");
+            break;
+        }
+    }
+}
 
 
 
+///----------------------------------------------------------------------------------------------------------------
+///-----------------------MENU Y SUBMENUS PAIS CLIENTE----------------------------------------------------------------------
+
+/// MENU PRINCIPAL PAIS
+void Menu::menuPrincipalPais(Pais reg){
+    cls();
+    int opcion = -1;
+
+    system("cls");
+	cabecera();
+    //system("mode con: cols=80 lines=25"); //SE DEFINE LAS DIMENSIONES DE LA VENTANA DEL PROGRAMA A 80 COLUMNAS Y 25 FILAS
+    //system("COLOR 70"); //SE DA UN COLOR DE FONDO Y COLOR A LAS LETRAS
+    //dibujarCuadro(0,0,78,24); //SE DIBUJA EL CUADRO PRINCIPAL
+    //dibujarCuadro(1,1,77,3); //SE DIBUJA EL CUADRO DEL TITULO
+    gotoxy(22,2);
+    cout<<"SGA - SISTEMA GESTION ARMAMENTISTICO";
+    gotoxy(29, 3);
+    cout << "PROGRAMANDO TU DEFENSA" << endl;
+
+	system("cls");
+	cabecera();
+    gotoxy (2,6);
+    cout<<"MENU CLIENTE";
+    gotoxy (2,7);
+    cout<<"------------------";
+    gotoxy (2,10);
+    cout<<"INGRESE UNA OPCION: ";
+
+    gotoxy (2,13);
+    cout<<"1 - SOLICITUD DE ADQUISICIONES: ";
+    gotoxy (2,14);
+    cout<<"2 - CONSULTA DE DINERO EN CUENTA: ";
+    gotoxy (2,15);
+    cout<<"3 - INGRESO DE DINERO EN CUENTA: ";
+    gotoxy (2,16);//*************************************************************
+    cout<<"4 - COMPRAS REALIZADAS: ";//******************************************
+    gotoxy (2,17);
+    cout<<"0 - SALIR DEL PROGRAMA: ";
+    gotoxy (2,18);
+    cout<<"->: ";
+    cin>>opcion;
+
+        switch(opcion){
+
+            case 1:
+
+                break;
+
+            case 2:
+
+                break;
+
+            case 3:
+
+                break;
+
+            case 0:
+                return;
+
+            default:
+                break;
+        }
+}
