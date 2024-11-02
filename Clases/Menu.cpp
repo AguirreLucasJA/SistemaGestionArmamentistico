@@ -62,8 +62,7 @@ void Menu::gotoxy(int x, int y)
 /// CABECERA
 void Menu::cabecera()
 {
-    cls();//rlutil.h
-    system("mode con: cols=80 lines=25"); // DEFINE DIMENSIONES VENTANA PROGRAMA 80 COLUMNAS 25 FILAS
+    system("cls");
     system("COLOR 70"); // COLOR FONDO y COLOR LETRAS
     dibujarCuadro(0, 0, 78, 24); // DIBUJO CUADRO PRINCIPAL
     dibujarCuadro(1, 1, 77, 3); // DIBUJO CUADRO TITULO
@@ -183,11 +182,11 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
         cout << "INGRESE UNA OPCION: ";
 
         gotoxy (2,13);
-        cout << "1 - USUARIOS: ";
+        cout << "1 - ADMINISTRADORES: ";
         gotoxy (2,14);
         cout << "2 - STOCK: ";
         gotoxy (2,15);
-        cout << "3 - CLIENTES: ";
+        cout << "3 - PAISES: ";
         gotoxy (2,16);
         cout << "4 - LISTADOS: ";
         gotoxy (2,17);
@@ -203,7 +202,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
         switch(opcion)
         {
         case 1:
-            Usuarios();
+            subMenuAdmin();
             break;
         case 2:
             Stock();
@@ -227,8 +226,8 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
     }
 }
 
-/// MENU USUARIOS
-void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
+/// SUBMENU ADMIN
+void Menu::subMenuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
     opcion = -1;
 
@@ -238,7 +237,7 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
         cabecera();
 
         gotoxy (2,6);
-        cout<<"MENU USUARIOS ADMINISTRADORES";
+        cout<<"MENU ADMINISTRADORES";
         gotoxy (2,7);
         cout<<"------------------";
         gotoxy (2,10);
@@ -262,13 +261,13 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
         switch(opcion)
         {
         case 1:
-            altaUsuario();
+            altaAdmin();
             break;
         case 2:
-            eliminarUsuario();
+            eliminarAdmin();
             break;
         case 3:
-            modificarUsuario();
+            modificarAdmin();
             break;
         case 0:
             opcion = 0;
@@ -281,8 +280,8 @@ void Menu::Usuarios()//SUBMENU ABML USUARIOS QUE ESTA DENTRO DE LAS OPCIONES DEL
     }
 }
 
-/// ALTA USUARIO
-void Menu::altaUsuario()//CARGAR UN NUEVO ADMIN AL ARCHIVO
+/// ALTA ADMIN
+void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
 {
 
     int id;
@@ -302,8 +301,8 @@ void Menu::altaUsuario()//CARGAR UN NUEVO ADMIN AL ARCHIVO
     system("pause");
 }
 
-/// LISTAR USUARIOS
-void Menu::listarUsuarios()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR USUARIO
+/// LISTAR ADMINS
+void Menu::listarAdmins()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR USUARIO
 {
 
     ArchivoAdmin ArchAdmin;
@@ -328,30 +327,31 @@ void Menu::listarUsuarios()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR USUARIO
         if(vecAdmin[i].getEstado())//si esta eliminado no lo muestra
         {
             vecAdmin[i].mostrar();
-            cout << "------------------------------" << endl;
+            cout << "-----------------------" << endl;
         }
     }
     delete [] vecAdmin;
 }
 
-/// MODIFICAR USUARIO
-void Menu::modificarUsuario()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
+/// MODIFICAR ADMIN
+void Menu::modificarAdmin()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
 {
     Validar validar;
     ArchivoAdmin ArchAdmin;
     Admin reg;
     int id;
     string respuesta;
+    float sueldo;
     cin.ignore();//arregla de menu usuarios el "cin>>opcion;" sino se saltea el LISTAR USUARIOS.
     cout << "LISTAR USUARIOS? (s / n): ";
     getline(cin, respuesta);
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarUsuarios();
+        listarAdmins();
     }
 
-    cout << "INGRESE EL ID A BUSCAR: ";
+    cout << "INGRESE EL ID A MODIFICAR: ";
     cin >> id;
     cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
     int pos = ArchAdmin.buscar(id);
@@ -394,6 +394,10 @@ void Menu::modificarUsuario()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
                 }
                 reg.setDescripcion(descripcion);
 
+                cout << "ING NUEVO SUELDO: $";
+                cin >> sueldo;
+                reg.setSueldo(sueldo);
+
                 if(ArchAdmin.guardar(reg,pos))
                 {
                     cout << "MODIFICACION EXITOSA..." << endl;
@@ -421,8 +425,8 @@ void Menu::modificarUsuario()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
     system("pause");
 }
 
-/// ELIMINAR USUARIO
-void Menu::eliminarUsuario()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
+/// ELIMINAR ADMIN
+void Menu::eliminarAdmin()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
 {
 
     int Id;
@@ -436,10 +440,10 @@ void Menu::eliminarUsuario()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarUsuarios();
+        listarAdmins();
     }
 
-    cout << "INGRESE EL ID A BUSCAR: ";
+    cout << "INGRESE EL ID A ELIMINAR: ";
     cin >> Id;
     cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
 

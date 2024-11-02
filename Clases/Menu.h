@@ -12,12 +12,12 @@ public:
 
     void menuPrincipalAdmin();// MENU PRINCIPAL ADMIN
 
-    void Usuarios();//SUBMENU USUARIOS DENTRO DE MENU PRINCIPAL ADMIN
-    void altaUsuario();//ABM USUARIOS
-    void modificarUsuario();//ABM USUARIOS
-    void eliminarUsuario();//ABM USUARIOS
+    void subMenuAdmin();//SUBMENU ADMIN DENTRO DE MENU PRINCIPAL ADMIN
+    void altaAdmin();//ABM ADMIN
+    void modificarAdmin();//ABM ADMIN
+    void eliminarAdmin();//ABM ADMIN
 
-    void listarUsuarios();//SE USA EN "BAJA", "MODIFICACION" DE USUARIOS
+    void listarAdmins();//SE USA EN "BAJA", "MODIFICACION" DE ADMIN
     void listarClientes();//SE USA EN "BAJA", "MODIFICACION" DE PAISES
 
     void Clientes();//SUBMENU CLIENTES/PAISES DENTRO DE MENU PRINCIPAL ADMIN
