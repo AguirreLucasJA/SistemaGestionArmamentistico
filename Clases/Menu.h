@@ -1,4 +1,5 @@
 #pragma once
+#include"Pais.h"
 
 class Menu
 {
@@ -25,15 +26,17 @@ public:
     void modificarPais();//ABM PAIS
     void eliminarPais();//ABM PAIS
 
-	void menuStock(); //SUBMENU STOCK DENTRO DEL MENU PRINCIPAL ADMIN STOCK
-	void subMenuStockMisiles();
-	void subMenuStockAviones();
-	void subMenuStockBuques();
-	void subMenuStockTanques();
+    void menuStock(); //SUBMENU STOCK DENTRO DEL MENU PRINCIPAL ADMIN STOCK
+    void subMenuStockMisiles();
+    void subMenuStockAviones();
+    void subMenuStockBuques();
+    void subMenuStockTanques();
 
-	void menuListados(); //SUBMENU LISTADOS DENTRO DEL MENU PRINCIPAL ADMIN STOCK
+    void menuListados(); //SUBMENU LISTADOS DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 
     void menuReportes(); //SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
+///-------------------------------------------------------------------------------//
+    void menuPrincipalPais(Pais regPais); //MENU PRINCIPAL PAIS CLIENTE
 
 private:
     int opcion;

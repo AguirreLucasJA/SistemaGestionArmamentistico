@@ -122,9 +122,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     }
     if (regPais.getUsuario() == usuario && regPais.getClave() == clave && regPais.getEstado())
     {
-        //menuPrincipalPais(regPais); //TODO: FALTA HACER***
-        cout << "ENTRO AL MENU PAIS";
-        system("pause");
+        menuPrincipalPais(regPais);
     }
     else if(ingresoAdmin==false)  //si no, nunca se ingreso un admin?
     {
@@ -204,20 +202,26 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
         case 1:
             menuAdmin();
             break;
+
         case 2:
             menuStock();
             break;
+
         case 3:
             menuPaises();
             break;
+
         case 4:
             menuListados();
             break;
+
         case 5:
             menuReportes();
             break;
+
         case 0:
             break;
+
         default:
             gotoxy (2,19);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
@@ -274,9 +278,10 @@ void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL ME
             modificarAdmin();
             system("pause");
             break;
+
         case 0:
-            opcion = 0;
             break;
+
         default:
             gotoxy (2,17);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
@@ -546,7 +551,6 @@ void Menu::menuPaises()//SUBMENU ABM PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL 
             break;
 
         case 0:
-            opcion = 0;
             break;
 
         default:
@@ -812,7 +816,6 @@ void Menu::menuStock()//SUBMENU ABM STOCK QUE ESTA DENTRO DE LAS OPCIONES DEL ME
             break;
 
         case 0:
-            opcion = 0;
             break;
 
         default:
@@ -1197,6 +1200,74 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         switch(opcion)
         {
 
+        case 1:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 2:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 3:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 4:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 0:
+            break;
+
+        default:
+            gotoxy (2,18);
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,19);
+            system("pause");
+            break;
+        }
+    }
+}
+
+/// MENU PRINCIPAL PAIS
+void Menu::menuPrincipalPais(Pais regPais)
+{
+    int opcion = -1;
+    while(opcion!=0)
+    {
+
+        cabecera();
+
+        gotoxy (2,6);
+        cout << "MENU CLIENTE";
+        gotoxy (2,7);
+        cout << "------------";
+
+        gotoxy (2,9);
+        cout << "1 - SOLICITUD DE ADQUISICIONES";
+        gotoxy (2,10);
+        cout << "2 - CONSULTA DE DINERO EN CUENTA";
+        gotoxy (2,11);
+        cout << "3 - INGRESO DE DINERO EN CUENTA";
+        gotoxy (2,12);
+        cout << "4 - COMPRAS REALIZADAS";
+        gotoxy (2,13);
+        cout << "0 - SALIR DEL PROGRAMA";
+        gotoxy (2,15);
+        cout << "INGRESE UNA OPCION: ";
+
+        cin >> opcion;
+
+        switch(opcion)
+        {
         case 1:
             system("cls");
             //TODO:FALTA HACER**
