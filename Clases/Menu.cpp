@@ -181,26 +181,23 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
         cout << "MENU ADMINISTRADOR";
         gotoxy (2,7);
         cout << "------------------";
+
+        gotoxy (2,9);
+        cout << "1 - ADMINISTRADORES: ";
         gotoxy (2,10);
+        cout << "2 - STOCK: ";
+        gotoxy (2,11);
+        cout << "3 - PAISES: ";
+        gotoxy (2,12);
+        cout << "4 - LISTADOS: ";
+        gotoxy (2,13);
+        cout << "5 - REPORTES: ";
+        gotoxy (2,14);
+        cout << "0 - SALIR DEL PROGRAMA: ";
+        gotoxy (2,16);
         cout << "INGRESE UNA OPCION: ";
 
-        gotoxy (2,13);
-        cout << "1 - ADMINISTRADORES: ";
-        gotoxy (2,14);
-        cout << "2 - STOCK: ";
-        gotoxy (2,15);
-        cout << "3 - PAISES: ";
-        gotoxy (2,16);
-        cout << "4 - LISTADOS: ";
-        gotoxy (2,17);
-        cout << "5 - REPORTES: ";
-        gotoxy (2,18);
-        cout << "0 - SALIR DEL PROGRAMA: ";
-        gotoxy (2,19);
-        cout << "->: ";
-
         cin >> opcion;
-
 
         switch(opcion)
         {
@@ -217,12 +214,14 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             menuListados();
             break;
         case 5:
-            //Reportes(); //TODO: FALTA HACER***
+            menuReportes();
             break;
         case 0:
             break;
         default:
+            gotoxy (2,19);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,20);
             system("pause");
             break;
         }
@@ -242,41 +241,46 @@ void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL ME
         gotoxy (2,6);
         cout<<"MENU ADMINISTRADORES";
         gotoxy (2,7);
-        cout<<"------------------";
-        gotoxy (2,10);
-        cout<<"INGRESE UNA OPCION: ";
+        cout<<"--------------------";
 
-        gotoxy (2,13);
+        gotoxy (2,9);
         cout<<"1 - ALTA DE ADMINISTRADOR: ";
-        gotoxy (2,14);
+        gotoxy (2,10);
         cout<<"2 - BAJA DE ADMINISTRADOR: ";
-        gotoxy (2,15);
+        gotoxy (2,11);
         cout<<"3 - MODIFICACION DE ADMINISTRADOR: ";
-        gotoxy (2,16);
+        gotoxy (2,12);
         cout<<"0 - VOLVER ATRAS: ";
-        gotoxy (2,17);
-        cout<<"->: ";
+        gotoxy (2,14);
+        cout<<"INGRESE UNA OPCION: ";
 
         cin>>opcion;
 
-        system("cls");
 
         switch(opcion)
         {
         case 1:
+            system("cls");
             altaAdmin();
+            system("pause");
             break;
         case 2:
+            system("cls");
             eliminarAdmin();
+            system("pause");
             break;
         case 3:
+            system("cls");
             modificarAdmin();
+            system("pause");
             break;
         case 0:
             opcion = 0;
             break;
         default:
+            gotoxy (2,17);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,18);
             system("pause");
             break;
         }
@@ -301,7 +305,6 @@ void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
     {
         cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
     }
-    system("pause");
 }
 
 /// LISTAR ADMINS
@@ -427,7 +430,6 @@ void Menu::modificarAdmin()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
     {
         cout << "El admin no se encuentra en el sistema." << endl;
     }
-    system("pause");
 }
 
 /// ELIMINAR ADMIN
@@ -492,7 +494,6 @@ void Menu::eliminarAdmin()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
     {
         cout << "El admin no se encuentra en el sistema." << endl;
     }
-    system("pause");
 }
 
 /// SUBMENU PAIS
@@ -508,38 +509,40 @@ void Menu::menuPaises()//SUBMENU ABM PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         gotoxy (2,6);
         cout<<"MENU PAISES";
         gotoxy (2,7);
-        cout<<"------------------";
+        cout<<"-----------";
+
+        gotoxy (2,9);
+        cout<<"1 - ALTA DE PAIS: ";
         gotoxy (2,10);
+        cout<<"2 - BAJA DE PAIS: ";
+        gotoxy (2,11);
+        cout<<"3 - MODIFICACION DE PAIS: ";
+        gotoxy (2,12);
+        cout<<"0 - VOLVER ATRAS: ";
+        gotoxy (2,14);
         cout<<"INGRESE UNA OPCION: ";
 
-        gotoxy (2,13);
-        cout<<"1 - ALTA DE PAIS: ";
-        gotoxy (2,14);
-        cout<<"2 - BAJA DE PAIS: ";
-        gotoxy (2,15);
-        cout<<"3 - MODIFICACION DE PAIS: ";
-        gotoxy (2,16);
-        cout<<"0 - VOLVER ATRAS: ";
-        gotoxy (2,17);
-        cout<<"->: ";
-
         cin>>opcion;
-
-        system("cls");
 
         switch(opcion)
         {
 
         case 1:
+            system("cls");
             altaPais();
+            system("pause");
             break;
 
         case 2:
+            system("cls");
             eliminarPais();
+            system("pause");
             break;
 
         case 3:
+            system("cls");
             modificarPais();
+            system("pause");
             break;
 
         case 0:
@@ -547,12 +550,13 @@ void Menu::menuPaises()//SUBMENU ABM PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL 
             break;
 
         default:
+            gotoxy (2,17);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,18);
             system("pause");
             break;
         }
     }
-
 }
 
 /// ALTA PAIS
@@ -573,7 +577,6 @@ void Menu::altaPais()//CARGA UN NUEVO PAIS AL ARCHIVO
     {
         cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
     }
-    system("pause");
 }
 
 /// LISTAR PAIS
@@ -694,7 +697,6 @@ void Menu::modificarPais()//MODIFICA PAIS EXISTENTE EN ARCHIVO
     {
         cout << "El pais no se encuentra en el sistema." << endl;
     }
-    system("pause");
 }
 
 /// ELIMINAR PAIS
@@ -759,59 +761,63 @@ void Menu::eliminarPais()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
     {
         cout << "El pais no se encuentra en el sistema." << endl;
     }
-    system("pause");
 }
 
 /// SUBMENU STOCK
 void Menu::menuStock()//SUBMENU ABM STOCK QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
-    int opcion;
+    opcion = -1;
 
-    cabecera();
-
-    gotoxy(30, 6);
-    cout << "MENU STOCK";
-    gotoxy(30, 8);
-    cout << "1 - MISILES";
-    gotoxy(30, 10);
-    cout << "2 - AVIONES";
-    gotoxy(30, 12);
-    cout << "3 - BUQUES";
-    gotoxy(30, 14);
-    cout << "4 - TANQUES";
-    gotoxy(30, 16);
-    cout << "0 - VOLVER";
-    gotoxy(30, 18);
-    cout << "INGRESE UNA OPCION: ";
-    cin >> opcion;
-
-    switch(opcion)
+    while(opcion!=0)
     {
-    case 1:
-        subMenuStockMisiles();
-        break;
+        cabecera();
 
-    case 2:
-        subMenuStockAviones();
-        break;
+        gotoxy(30, 6);
+        cout << "MENU STOCK";
+        gotoxy(30, 8);
+        cout << "1 - MISILES";
+        gotoxy(30, 10);
+        cout << "2 - AVIONES";
+        gotoxy(30, 12);
+        cout << "3 - BUQUES";
+        gotoxy(30, 14);
+        cout << "4 - TANQUES";
+        gotoxy(30, 16);
+        cout << "0 - VOLVER";
+        gotoxy(30, 18);
+        cout << "INGRESE UNA OPCION: ";
+        cin >> opcion;
 
-    case 3:
-        subMenuStockBuques();
-        break;
+        switch(opcion)
+        {
+        case 1:
+            subMenuStockMisiles();
+            break;
 
-    case 4:
-        subMenuStockTanques();
-        break;
+        case 2:
+            subMenuStockAviones();
+            break;
 
-    case 0:
-        return;
+        case 3:
+            subMenuStockBuques();
+            break;
 
-        break;
+        case 4:
+            subMenuStockTanques();
+            break;
 
-    default:
-        cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-        system("pause");
-        break;
+        case 0:
+            return;
+
+            break;
+
+        default:
+            gotoxy (2,21);
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,22);
+            system("pause");
+            break;
+        }
     }
 }
 
@@ -829,20 +835,19 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
         cout<<"MENU MISILES";
         gotoxy (2,7);
         cout<<"------------------";
-        gotoxy (2,10);
-        cout<<"INGRESE UNA OPCION: ";
-        gotoxy(2,13);
+
+        gotoxy(2,9);
         cout << "1 - ALTA MISIL" << endl;
-        gotoxy(2,14);
-        cout << "2 - MODIFICAR MISIL" << endl;
-        gotoxy(2,15);
-        cout << "3 - AGREGAR A STOCK" << endl;
-        gotoxy(2,16);
-        cout << "4 - BAJA MISIL" << endl;
-        gotoxy(2,17);
+        gotoxy(2,10);
+        cout << "2 - BAJA MISIL" << endl;
+        gotoxy(2,11);
+        cout << "3 - MODIFICAR MISIL" << endl;
+        gotoxy(2,12);
+        cout << "4 - AGREGAR A STOCK" << endl;
+        gotoxy(2,13);
         cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy(2,18);
-        cout << "->: ";
+        gotoxy(2,15);
+        cout<<"INGRESE UNA OPCION: ";
 
         cin >> opcion;
 
@@ -850,26 +855,36 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
         {
 
         case 1:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 2:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 3:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 4:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 0:
             return;
 
         default:
+            gotoxy (2,18);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,19);
             system("pause");
             break;
         }
@@ -883,8 +898,6 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
 
     while(opcion!=0)
     {
-
-
         system ("cls");
         cabecera();
 
@@ -892,53 +905,57 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
         cout<<"MENU AVIONES";
         gotoxy (2,7);
         cout<<"------------------";
+
+        gotoxy (2,9);
+        cout << "1 - ALTA DE AVION: ";
         gotoxy (2,10);
+        cout << "2 - BAJA AVIONE" << endl;
+        gotoxy (2,11);
+        cout << "3 - MODIFICACION DE AVIONE: ";
+        gotoxy(2,12);
+        cout << "4 - AGREGAR A STOCK" << endl;
+        gotoxy(2,13);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy(2,15);
         cout<<"INGRESE UNA OPCION: ";
 
-        gotoxy (2,13);
-        cout << "1 - ALTA DE AVION: ";
-        gotoxy (2,14);
-        cout << "2 - MODIFICACION DE AVIONES: ";
-        gotoxy (2,15);
-        cout << "3 - AGREGAR A STOCK" << endl;
-        gotoxy(2,16);
-        cout << "4 - BAJA AVIONES" << endl;
-        gotoxy(2,17);
-        cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy(2,18);
-        cout << "->: ";
-
         cin >> opcion;
-
 
         switch(opcion)
         {
 
         case 1:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
-
 
         case 2:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
-
         case 3:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 4:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 0:
             return;
 
         default:
+            gotoxy (2,18);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,19);
             system("pause");
-
             break;
 
         }
@@ -960,42 +977,47 @@ void Menu::subMenuStockBuques()//SUBMENU ABM BUQUE QUE ESTA DENTRO DE LAS OPCION
         cout<<"MENU BUQUES";
         gotoxy (2,7);
         cout<<"------------------";
+
+        gotoxy (2,9);
+        cout << "1 - ALTA DE BUQUE";
         gotoxy (2,10);
+        cout << "2 - BAJA DE BUQUE" << endl;
+        gotoxy (2,11);
+        cout << "3 - MODIFICACION DE BUQUE";
+        gotoxy(2,12);
+        cout << "4 - AGREGAR A STOCK" << endl;
+        gotoxy(2,13);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy(2,15);
         cout<<"INGRESE UNA OPCION: ";
 
-        gotoxy (2,13);
-        cout << "1 - ALTA DE BUQUE";
-        gotoxy (2,14);
-        cout << "2 - MODIFICACION DE BUQUE";
-        gotoxy (2,15);
-        cout << "3 - AGREGAR A STOCK" << endl;
-        gotoxy(2,16);
-        cout << "4 - BAJA DE BUQUE" << endl;
-        gotoxy(2,17);
-        cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy(2,18);
-        cout << "->: ";
-
         cin >> opcion;
-
 
         switch(opcion)
         {
 
         case 1:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 2:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 3:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 4:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 0:
@@ -1003,7 +1025,9 @@ void Menu::subMenuStockBuques()//SUBMENU ABM BUQUE QUE ESTA DENTRO DE LAS OPCION
             break;
 
         default:
+            gotoxy (2,18);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,19);
             system("pause");
             break;
         }
@@ -1023,43 +1047,47 @@ void Menu::subMenuStockTanques()//SUBMENU ABM TANQUE QUE ESTA DENTRO DE LAS OPCI
         cout<<"MENU TANQUES";
         gotoxy (2,7);
         cout<<"------------------";
+
+        gotoxy (2,9);
+        cout << "1 - ALTA DE TANQUE";
         gotoxy (2,10);
+        cout << "2 - BAJA DE TANQUE" << endl;
+        gotoxy (2,11);
+        cout << "3 - MODIFICACION DE TANQUE";
+        gotoxy(2,12);
+        cout << "4 - AGREGAR A STOCK" << endl;
+        gotoxy(2,13);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy(2,15);
         cout<<"INGRESE UNA OPCION: ";
 
-        gotoxy (2,13);
-        cout << "1 - ALTA DE TANQUE";
-        gotoxy (2,14);
-        cout << "2 - MODIFICACION DE TANQUE";
-        gotoxy (2,15);
-        cout << "3 - AGREGAR A STOCK" << endl;
-        gotoxy(2,16);
-        cout << "4 - BAJA DE TANQUE" << endl;
-        gotoxy(2,17);
-        cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy(2,18);
-        cout << "->: ";
-
         cin>>opcion;
-
-
 
         switch(opcion)
         {
 
         case 1:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 2:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 3:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 4:
+            system("cls");
             //TODO:FALTA HACER**
+            system("pause");
             break;
 
         case 0:
@@ -1067,62 +1095,139 @@ void Menu::subMenuStockTanques()//SUBMENU ABM TANQUE QUE ESTA DENTRO DE LAS OPCI
             break;
 
         default:
+            gotoxy (2,18);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,19);
             system("pause");
             break;
         }
     }
 }
 
-/// SUBMENU LISTADOS
+/// MENU LISTADOS
 void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
-
-    int opcion;
     opcion = -1;
 
     while(opcion!=0)
     {
-        system("cls");
         cabecera();
-        gotoxy(30, 6);
-        cout << "MENU LISTADOS";
-        gotoxy(30, 8);
-        cout << "1 - CLIENTES(PAISES)";
-        gotoxy(30, 10);
-        cout << "2 - PRODUCTOS";
-        gotoxy(30, 12);
-        cout << "3 - ADMINISTRADORES";
-        gotoxy(30, 14);
-        cout << "0 - VOLVER";
-        gotoxy(30, 18);
-        cout << "INGRESE UNA OPCION: ";
-        cin >> opcion;
+
+        gotoxy (2,6);
+        cout<<"MENU LISTADOS";
+        gotoxy (2,7);
+        cout<<"-------------";
+
+        gotoxy (2,9);
+        cout << "1 - PAISES";
+        gotoxy (2,10);
+        cout << "2 - ADMINISTRADORES";
+        gotoxy (2,11);
+        cout << "3 - PRODUCTOS";
+        gotoxy (2,12);
+        cout << "0 - VOLVER ATRAS" << endl;
+        gotoxy (2,13);
+        cout<<"INGRESE UNA OPCION: ";
+        cin>>opcion;
 
         switch(opcion)
         {
-        case 1: //TODO: FALTA HACER************
 
+        case 1:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
             break;
 
-        case 2: //TODO: FALTA HACER************
-
+        case 2:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
             break;
 
-        case 3: //TODO: FALTA HACER************
-
+        case 3:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
             break;
 
-        case 4: //TODO: FALTA HACER************
-
-            break;
-
-        case 0: //TODO: FALTA HACER************
+        case 0:
             return;
             break;
 
         default:
+            gotoxy (2,18);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,19);
+            system("pause");
+            break;
+        }
+    }
+}
+
+/// MENU REPORTES
+void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
+{
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+        cabecera();
+
+        gotoxy (2,6);
+        cout<<"MENU REPORTES";
+        gotoxy (2,7);
+        cout<<"-------------";
+
+        gotoxy (2,9);
+        cout<<"1 - VER FACTURAS";
+        gotoxy (2,10);
+        cout<<"2 - BUSCAR FACTURAS";
+        gotoxy (2,11);
+        cout<<"3 - RANKING DE CLIENTES";
+        gotoxy (2,12);
+        cout<<"4 - RANKING DE PRODUCTOS";
+        gotoxy (2,13);
+        cout<<"0 - MENU ANTERIOR ";
+        gotoxy (2,15);
+        cout<<"INGRESE UNA OPCION: ";
+        cin>>opcion;
+
+        switch(opcion)
+        {
+
+        case 1:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 2:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 3:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 4:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 0:
+            return;
+            break;
+
+        default:
+            gotoxy (2,18);
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,19);
             system("pause");
             break;
         }

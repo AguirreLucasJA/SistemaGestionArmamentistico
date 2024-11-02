@@ -26,16 +26,15 @@ public:
     void eliminarPais();//ABM PAIS
 
 	void menuStock(); //SUBMENU STOCK DENTRO DEL MENU PRINCIPAL ADMIN STOCK
-	void subMenuStockMisiles();//SUBMENU
-	void subMenuStockAviones();//SUBMENU
-	void subMenuStockBuques();//SUBMENU
-	void subMenuStockTanques();//SUBMENU
+	void subMenuStockMisiles();
+	void subMenuStockAviones();
+	void subMenuStockBuques();
+	void subMenuStockTanques();
 
 	void menuListados(); //SUBMENU LISTADOS DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 
-
+    void menuReportes(); //SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 
 private:
     int opcion;
-
 };
