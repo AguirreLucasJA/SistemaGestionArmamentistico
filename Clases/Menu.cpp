@@ -183,17 +183,17 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
         cout << "------------------";
 
         gotoxy (2,9);
-        cout << "1 - ADMINISTRADORES: ";
+        cout << "1 - ADMINISTRADORES";
         gotoxy (2,10);
-        cout << "2 - STOCK: ";
+        cout << "2 - STOCK";
         gotoxy (2,11);
-        cout << "3 - PAISES: ";
+        cout << "3 - PAISES";
         gotoxy (2,12);
-        cout << "4 - LISTADOS: ";
+        cout << "4 - LISTADOS";
         gotoxy (2,13);
-        cout << "5 - REPORTES: ";
+        cout << "5 - REPORTES";
         gotoxy (2,14);
-        cout << "0 - SALIR DEL PROGRAMA: ";
+        cout << "0 - SALIR DEL PROGRAMA";
         gotoxy (2,16);
         cout << "INGRESE UNA OPCION: ";
 
@@ -244,13 +244,13 @@ void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL ME
         cout<<"--------------------";
 
         gotoxy (2,9);
-        cout<<"1 - ALTA DE ADMINISTRADOR: ";
+        cout<<"1 - ALTA DE ADMINISTRADOR";
         gotoxy (2,10);
-        cout<<"2 - BAJA DE ADMINISTRADOR: ";
+        cout<<"2 - BAJA DE ADMINISTRADOR";
         gotoxy (2,11);
-        cout<<"3 - MODIFICACION DE ADMINISTRADOR: ";
+        cout<<"3 - MODIFICACION DE ADMINISTRADOR";
         gotoxy (2,12);
-        cout<<"0 - VOLVER ATRAS: ";
+        cout<<"0 - VOLVER ATRAS";
         gotoxy (2,14);
         cout<<"INGRESE UNA OPCION: ";
 
@@ -512,13 +512,13 @@ void Menu::menuPaises()//SUBMENU ABM PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         cout<<"-----------";
 
         gotoxy (2,9);
-        cout<<"1 - ALTA DE PAIS: ";
+        cout<<"1 - ALTA DE PAIS";
         gotoxy (2,10);
-        cout<<"2 - BAJA DE PAIS: ";
+        cout<<"2 - BAJA DE PAIS";
         gotoxy (2,11);
-        cout<<"3 - MODIFICACION DE PAIS: ";
+        cout<<"3 - MODIFICACION DE PAIS";
         gotoxy (2,12);
-        cout<<"0 - VOLVER ATRAS: ";
+        cout<<"0 - VOLVER ATRAS";
         gotoxy (2,14);
         cout<<"INGRESE UNA OPCION: ";
 
@@ -786,29 +786,33 @@ void Menu::menuStock()//SUBMENU ABM STOCK QUE ESTA DENTRO DE LAS OPCIONES DEL ME
         cout << "0 - VOLVER";
         gotoxy(30, 18);
         cout << "INGRESE UNA OPCION: ";
+
         cin >> opcion;
 
         switch(opcion)
         {
         case 1:
             subMenuStockMisiles();
+            opcion = -1;
             break;
 
         case 2:
             subMenuStockAviones();
+            opcion = -1;
             break;
 
         case 3:
             subMenuStockBuques();
+            opcion = -1;
             break;
 
         case 4:
             subMenuStockTanques();
+            opcion = -1;
             break;
 
         case 0:
-            return;
-
+            opcion = 0;
             break;
 
         default:
@@ -879,7 +883,7 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
             break;
 
         case 0:
-            return;
+            break;
 
         default:
             gotoxy (2,18);
@@ -907,11 +911,11 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
         cout<<"------------------";
 
         gotoxy (2,9);
-        cout << "1 - ALTA DE AVION: ";
+        cout << "1 - ALTA DE AVION";
         gotoxy (2,10);
-        cout << "2 - BAJA AVIONE" << endl;
+        cout << "2 - BAJA AVION" << endl;
         gotoxy (2,11);
-        cout << "3 - MODIFICACION DE AVIONE: ";
+        cout << "3 - MODIFICACION DE AVION";
         gotoxy(2,12);
         cout << "4 - AGREGAR A STOCK" << endl;
         gotoxy(2,13);
@@ -949,7 +953,7 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
             break;
 
         case 0:
-            return;
+            break;
 
         default:
             gotoxy (2,18);
@@ -1021,7 +1025,6 @@ void Menu::subMenuStockBuques()//SUBMENU ABM BUQUE QUE ESTA DENTRO DE LAS OPCION
             break;
 
         case 0:
-            return;
             break;
 
         default:
@@ -1091,7 +1094,6 @@ void Menu::subMenuStockTanques()//SUBMENU ABM TANQUE QUE ESTA DENTRO DE LAS OPCI
             break;
 
         case 0:
-            return;
             break;
 
         default:
@@ -1125,8 +1127,8 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
         gotoxy (2,11);
         cout << "3 - PRODUCTOS";
         gotoxy (2,12);
-        cout << "0 - VOLVER ATRAS" << endl;
-        gotoxy (2,13);
+        cout << "0 - VOLVER ATRAS";
+        gotoxy (2,14);
         cout<<"INGRESE UNA OPCION: ";
         cin>>opcion;
 
@@ -1152,13 +1154,12 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
             break;
 
         case 0:
-            return;
             break;
 
         default:
-            gotoxy (2,18);
+            gotoxy (2,17);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-            gotoxy (2,19);
+            gotoxy (2,18);
             system("pause");
             break;
         }
@@ -1188,7 +1189,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         gotoxy (2,12);
         cout<<"4 - RANKING DE PRODUCTOS";
         gotoxy (2,13);
-        cout<<"0 - MENU ANTERIOR ";
+        cout<<"0 - MENU ANTERIOR";
         gotoxy (2,15);
         cout<<"INGRESE UNA OPCION: ";
         cin>>opcion;
@@ -1221,7 +1222,6 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
             break;
 
         case 0:
-            return;
             break;
 
         default:
