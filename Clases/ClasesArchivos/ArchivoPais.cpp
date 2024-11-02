@@ -1,12 +1,12 @@
-#include "ArchivoAdmin.h"
+#include "ArchivoPais.h"
 
-ArchivoAdmin::ArchivoAdmin()
+ArchivoPais::ArchivoPais()
 {
-    _nombreArchivo = "ARCHIVOS/ADMIN.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
-    _tamReg = sizeof(Admin); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
+    _nombreArchivo = "ARCHIVOS/PAIS.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
+    _tamReg = sizeof(Pais); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
 }
 
-bool ArchivoAdmin::guardar(const Admin &registro)
+bool ArchivoPais::guardar(const Pais &registro)
 {
     FILE *pFile;
     bool result;
@@ -25,7 +25,7 @@ bool ArchivoAdmin::guardar(const Admin &registro)
     return result;
 }
 
-bool ArchivoAdmin::guardar(const Admin &registro, int pos)
+bool ArchivoPais::guardar(const Pais &registro, int pos)
 {
     FILE *pFile;
     bool result;
@@ -46,10 +46,10 @@ bool ArchivoAdmin::guardar(const Admin &registro, int pos)
     return result;
 }
 
-int ArchivoAdmin::buscarXId(int id)
+int ArchivoPais::buscarXId(int id)
 {
     FILE *pFile;
-    Admin registro;
+    Pais registro;
     int pos = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -81,7 +81,7 @@ int ArchivoAdmin::buscarXId(int id)
 
 }
 
-int ArchivoAdmin::getCantidadReg()
+int ArchivoPais::getCantidadReg()
 {
     int totalByte;
     FILE *pFile;
@@ -100,10 +100,10 @@ int ArchivoAdmin::getCantidadReg()
     return totalByte / _tamReg; ///CANT TOTAL DE REG SIN DISCRIMINAR LOS ELIMINADOS
 }
 
-Admin ArchivoAdmin::leer(int pos)
+Pais ArchivoPais::leer(int pos)
 {
     FILE *pFile;
-    Admin registro;
+    Pais registro;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
 
@@ -121,7 +121,7 @@ Admin ArchivoAdmin::leer(int pos)
     return registro;
 }
 
-bool ArchivoAdmin::leerTodos(Admin *vecRegistros, int cantidadReg)
+bool ArchivoPais::leerTodos(Pais *vecRegistros, int cantidadReg)
 {
     FILE *pFile;
     bool result;
@@ -140,7 +140,7 @@ bool ArchivoAdmin::leerTodos(Admin *vecRegistros, int cantidadReg)
     return result;
 }
 
-int ArchivoAdmin::getNuevoId()
+int ArchivoPais::getNuevoId()
 {
     int cantidadReg = getCantidadReg();
 
@@ -154,10 +154,10 @@ int ArchivoAdmin::getNuevoId()
     }
 }
 
-int ArchivoAdmin::buscarXUsuario(std::string usuario)
+int ArchivoPais::buscarXUsuario(std::string usuario)
 {
     FILE *pFile;
-    Admin registro;
+    Pais registro;
     int pos = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -187,7 +187,3 @@ int ArchivoAdmin::buscarXUsuario(std::string usuario)
         return -1;
     }
 }
-
-
-
-
