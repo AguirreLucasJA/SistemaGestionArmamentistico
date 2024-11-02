@@ -4,6 +4,18 @@
 #include<cstring>//para las funciones strcpy
 using namespace std;//para no andar escribiendo "std::cout"
 
+//SETTERS
+void Admin::setSueldo(float sueldo)
+{
+    _sueldo = sueldo;
+}
+
+//GETTERS
+float Admin::getSueldo()
+{
+    return _sueldo;
+}
+
 //METODOS
 void Admin::cargar(int id)
 {
@@ -11,6 +23,7 @@ void Admin::cargar(int id)
     string usuario;
     string clave;
     string descripcion;
+    float sueldo;
     //RECORDA ADMIN DERIVA DE ENTIDAD
     setId(id);//le setea el id obtenido con la funcion contar registros A LA PROPIEDAD DE ENTIDAD.
 
@@ -53,6 +66,10 @@ void Admin::cargar(int id)
     }
     setDescripcion(descripcion);
 
+    cout << "ING SUELDO: $";
+    cin >> sueldo;
+    setSueldo(sueldo);
+
     setTipoUsuario(0);//SETEO EL TIPO DE USUARIO 0 = ADMINISTRADOR.
     setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO
 }
@@ -62,6 +79,7 @@ void Admin::mostrar()
     cout << "USUARIO: " << getUsuario() << endl;
     cout << "CLAVE: " << getClave() << endl;
     cout << "DESCRIPCION: " << getDescripcion() << endl;
+    cout << "SUELDO: $" << getSueldo() << endl;
     cout << "TIPO DE USUARIO: " << ((getTipoUsuario() == 0) ? "ADMIN" : (getTipoUsuario() == 1 ? "PAIS" : "DESCONOCIDO")) << endl;
     cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
     cout << "ID: " << getId() << endl;

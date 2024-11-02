@@ -12,26 +12,26 @@ public:
 
     void menuPrincipalAdmin();// MENU PRINCIPAL ADMIN
 
-    void Usuarios();//SUBMENU USUARIOS DENTRO DE MENU PRINCIPAL ADMIN
-    void altaUsuario();//ABM USUARIOS
-    void modificarUsuario();//ABM USUARIOS
-    void eliminarUsuario();//ABM USUARIOS
+    void menuAdmin();//SUBMENU ADMIN DENTRO DE MENU PRINCIPAL ADMIN
+    void altaAdmin();//ABM ADMIN
+    void modificarAdmin();//ABM ADMIN
+    void eliminarAdmin();//ABM ADMIN
 
-    void listarUsuarios();//SE USA EN "BAJA", "MODIFICACION" DE USUARIOS
-    void listarClientes();//SE USA EN "BAJA", "MODIFICACION" DE PAISES
+    void listarAdmins();//SE USA EN "BAJA", "MODIFICACION" DE ADMIN
+    void listarPaises();//SE USA EN "BAJA", "MODIFICACION" DE PAIS
 
-    void Clientes();//SUBMENU CLIENTES/PAISES DENTRO DE MENU PRINCIPAL ADMIN
-    void altaCliente();//ABM PAISES
-    void modificarCliente();//ABM PAISES
-    void eliminarCliente();//ABM PAISES
+    void menuPaises();//SUBMENU PAIS DENTRO DE MENU PRINCIPAL ADMIN
+    void altaPais();//ABM PAIS
+    void modificarPais();//ABM PAIS
+    void eliminarPais();//ABM PAIS
 
-	void Stock(); //SUBMENU STOCK DENTRO DEL MENU PRINCIPAL ADMIN STOCK
-	void StockMisiles();//SUBMENU
-	void StockAviones();//SUBMENU
-	void StockBuques();//SUBMENU
-	void StockTanques();//SUBMENU
+	void menuStock(); //SUBMENU STOCK DENTRO DEL MENU PRINCIPAL ADMIN STOCK
+	void subMenuStockMisiles();//SUBMENU
+	void subMenuStockAviones();//SUBMENU
+	void subMenuStockBuques();//SUBMENU
+	void subMenuStockTanques();//SUBMENU
 
-	void Listados(); //SUBMENU ADMIN
+	void menuListados(); //SUBMENU LISTADOS DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 
 
 
