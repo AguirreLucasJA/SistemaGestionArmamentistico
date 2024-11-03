@@ -1,5 +1,6 @@
 #pragma once
 #include"Pais.h"
+#include"Admin.h"
 
 class Menu
 {
@@ -18,8 +19,8 @@ public:
     void modificarAdmin();//ABM ADMIN
     void eliminarAdmin();//ABM ADMIN
 
-    void listarAdmins();//SE USA EN "BAJA", "MODIFICACION" DE ADMIN
-    void listarPaises();//SE USA EN "BAJA", "MODIFICACION" DE PAIS
+    void mostrarAdmins(bool ordenadoPorEstado, bool mostrarEliminados = false);//SE USA EN "BAJA", "MODIFICACION" DE ADMIN Y LISTADOS
+    void mostrarPaises(bool ordenadoPorEstado, bool mostrarEliminados = false);//SE USA EN "BAJA", "MODIFICACION" DE PAIS Y LISTADOS
 
     void menuPaises();//SUBMENU PAIS DENTRO DE MENU PRINCIPAL ADMIN
     void altaPais();//ABM PAIS
@@ -33,6 +34,10 @@ public:
     void subMenuStockTanques();
 
     void menuListados(); //SUBMENU LISTADOS DENTRO DEL MENU PRINCIPAL ADMIN STOCK
+    void listarAdmins();
+    void listarPaises();
+    void ordenarUsuariosPorEstado(Admin *vecAdmin, int cantidad);//ACTIVOS PRIMERO
+    void ordenarUsuariosPorEstado(Pais *vecPais, int cantidad);//ACTIVOS PRIMERO
 
     void menuReportes(); //SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 ///-------------------------------------------------------------------------------//

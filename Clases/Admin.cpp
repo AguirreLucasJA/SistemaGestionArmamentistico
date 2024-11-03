@@ -81,6 +81,6 @@ void Admin::mostrar()
     cout << "DESCRIPCION: " << getDescripcion() << endl;
     cout << "SUELDO: $" << getSueldo() << endl;
     cout << "TIPO DE USUARIO: " << ((getTipoUsuario() == 0) ? "ADMIN" : (getTipoUsuario() == 1 ? "PAIS" : "DESCONOCIDO")) << endl;
-    cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
+    cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "ELIMINADO") << endl;
     cout << "ID: " << getId() << endl;
 }

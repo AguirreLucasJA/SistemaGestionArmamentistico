@@ -170,7 +170,7 @@ void Producto::mostrar()
     cout << "PRECIO: u$d " << getPrecio() << endl;
     cout << "LOTE: " << getLote() << endl;
     cout << "FECHA ALTA: " << getFechaAlta().toString() << endl;
-    cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "DESACTIVO") << endl;
+    cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "ELIMINADO") << endl;
 }
 
 

@@ -312,8 +312,8 @@ void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
     }
 }
 
-/// LISTAR ADMINS
-void Menu::listarAdmins()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR ADMIN
+/// MOSTRAR ADMINS
+void Menu::mostrarAdmins(bool ordenadoPorEstado, bool mostrarEliminados)//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR ADMIN
 {
 
     ArchivoAdmin ArchAdmin;
@@ -333,9 +333,23 @@ void Menu::listarAdmins()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR ADMIN
 
     if(ArchAdmin.leerTodos(vecAdmin,cant))
     {
+
+        if (ordenadoPorEstado)
+        {
+            ordenarUsuariosPorEstado(vecAdmin, cant);
+        }
+
         for(int i=0; i<cant; i++)
         {
-            if(vecAdmin[i].getEstado())//si esta eliminado no lo muestra
+            if(!mostrarEliminados)
+            {
+                if(vecAdmin[i].getEstado())//si esta eliminado no lo muestra
+                {
+                    vecAdmin[i].mostrar();
+                    cout << "-----------------------" << endl;
+                }
+            }
+            else
             {
                 vecAdmin[i].mostrar();
                 cout << "-----------------------" << endl;
@@ -361,7 +375,7 @@ void Menu::modificarAdmin()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarAdmins();
+        mostrarAdmins(false);
     }
 
     cout << "INGRESE EL ID A MODIFICAR: ";
@@ -451,7 +465,7 @@ void Menu::eliminarAdmin()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarAdmins();
+        mostrarAdmins(false);
     }
 
     cout << "INGRESE EL ID A ELIMINAR: ";
@@ -583,10 +597,9 @@ void Menu::altaPais()//CARGA UN NUEVO PAIS AL ARCHIVO
     }
 }
 
-/// LISTAR PAIS
-void Menu::listarPaises()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR PAIS
+/// MOSTRAR PAIS
+void Menu::mostrarPaises(bool ordenadoPorEstado, bool mostrarEliminados)//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR PAIS
 {
-
     ArchivoPais ArchPais;
     Pais *vecPais = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
 
@@ -604,9 +617,23 @@ void Menu::listarPaises()//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR PAIS
 
     if(ArchPais.leerTodos(vecPais,cant))
     {
+
+        if (ordenadoPorEstado)
+        {
+            ordenarUsuariosPorEstado(vecPais, cant);
+        }
+
         for(int i=0; i<cant; i++)
         {
-            if(vecPais[i].getEstado())//si esta eliminado no lo muestra
+            if(!mostrarEliminados)
+            {
+                if(vecPais[i].getEstado())//si esta eliminado no lo muestra
+                {
+                    vecPais[i].mostrar();
+                    cout << "-----------------------" << endl;
+                }
+            }
+            else
             {
                 vecPais[i].mostrar();
                 cout << "-----------------------" << endl;
@@ -631,7 +658,7 @@ void Menu::modificarPais()//MODIFICA PAIS EXISTENTE EN ARCHIVO
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarPaises();
+        mostrarPaises(false);
     }
 
     cout << "INGRESE EL ID A MODIFICAR: ";
@@ -717,7 +744,7 @@ void Menu::eliminarPais()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
 
     if(respuesta == "s" || respuesta == "S")
     {
-        listarPaises();
+        mostrarPaises(false);
     }
 
     cout << "INGRESE EL ID A ELIMINAR: ";
@@ -1140,13 +1167,13 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+            listarPaises();
             system("pause");
             break;
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            listarAdmins();
             system("pause");
             break;
 
@@ -1165,6 +1192,97 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
             gotoxy (2,18);
             system("pause");
             break;
+        }
+    }
+}
+
+///LISTAR ARMINISTRADORES
+void Menu::listarAdmins()//LISTA LOS ADMINS ORDENADOS Y PREGUNTA SI QUERES VERLOS A TODOS
+{
+    string respuesta;
+    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR ADMINISTRADORES ELIMINADOS
+    cout << "LISTAR ADMINISTRADORES ELIMINADOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarAdmins(true, true);
+    }
+    else
+    {
+        mostrarAdmins(false);
+    }
+}
+
+///LISTAR PAISES
+void Menu::listarPaises()//LISTA LOS PAISES ORDENADOS Y PREGUNTA SI QUERES VERLOS A TODOS
+{
+
+    string respuesta;
+    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR ADMINISTRADORES ELIMINADOS
+    cout << "LISTAR PAISES ELIMINADOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarPaises(true, true);
+    }
+    else
+    {
+        mostrarPaises(false);
+    }
+}
+
+///ORDENAR USUARIOS POR ESTADO SOBRECARGA
+void Menu::ordenarUsuariosPorEstado(Admin *vecAdmin, int cantidad)
+{
+    int i, j;
+    int posEstado;
+
+    for(i = 0; i < cantidad - 1; i++)
+    {
+        posEstado = i;
+
+        for (j = i + 1; j < cantidad; j++)
+        {
+            if (vecAdmin[j].getEstado() > vecAdmin[posEstado].getEstado())
+            {
+                posEstado = j;
+            }
+        }
+
+        if (i != posEstado)
+        {
+            Admin aux = vecAdmin[i];
+            vecAdmin[i] = vecAdmin[posEstado];
+            vecAdmin[posEstado] = aux;
+        }
+    }
+}
+
+///ORDENAR USUARIOS POR ESTADO SOBRECARGA
+void Menu::ordenarUsuariosPorEstado(Pais *vecPais, int cantidad)
+{
+    int i, j;
+    int posEstado;
+
+    for(i = 0; i < cantidad - 1; i++)
+    {
+        posEstado = i;
+
+        for (j = i + 1; j < cantidad; j++)
+        {
+            if (vecPais[j].getEstado() > vecPais[posEstado].getEstado())
+            {
+                posEstado = j;
+            }
+        }
+
+        if (i != posEstado)
+        {
+            Pais aux = vecPais[i];
+            vecPais[i] = vecPais[posEstado];
+            vecPais[posEstado] = aux;
         }
     }
 }
