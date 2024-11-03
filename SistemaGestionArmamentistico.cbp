@@ -37,6 +37,8 @@
 		<Unit filename="Clases/Admin.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoAdmin.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoAdmin.h" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoMisil.cpp" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoMisil.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.h" />
 		<Unit filename="Clases/Entidad.cpp" />
