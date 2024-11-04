@@ -11,9 +11,11 @@ using namespace rlutil;//rlutil::
 #include "Menu.h"
 #include "Admin.h"
 #include "Pais.h"
+#include "Misil.h"
 
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
+#include "ClasesArchivos/ArchivoMisil.h"
 
 
 
@@ -890,7 +892,7 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
 
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+            altaMisil();
             system("pause");
             break;
 
@@ -922,6 +924,26 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
             system("pause");
             break;
         }
+    }
+}
+
+/// ALTA MISIL
+void Menu::altaMisil()//CARGA UN NUEVO PAIS AL ARCHIVO
+{
+
+    int id;
+    Misil reg;
+    ArchivoMisil ArchMisil;
+    //devuelve la cantidad -1 de los reg del archivo
+    id = ArchMisil.getNuevoId(); //obtiene nuevo ID autonumerico.
+    reg.cargar(id);//carga un nuevo reg Misil setenadole el ID obtenido
+    if(ArchMisil.guardar(reg)) //lo cargan en archivo Misil
+    {
+        cout << "ALTA EXITOSA..." << endl;
+    }
+    else
+    {
+        cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
     }
 }
 

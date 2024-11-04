@@ -28,7 +28,11 @@ public:
     void eliminarPais();//ABM PAIS
 
     void menuStock(); //SUBMENU STOCK DENTRO DEL MENU PRINCIPAL ADMIN STOCK
-    void subMenuStockMisiles();
+
+    void subMenuStockMisiles(); //SUBMENU ABM MISIL
+    void altaMisil(); //ABM MISIL
+
+
     void subMenuStockAviones();
     void subMenuStockBuques();
     void subMenuStockTanques();
