@@ -157,7 +157,7 @@ void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar
     setDescripcion(descripcion);
 
     _estado = true;
-    system("cls");
+
 }
 
 void Producto::mostrar()
