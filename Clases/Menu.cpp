@@ -338,7 +338,7 @@ void Menu::mostrarAdmins(bool ordenadoPorEstado, bool mostrarEliminados)//SE UTI
 
         if (ordenadoPorEstado)
         {
-            ordenarUsuariosPorEstado(vecAdmin, cant);
+            ordenarPorEstado(vecAdmin, cant);
         }
 
         for(int i=0; i<cant; i++)
@@ -622,7 +622,7 @@ void Menu::mostrarPaises(bool ordenadoPorEstado, bool mostrarEliminados)//SE UTI
 
         if (ordenadoPorEstado)
         {
-            ordenarUsuariosPorEstado(vecPais, cant);
+            ordenarPorEstado(vecPais, cant);
         }
 
         for(int i=0; i<cant; i++)
@@ -898,19 +898,19 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            eliminarMisil();
             system("pause");
             break;
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            modificarMisil();
             system("pause");
             break;
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            agregarStockMisil();
             system("pause");
             break;
 
@@ -928,7 +928,7 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
 }
 
 /// ALTA MISIL
-void Menu::altaMisil()//CARGA UN NUEVO PAIS AL ARCHIVO
+void Menu::altaMisil()//CARGA UN NUEVO MISIL AL ARCHIVO
 {
 
     int id;
@@ -944,6 +944,277 @@ void Menu::altaMisil()//CARGA UN NUEVO PAIS AL ARCHIVO
     else
     {
         cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+    }
+}
+
+/// MOSTRAR MISILES
+void Menu::mostrarMisiles(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+{
+    ArchivoMisil ArchMisil;
+    Misil *vecMisil = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
+
+    int cant = ArchMisil.getCantidadReg();
+
+    vecMisil = new Misil[cant];
+
+    //verifico memoria
+    if(vecMisil == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    if(ArchMisil.leerTodos(vecMisil,cant))
+    {
+
+        if (ordenadoPorEstado)
+        {
+            ordenarPorEstado(vecMisil, cant);
+        }
+
+        for(int i=0; i<cant; i++)
+        {
+            if(!mostrarEliminados)
+            {
+                if(vecMisil[i].getEstado())//si esta eliminado no lo muestra
+                {
+                    vecMisil[i].mostrar();
+                    cout << "-----------------------" << endl;
+                }
+            }
+            else
+            {
+                vecMisil[i].mostrar();
+                cout << "-----------------------" << endl;
+            }
+        }
+    }
+    delete [] vecMisil;
+}
+
+/// MODIFICAR MISIL
+void Menu::modificarMisil()//MODIFICA MISIL EXISTENTE EN ARCHIVO
+{
+    Validar validar;
+    ArchivoMisil ArchMisil;
+    Misil reg;
+    int id;
+    int pos;
+    string respuesta;
+    cin.ignore();//arregla de subMenu Misil el "cin>>opcion;" sino se saltea el LISTAR MISILES.
+    cout << "LISTAR MISILES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarMisiles(false);
+    }
+
+    cout << "INGRESE EL ID A MODIFICAR: ";
+    cin >> id;
+    cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
+    pos = ArchMisil.buscarXId(id);
+
+    if(pos != -1) // SI encontro el misil
+    {
+        reg = ArchMisil.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+            cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+            long long precio;
+            string paisOrigen;
+            string descripcion;
+            //si le ingresas cualquier otra cosa que no sea s/S RETURN al subMenuStock
+            if(respuesta == "s" || respuesta == "S")
+            {
+
+                cout << "MAX 30 CARACTERES -> ING NUEVO PAIS DE ORIGEN: ";
+                getline(cin, paisOrigen);
+                while(!validar.esStringValido(paisOrigen,30))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE PAIS DE ORIGEN:";
+                    getline(cin, paisOrigen);
+                }
+                reg.setPaisOrigen(paisOrigen);
+
+                cout << "MAX 100 CARACTERES -> ING NUEVA DESCRIPCION: ";
+                getline(cin, descripcion);
+                while(!validar.esStringValido(descripcion,100))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 100 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE DESCRIPCION:";
+                    getline(cin, descripcion);
+                }
+                reg.setDescripcion(descripcion);
+
+                cout << "ING NUEVO PRECIO: $";
+                cin >> precio;
+                reg.setPrecio(precio);
+
+                if(ArchMisil.guardar(reg,pos))
+                {
+                    cout << "Se modifico con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo modificar el misil!" << endl;
+                }
+
+            }
+            else//NO eligio modificar el misil.
+            {
+                cout << "El misil no fue modificado" << endl;
+            }
+        }
+        else
+        {
+            cout << "El misil no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El misil no se encuentra en el sistema." << endl;
+    }
+}
+
+/// ELIMINAR MISIL
+void Menu::eliminarMisil()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
+{
+    int Id;
+    int pos;
+    Misil reg;
+    ArchivoMisil ArchMisil;
+    string respuesta;
+    cin.ignore();//arregla de subMenuMisil el "cin>>opcion;" sino se saltea el LISTAR MISILES.
+    cout << "LISTAR MISILES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarMisiles(false);
+    }
+
+    cout << "INGRESE EL ID A ELIMINAR: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    pos = ArchMisil.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchMisil.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA ELIMINAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuMisil
+            if(respuesta == "s" || respuesta == "S")//SI eligio eliminar el Misil.
+            {
+                reg.setEstado(false);
+
+                if(ArchMisil.guardar(reg, pos))
+                {
+                    cout << "Se elimino con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo eliminar el misil!" << endl;
+                }
+            }
+            else//NO eligio eliminar el misil.
+            {
+                cout << "El misil no fue eliminado!" << endl;
+            }
+        }
+        else
+        {
+            cout << "El misil no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El misil no se encuentra en el sistema." << endl;
+    }
+}
+
+/// AGREGAR STOCK
+void Menu::agregarStockMisil()
+{
+    int Id;
+    int pos;
+    Misil reg;
+    ArchivoMisil ArchMisil;
+    string respuesta;
+    int stock = 0;
+    cin.ignore();//arregla de subMenuMisil el "cin>>opcion;" sino se saltea el LISTAR MISILES.
+    cout << "LISTAR MISILES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarMisiles(false);
+    }
+
+    cout << "INGRESE EL ID A AGREGAR STOCK: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    pos = ArchMisil.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchMisil.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA AGREGAR STOCK? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuMisil
+            if(respuesta == "s" || respuesta == "S")//SI eligio agregar stock al Misil.
+            {
+                cout << "INGRESE STOCK A AGREGAR: ";
+                cin >> stock;
+                stock += reg.getStock();
+                reg.setStock(stock);
+
+                if(ArchMisil.guardar(reg, pos))
+                {
+                    cout << "Se agrego stock con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo agregar stock!" << endl;
+                }
+            }
+            else//NO eligio agregar stock al Misil.
+            {
+                cout << "El stock no fue modificado!" << endl;
+            }
+        }
+        else
+        {
+            cout << "El misil no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El misil no se encuentra en el sistema." << endl;
     }
 }
 
@@ -1177,10 +1448,16 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
         gotoxy (2,10);
         cout << "2 - ADMINISTRADORES";
         gotoxy (2,11);
-        cout << "3 - PRODUCTOS";
+        cout << "3 - MISILES";
         gotoxy (2,12);
-        cout << "0 - VOLVER ATRAS";
+        cout << "4 - AVIONES";
+        gotoxy (2,13);
+        cout << "5 - BUQUES";
         gotoxy (2,14);
+        cout << "6 - TANQUES";
+        gotoxy (2,15);
+        cout << "0 - VOLVER ATRAS";
+        gotoxy (2,17);
         cout<<"INGRESE UNA OPCION: ";
         cin>>opcion;
 
@@ -1201,6 +1478,24 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 3:
             system("cls");
+            listarMisiles();
+            system("pause");
+            break;
+
+        case 4:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 5:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 6:
+            system("cls");
             //TODO:FALTA HACER**
             system("pause");
             break;
@@ -1209,9 +1504,9 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
             break;
 
         default:
-            gotoxy (2,17);
+            gotoxy (2,20);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-            gotoxy (2,18);
+            gotoxy (2,21);
             system("pause");
             break;
         }
@@ -1239,9 +1534,8 @@ void Menu::listarAdmins()//LISTA LOS ADMINS ORDENADOS Y PREGUNTA SI QUERES VERLO
 ///LISTAR PAISES
 void Menu::listarPaises()//LISTA LOS PAISES ORDENADOS Y PREGUNTA SI QUERES VERLOS A TODOS
 {
-
     string respuesta;
-    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR ADMINISTRADORES ELIMINADOS
+    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR PAISES ELIMINADOS
     cout << "LISTAR PAISES ELIMINADOS? (s / n): ";
     getline(cin, respuesta);
 
@@ -1255,8 +1549,26 @@ void Menu::listarPaises()//LISTA LOS PAISES ORDENADOS Y PREGUNTA SI QUERES VERLO
     }
 }
 
+///LISTAR MISILES
+void Menu::listarMisiles()
+{
+    string respuesta;
+    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR MISILES ELIMINADOS
+    cout << "LISTAR MISILES ELIMINADOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarMisiles(true, true);
+    }
+    else
+    {
+        mostrarMisiles(false);
+    }
+}
+
 ///ORDENAR USUARIOS POR ESTADO SOBRECARGA
-void Menu::ordenarUsuariosPorEstado(Admin *vecAdmin, int cantidad)
+void Menu::ordenarPorEstado(Admin *vecAdmin, int cantidad)
 {
     int i, j;
     int posEstado;
@@ -1283,7 +1595,7 @@ void Menu::ordenarUsuariosPorEstado(Admin *vecAdmin, int cantidad)
 }
 
 ///ORDENAR USUARIOS POR ESTADO SOBRECARGA
-void Menu::ordenarUsuariosPorEstado(Pais *vecPais, int cantidad)
+void Menu::ordenarPorEstado(Pais *vecPais, int cantidad)
 {
     int i, j;
     int posEstado;
@@ -1305,6 +1617,33 @@ void Menu::ordenarUsuariosPorEstado(Pais *vecPais, int cantidad)
             Pais aux = vecPais[i];
             vecPais[i] = vecPais[posEstado];
             vecPais[posEstado] = aux;
+        }
+    }
+}
+
+///ORDENAR USUARIOS POR ESTADO SOBRECARGA
+void Menu::ordenarPorEstado(Misil *vecMisil, int cantidad)
+{
+int i, j;
+    int posEstado;
+
+    for(i = 0; i < cantidad - 1; i++)
+    {
+        posEstado = i;
+
+        for (j = i + 1; j < cantidad; j++)
+        {
+            if (vecMisil[j].getEstado() > vecMisil[posEstado].getEstado())
+            {
+                posEstado = j;
+            }
+        }
+
+        if (i != posEstado)
+        {
+            Misil aux = vecMisil[i];
+            vecMisil[i] = vecMisil[posEstado];
+            vecMisil[posEstado] = aux;
         }
     }
 }
