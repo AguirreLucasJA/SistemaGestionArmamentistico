@@ -1151,7 +1151,7 @@ void Menu::eliminarMisil()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
 }
 
 /// AGREGAR STOCK
-void Menu::agregarStockMisil()
+void Menu::agregarStockMisil()//ACUMULA STOCK DE MISILES
 {
     int Id;
     int pos;
@@ -1550,7 +1550,7 @@ void Menu::listarPaises()//LISTA LOS PAISES ORDENADOS Y PREGUNTA SI QUERES VERLO
 }
 
 ///LISTAR MISILES
-void Menu::listarMisiles()
+void Menu::listarMisiles()//LISTA LOS MISILES ORDENADOS Y PREGUNTA SI QUERES VERLOS A TODOS
 {
     string respuesta;
     cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR MISILES ELIMINADOS
