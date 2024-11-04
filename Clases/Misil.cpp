@@ -293,6 +293,7 @@ void Misil::cargar(int id)
         _hipersonico = false;
         break;
     }
+    cin.ignore();
 }
 
 void Misil::mostrar()
