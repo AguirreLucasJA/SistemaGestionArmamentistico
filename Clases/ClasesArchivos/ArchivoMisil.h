@@ -15,6 +15,7 @@ public:
     Misil leer(int pos);//Lee un Misil en una posicion
     bool leerTodos(Misil *vecRegistros, int cantidadReg);//Lee todos
     int getNuevoId();//Devuelve id AUTONUMERICO
+    int buscarXNombre(std::string nombre);
 
 
 private:

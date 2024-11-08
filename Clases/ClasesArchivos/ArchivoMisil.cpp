@@ -142,15 +142,44 @@ bool ArchivoMisil::leerTodos(Misil *vecRegistros, int cantidadReg)
 
 int ArchivoMisil::getNuevoId()
 {
-    int cantidadReg = getCantidadReg();
+    int nuevoId;
 
-    if(cantidadReg>0)
+    nuevoId =  getCantidadReg();
+
+    return ++ nuevoId;
+}
+
+int ArchivoMisil::buscarXNombre(std::string nombre)
+{
+    FILE *pFile;
+    Misil registro;
+    int pos = 0;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+    if(pFile == nullptr)
     {
-        return leer(cantidadReg-1).getId()+1;
+        return -1;
+    }
+
+    while(fread(&registro, _tamReg, 1, pFile)==1)
+    {
+        if(registro.getNombre() == nombre)
+        {
+            break;
+        }
+        pos++;
+    }
+
+    fclose(pFile);
+
+    if(registro.getNombre() == nombre)
+    {
+        return pos;
     }
     else
     {
-        return 0; ///*ACA MODIFICAR CON QUE NUMERO DE CODIGO EMPEZAR EL AUTONUMERICO*
+        return -1;
     }
 }
 

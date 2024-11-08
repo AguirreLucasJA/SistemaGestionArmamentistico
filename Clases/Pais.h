@@ -8,7 +8,6 @@ public:
 
     void setDineroCaja(long long _DineroCaja);
 
-
     long long getDineroCaja();
 
     void cargar(int _Id);
@@ -16,6 +15,5 @@ public:
 
 private:
     long long _dineroCaja;
-
 
 };

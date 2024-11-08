@@ -98,7 +98,7 @@ int Producto::getLote()
 }
 
 //METODOS
-void Producto::cargar(int id) //le pasas el id autonumerico de la funcion contar reg.
+void Producto::cargar(int id) //le pasas el id autonumerico
 {
     Fecha fechaAlta;
     Validar validar;

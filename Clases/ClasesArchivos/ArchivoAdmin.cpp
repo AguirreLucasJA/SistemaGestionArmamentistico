@@ -142,16 +142,11 @@ bool ArchivoAdmin::leerTodos(Admin *vecRegistros, int cantidadReg)
 
 int ArchivoAdmin::getNuevoId()
 {
-    int cantidadReg = getCantidadReg();
+    int nuevoId;
 
-    if(cantidadReg>0)
-    {
-        return leer(cantidadReg-1).getId()+1;
-    }
-    else
-    {
-        return 0; ///*ACA MODIFICAR CON QUE NUMERO DE CODIGO EMPEZAR EL AUTONUMERICO*
-    }
+    nuevoId =  getCantidadReg();
+
+    return ++ nuevoId;
 }
 
 int ArchivoAdmin::buscarXUsuario(std::string usuario)

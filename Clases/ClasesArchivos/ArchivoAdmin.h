@@ -17,6 +17,7 @@ public:
     int getNuevoId();//Devuelve id AUTONUMERICO
     int buscarXUsuario(std::string usuario);//busca un Admin por su usuario
 
+
 private:
     std::string _nombreArchivo;
     int _tamReg;

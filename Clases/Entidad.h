@@ -21,6 +21,9 @@ public:
     bool getEstado();
     int getId();
 
+    void cargar(int id, int tipoUsuario);
+    void mostrar();
+
 private:
     char _usuario[30];
     char _clave[30];

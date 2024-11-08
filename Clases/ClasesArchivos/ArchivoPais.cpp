@@ -142,16 +142,11 @@ bool ArchivoPais::leerTodos(Pais *vecRegistros, int cantidadReg)
 
 int ArchivoPais::getNuevoId()
 {
-    int cantidadReg = getCantidadReg();
+    int nuevoId;
 
-    if(cantidadReg>0)
-    {
-        return leer(cantidadReg-1).getId()+1;
-    }
-    else
-    {
-        return 0; ///*ACA MODIFICAR CON QUE NUMERO DE CODIGO EMPEZAR EL AUTONUMERICO*
-    }
+    nuevoId =  getCantidadReg();
+
+    return ++ nuevoId;
 }
 
 int ArchivoPais::buscarXUsuario(std::string usuario)
