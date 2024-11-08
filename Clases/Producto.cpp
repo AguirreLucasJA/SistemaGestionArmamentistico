@@ -2,7 +2,6 @@
 #include "Validar.h"
 #include <iostream>//para los cout, cin.
 #include<cstring>//para utilizar strcpy
-#include <iostream>//para los cout, cin.
 using namespace std;//para no andar escribiendo "std::cout"
 
 //SETTERS

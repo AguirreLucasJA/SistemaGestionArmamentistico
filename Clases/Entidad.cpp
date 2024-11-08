@@ -1,6 +1,5 @@
 #include "Entidad.h"
 #include<cstring>//para utilizar strcpy
-#include <string>//para poder usar string
 #include "Validar.h"
 #include <iostream>//PARA LOS COUT
 using namespace std;//PARA NO ANDAR HACIENDO STD::COUT
