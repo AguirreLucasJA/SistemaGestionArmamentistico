@@ -55,6 +55,8 @@
 		<Unit filename="Clases/Pais.h" />
 		<Unit filename="Clases/Producto.cpp" />
 		<Unit filename="Clases/Producto.h" />
+		<Unit filename="Clases/UsuariosXId.cpp" />
+		<Unit filename="Clases/UsuariosXId.h" />
 		<Unit filename="Clases/Validar.cpp" />
 		<Unit filename="Clases/Validar.h" />
 		<Unit filename="Clases/rlutil.h" />
