@@ -41,6 +41,8 @@
 		<Unit filename="Clases/ClasesArchivos/ArchivoMisil.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.h" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoUsuarioXId.cpp" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoUsuarioXId.h" />
 		<Unit filename="Clases/Entidad.cpp" />
 		<Unit filename="Clases/Entidad.h" />
 		<Unit filename="Clases/Fecha.cpp" />
