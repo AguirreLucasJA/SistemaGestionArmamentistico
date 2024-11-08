@@ -49,6 +49,8 @@
 		<Unit filename="Clases/Menu.h" />
 		<Unit filename="Clases/Misil.cpp" />
 		<Unit filename="Clases/Misil.h" />
+		<Unit filename="Clases/NombreUsuario.cpp" />
+		<Unit filename="Clases/NombreUsuario.h" />
 		<Unit filename="Clases/Pais.cpp" />
 		<Unit filename="Clases/Pais.h" />
 		<Unit filename="Clases/Producto.cpp" />
