@@ -49,14 +49,12 @@
 		<Unit filename="Clases/Menu.h" />
 		<Unit filename="Clases/Misil.cpp" />
 		<Unit filename="Clases/Misil.h" />
-		<Unit filename="Clases/NombreUsuario.cpp" />
-		<Unit filename="Clases/NombreUsuario.h" />
 		<Unit filename="Clases/Pais.cpp" />
 		<Unit filename="Clases/Pais.h" />
 		<Unit filename="Clases/Producto.cpp" />
 		<Unit filename="Clases/Producto.h" />
-		<Unit filename="Clases/UsuariosXId.cpp" />
-		<Unit filename="Clases/UsuariosXId.h" />
+		<Unit filename="Clases/UsuarioXId.cpp" />
+		<Unit filename="Clases/UsuarioXId.h" />
 		<Unit filename="Clases/Validar.cpp" />
 		<Unit filename="Clases/Validar.h" />
 		<Unit filename="Clases/rlutil.h" />
