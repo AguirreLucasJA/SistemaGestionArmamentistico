@@ -301,7 +301,7 @@ void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
     int id;
     Admin reg;
     ArchivoAdmin ArchAdmin;
-    //devuelve la cantidad -1 de los reg del archivo
+
     id = ArchAdmin.getNuevoId(); //obtiene nuevo ID autonumerico.
     reg.cargar(id);//carga un nuevo reg admin setenadole el ID obtenido
     if(ArchAdmin.guardar(reg)) //lo cargan en archivo admin
