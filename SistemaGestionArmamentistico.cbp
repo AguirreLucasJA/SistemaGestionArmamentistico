@@ -47,6 +47,8 @@
 		<Unit filename="Clases/Entidad.h" />
 		<Unit filename="Clases/Fecha.cpp" />
 		<Unit filename="Clases/Fecha.h" />
+		<Unit filename="Clases/ICargable.h" />
+		<Unit filename="Clases/IMostrable.h" />
 		<Unit filename="Clases/Menu.cpp" />
 		<Unit filename="Clases/Menu.h" />
 		<Unit filename="Clases/Misil.cpp" />
