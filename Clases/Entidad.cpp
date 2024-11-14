@@ -76,7 +76,6 @@ int Entidad::getId()
 void Entidad::cargar(int id, int tipoUsuario)
 {
     //TODO: HACER LA CLASE INTERMEDIA + SU CLASE ARCHIVO PARA VALIDAR USUARIO.
-    /*ArchivoPais archPais;*/
     Validar validar;
     string usuario;
     string clave;
@@ -89,13 +88,28 @@ void Entidad::cargar(int id, int tipoUsuario)
     cout << "MAX 30 CARACTERES -> ING NOMBRE USUARIO: ";
     cin.ignore();// sino se saltea el ingreso del usuario.
     getline(cin, usuario);
-    while(!validar.esStringValido(usuario,30) /*|| archPais.buscarXUsuario(usuario) != -1*/)
+    while(!validar.esStringValido(usuario,30) || !validar.esUsuarioValido(usuario))
     {
-        cout << "ERROR AL CARGAR USUARIO" << endl;
-        system("pause");
-        system("cls");
-        cout << "MAX 30 CARACTERES -> REINGRESE UN USUARIO DISTINTO:";
-        getline(cin, usuario);
+
+        if(!validar.esStringValido(usuario,30))
+        {
+            cout << "ERROR SOBREPASO LIMITE DE CARACTERES" << endl;
+            system("pause");
+            system("cls");
+            cout << "MAX 30 CARACTERES -> REINGRESE UN USUARIO DISTINTO:";
+            getline(cin, usuario);
+        }
+
+
+        if(!validar.esUsuarioValido(usuario))
+        {
+            cout << "ERROR EL USUARIO YA EXISTE" << endl;
+            system("pause");
+            system("cls");
+            cout << "MAX 30 CARACTERES -> REINGRESE UN USUARIO DISTINTO:";
+            getline(cin, usuario);
+        }
+
     }
     setUsuario(usuario);
 

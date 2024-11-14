@@ -11,10 +11,12 @@ using namespace rlutil;//rlutil::
 #include "Menu.h"
 #include "Admin.h"
 #include "Pais.h"
+#include"NombreUsuario.h"
 #include "Misil.h"
 
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
+#include"ClasesArchivos/ArchivoNombreUsuario.h"
 #include "ClasesArchivos/ArchivoMisil.h"
 
 
@@ -299,14 +301,19 @@ void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
 {
 
     int id;
-    Admin reg;
+    Admin regAdmin;
     ArchivoAdmin ArchAdmin;
+    NombreUsuario regNombreUsuario;
+    ArchivoNombreUsuario ArchNombreUsuario;
 
     id = ArchAdmin.getNuevoId(); //obtiene nuevo ID autonumerico.
-    reg.cargar(id);//carga un nuevo reg admin setenadole el ID obtenido
-    if(ArchAdmin.guardar(reg)) //lo cargan en archivo admin
+    regAdmin.cargar(id);//carga un nuevo regAdmin admin setenadole el ID obtenido
+    regNombreUsuario.setUsuario(regAdmin.getUsuario());
+
+    if(ArchAdmin.guardar(regAdmin) && ArchNombreUsuario.guardar(regNombreUsuario)) //lo cargan en archivo admin
     {
         cout << "ALTA EXITOSA..." << endl;
+
     }
     else
     {
@@ -584,12 +591,16 @@ void Menu::altaPais()//CARGA UN NUEVO PAIS AL ARCHIVO
 {
 
     int id;
-    Pais reg;
+    Pais regPais;
     ArchivoPais ArchPais;
-    //devuelve la cantidad -1 de los reg del archivo
+    NombreUsuario regNombreUsuario;
+    ArchivoNombreUsuario ArchNombreUsuario;
+    //devuelve la cantidad -1 de los regPais del archivo
     id = ArchPais.getNuevoId(); //obtiene nuevo ID autonumerico.
-    reg.cargar(id);//carga un nuevo reg pais setenadole el ID obtenido
-    if(ArchPais.guardar(reg)) //lo cargan en archivo pais
+    regPais.cargar(id);//carga un nuevo regPais pais setenadole el ID obtenido
+    regNombreUsuario.setUsuario(regPais.getUsuario());
+
+    if(ArchPais.guardar(regPais)&& ArchNombreUsuario.guardar(regNombreUsuario)) //lo cargan en archivo pais
     {
         cout << "ALTA EXITOSA..." << endl;
     }

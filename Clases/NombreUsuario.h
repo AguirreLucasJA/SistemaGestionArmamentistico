@@ -1,19 +1,16 @@
 #pragma once
 #include <string>//para poder usar string
 
-class UsuarioXId
+class NombreUsuario
 {
 
 public:
-    UsuarioXId() {};
+    NombreUsuario() {};
 
-    void setId(int id);
     void setUsuario(std::string usuario);
 
-    int getId();
     std::string getUsuario();
 
 private:
-    int _id;
     char _usuario[30];
 };

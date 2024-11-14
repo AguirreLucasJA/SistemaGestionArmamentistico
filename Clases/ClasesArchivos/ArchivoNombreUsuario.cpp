@@ -1,12 +1,12 @@
-#include "ArchivoUsuarioXId.h"
+#include "ArchivoNombreUsuario.h"
 
-ArchivoUsuarioXId::ArchivoUsuarioXId()
+ArchivoNombreUsuario::ArchivoNombreUsuario()
 {
-    _nombreArchivo = "ARCHIVOS/USUARIOXID.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
-    _tamReg = sizeof(UsuarioXId); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
+    _nombreArchivo = "ARCHIVOS/NOMBREUSUARIO.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
+    _tamReg = sizeof(NombreUsuario); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
 }
 
-bool ArchivoUsuarioXId::guardar(const UsuarioXId &registro)
+bool ArchivoNombreUsuario::guardar(const NombreUsuario &registro)
 {
     FILE *pFile;
     bool result;
@@ -25,7 +25,7 @@ bool ArchivoUsuarioXId::guardar(const UsuarioXId &registro)
     return result;
 }
 
-bool ArchivoUsuarioXId::guardar(const UsuarioXId &registro, int pos)
+bool ArchivoNombreUsuario::guardar(const NombreUsuario &registro, int pos)
 {
     FILE *pFile;
     bool result;
@@ -46,42 +46,7 @@ bool ArchivoUsuarioXId::guardar(const UsuarioXId &registro, int pos)
     return result;
 }
 
-int ArchivoUsuarioXId::buscarXId(int id)
-{
-    FILE *pFile;
-    UsuarioXId registro;
-    int pos = 0;
-
-    pFile = fopen(_nombreArchivo.c_str(), "rb");
-
-    if(pFile == nullptr)
-    {
-        return -1;
-    }
-
-    while(fread(&registro, _tamReg, 1, pFile)==1)
-    {
-        if(registro.getId() == id)
-        {
-            break;
-        }
-        pos++;
-    }
-
-    fclose(pFile);
-
-    if(registro.getId() == id)
-    {
-        return pos;
-    }
-    else
-    {
-        return -1;
-    }
-
-}
-
-int ArchivoUsuarioXId::getCantidadReg()
+int ArchivoNombreUsuario::getCantidadReg()
 {
     int totalByte;
     FILE *pFile;
@@ -100,28 +65,7 @@ int ArchivoUsuarioXId::getCantidadReg()
     return totalByte / _tamReg; ///CANT TOTAL DE REG SIN DISCRIMINAR LOS ELIMINADOS
 }
 
-UsuarioXId ArchivoUsuarioXId::leer(int pos)
-{
-    FILE *pFile;
-    UsuarioXId registro;
-
-    pFile = fopen(_nombreArchivo.c_str(), "rb");
-
-    if(pFile == nullptr)
-    {
-        return registro;
-    }
-
-    fseek(pFile, _tamReg * pos, SEEK_SET);
-
-    fread(&registro, _tamReg, 1, pFile);
-
-    fclose(pFile);
-
-    return registro;
-}
-
-bool ArchivoUsuarioXId::leerTodos(UsuarioXId *vecRegistros, int cantidadReg)
+bool ArchivoNombreUsuario::leerTodos(NombreUsuario *vecRegistros, int cantidadReg)
 {
     FILE *pFile;
     bool result;
@@ -140,19 +84,10 @@ bool ArchivoUsuarioXId::leerTodos(UsuarioXId *vecRegistros, int cantidadReg)
     return result;
 }
 
-int ArchivoUsuarioXId::getNuevoId()
-{
-    int nuevoId;
-
-    nuevoId =  getCantidadReg();
-
-    return ++ nuevoId;
-}
-
-int ArchivoUsuarioXId::buscarXUsuario(std::string usuario)
+int ArchivoNombreUsuario::buscarXUsuario(std::string usuario)
 {
     FILE *pFile;
-    UsuarioXId registro;
+    NombreUsuario registro;
     int pos = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -182,4 +117,3 @@ int ArchivoUsuarioXId::buscarXUsuario(std::string usuario)
         return -1;
     }
 }
-
