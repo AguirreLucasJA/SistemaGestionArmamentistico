@@ -10,6 +10,9 @@ public:
 
     float getSueldo();
 
+    //void cargar() override;
+    //void mostrar() const override;
+
     void cargar(int id);
     void mostrar();
 

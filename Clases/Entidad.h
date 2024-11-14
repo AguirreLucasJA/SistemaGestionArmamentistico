@@ -21,6 +21,9 @@ public:
     bool getEstado();
     int getId();
 
+    //virtual void cargar(Entidad &obj); // al poner virtual es sobreescribible
+    //virtual void mostrar(const Entidad &obj); // al poner virtual es sobreescribible CONST PARA EVITAR MODIFICARLO
+
     void cargar(int id, int tipoUsuario);
     void mostrar();
 
