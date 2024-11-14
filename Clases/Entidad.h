@@ -1,7 +1,9 @@
 #pragma once
 #include <string>//para poder usar string
+#include "ICargable.h"
+#include "IMostrable.h"
 
-class Entidad
+class Entidad : public ICargable, public IMostrable
 {
 
 public:
@@ -24,8 +26,8 @@ public:
     //virtual void cargar(Entidad &obj); // al poner virtual es sobreescribible
     //virtual void mostrar(const Entidad &obj); // al poner virtual es sobreescribible CONST PARA EVITAR MODIFICARLO
 
-    void cargar(int id, int tipoUsuario);
-    void mostrar();
+    void cargar(/*int id, int tipoUsuario*/)override;
+    void mostrar() const override;
 
 private:
     char _usuario[30];

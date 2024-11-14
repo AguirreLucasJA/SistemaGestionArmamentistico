@@ -1,6 +1,6 @@
 #include "Entidad.h"
 #include<cstring>//para utilizar strcpy
-#include "Validar.h"
+//#include "Validar.h"
 #include <iostream>//PARA LOS COUT
 using namespace std;//PARA NO ANDAR HACIENDO STD::COUT
 
@@ -73,8 +73,9 @@ int Entidad::getId()
 
 //METODOS
 
-void Entidad::cargar(int id, int tipoUsuario)
+void Entidad::cargar(/*int id, int tipoUsuario*/)
 {
+    /*
     //TODO: HACER LA CLASE INTERMEDIA + SU CLASE ARCHIVO PARA VALIDAR USUARIO.
     Validar validar;
     string usuario;
@@ -139,15 +140,17 @@ void Entidad::cargar(int id, int tipoUsuario)
 
     setTipoUsuario(tipoUsuario);//SETEA EL TIPO DE USUARIO  0=ADMIN /1 = PAIS.
     setEstado(true);// LO PONGO COMO ACTIVO/ NO ELIMINADO.
+    */
 }
 
-void Entidad::mostrar()
-{
+void Entidad::mostrar() const
+{/*
     cout << "ID: " << getId() << endl;
     cout << "USUARIO: " << getUsuario() << endl;
     cout << "CLAVE: " << getClave() << endl;
     cout << "DESCRIPCION: " << getDescripcion() << endl;
     cout << "TIPO DE USUARIO: " << ((getTipoUsuario() == 0) ? "ADMIN" : (getTipoUsuario() == 1 ? "PAIS" : "DESCONOCIDO")) << endl;
     cout << "ESTADO: " << (getEstado() ? "ACTIVO" : "ELIMINADO") << endl;
+    */
 }
 

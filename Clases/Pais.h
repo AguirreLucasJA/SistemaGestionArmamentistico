@@ -10,8 +10,8 @@ public:
 
     long long getDineroCaja();
 
-    void cargar(int _Id);
-    void mostrar();
+    void cargar(/*int _Id*/) override;
+    void mostrar() const override;
 
 private:
     long long _dineroCaja;

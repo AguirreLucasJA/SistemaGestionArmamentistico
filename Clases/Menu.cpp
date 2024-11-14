@@ -19,7 +19,17 @@ using namespace rlutil;//rlutil::
 #include"ClasesArchivos/ArchivoNombreUsuario.h"
 #include "ClasesArchivos/ArchivoMisil.h"
 
+/// INTERFAZ ICARGABLE
+void Menu::cargarObjeto(ICargable &obj)
+{
+    obj.cargar();
+}
 
+/// INTERFAZ IMOSTRABLE
+void Menu::mostrarObjeto(IMostrable &obj)
+{
+    obj.mostrar();
+}
 
 /// DIBUJAR RECUADRO
 void Menu::dibujarCuadro(int x1, int y1, int x2, int y2)
@@ -300,14 +310,15 @@ void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL ME
 void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
 {
 
-    int id;
+    //int id;
     Admin regAdmin;
     ArchivoAdmin ArchAdmin;
     NombreUsuario regNombreUsuario;
     ArchivoNombreUsuario ArchNombreUsuario;
 
-    id = ArchAdmin.getNuevoId(); //obtiene nuevo ID autonumerico.
-    regAdmin.cargar(id);//carga un nuevo regAdmin admin setenadole el ID obtenido
+    //id = ArchAdmin.getNuevoId(); //obtiene nuevo ID autonumerico.
+    cargarObjeto(regAdmin);
+    //regAdmin.cargar(id);//carga un nuevo regAdmin admin setenadole el ID obtenido
     regNombreUsuario.setUsuario(regAdmin.getUsuario());
 
     if(ArchAdmin.guardar(regAdmin) && ArchNombreUsuario.guardar(regNombreUsuario)) //lo cargan en archivo admin
@@ -557,7 +568,7 @@ void Menu::menuPaises()//SUBMENU ABM PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 1:
             system("cls");
-            altaPais();
+            //altaPais();
             system("pause");
             break;
 
@@ -585,7 +596,7 @@ void Menu::menuPaises()//SUBMENU ABM PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         }
     }
 }
-
+/*
 /// ALTA PAIS
 void Menu::altaPais()//CARGA UN NUEVO PAIS AL ARCHIVO
 {
@@ -609,7 +620,7 @@ void Menu::altaPais()//CARGA UN NUEVO PAIS AL ARCHIVO
         cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
     }
 }
-
+*/
 /// MOSTRAR PAIS
 void Menu::mostrarPaises(bool ordenadoPorEstado, bool mostrarEliminados)//SE UTILIZA DENTRO DE MODIFICAR/ELIMINAR PAIS
 {
@@ -1635,7 +1646,7 @@ void Menu::ordenarPorEstado(Pais *vecPais, int cantidad)
 ///ORDENAR USUARIOS POR ESTADO SOBRECARGA
 void Menu::ordenarPorEstado(Misil *vecMisil, int cantidad)
 {
-int i, j;
+    int i, j;
     int posEstado;
 
     for(i = 0; i < cantidad - 1; i++)

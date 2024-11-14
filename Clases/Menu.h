@@ -2,11 +2,17 @@
 #include"Pais.h"
 #include"Admin.h"
 #include"Misil.h"
+#include"ICargable.h"
+#include"IMostrable.h"
 
 class Menu
 {
 public:
     Menu() {};
+
+    void cargarObjeto(ICargable &obj);
+    void mostrarObjeto(IMostrable &obj);
+
     void dibujarCuadro(int x1, int y1, int x2, int y2);
     void gotoxy(int x, int y);
     void cabecera();

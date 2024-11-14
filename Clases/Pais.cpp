@@ -15,15 +15,20 @@ long long Pais::getDineroCaja()
 }
 
 //METODOS
-//
-void Pais::cargar(int id)
+
+void Pais::cargar(/*int id*/)
 {
+    /*
     Entidad::cargar(id, 1);
     setDineroCaja(0);
+    */
 }
 
-void Pais::mostrar()
+void Pais::mostrar() const
 {
+    /*
     Entidad::mostrar();
     cout << "DINERO EN CAJA: " << getDineroCaja() << endl;
+    */
 }
+
