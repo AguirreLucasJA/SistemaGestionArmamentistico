@@ -2,8 +2,6 @@
 #include <string>
 #include "../Admin.h"
 
-
-
 class ArchivoAdmin
 {
 public:

@@ -3,74 +3,90 @@
 #include<cstring>//para utilizar strcpy
 using namespace std;
 
-///SETTERS
+//SETTERS
 void Avion::setVelocidadMax(int velocidadMax)
 {
-_velocidadMax= velocidadMax;
+    _velocidadMax= velocidadMax;
 }
+
 void Avion::setCantMisiles(int cantMisiles)
 {
-	_cantMisiles = cantMisiles;
+    _cantMisiles = cantMisiles;
 }
+
 void Avion::setAlcanceOperativo(int alcanceOperativo)
 {
-	_alcanceOperativo = alcanceOperativo;
+    _alcanceOperativo = alcanceOperativo;
 }
+
 void Avion::setAmetralladora(bool ametralladora)
 {
-	_ametralladora = ametralladora;
+    _ametralladora = ametralladora;
 }
+
 void Avion::setTipo(std::string tipo)
 {
-	strcpy(_tipo, tipo.c_str());
+    strcpy(_tipo, tipo.c_str());
 }
+
 void Avion::setProposito(std::string proposito)
 {
-	 strcpy(_proposito, proposito.c_str());
+    strcpy(_proposito, proposito.c_str());
 }
+
 void Avion::setTamanio(std::string tamanio)
 {
-	 strcpy(_tamanio, tamanio.c_str());
+    strcpy(_tamanio, tamanio.c_str());
 }
+
 void Avion::setManiobrabilidad(std::string maniobrabilidad)
 {
-	 strcpy(_maniobrabilidad, maniobrabilidad.c_str());
-
+    strcpy(_maniobrabilidad, maniobrabilidad.c_str());
 }
 
-///GETTERS
-
+//GETTERS
 int Avion::getsetVelocidadMax()
 {
- return _velocidadMax;
+    return _velocidadMax;
 }
+
 int Avion::getsetCantMisiles()
 {
-	return _cantMisiles;
+    return _cantMisiles;
 }
+
 int Avion::getAlcanceOperativo()
 {
-	return _alcanceOperativo;
+    return _alcanceOperativo;
 }
+
 bool Avion::getAmetralladora()
 {
-	return _ametralladora;
+    return _ametralladora;
 }
+
 std::string Avion::getTipo()
 {
-	return _tipo;
+    return _tipo;
 }
+
 std::string Avion::getProposito()
 {
-	return _proposito;
+    return _proposito;
 }
+
 std::string Avion::getTamanio()
 {
-	return _tamanio;
+    return _tamanio;
 }
+
 std::string Avion::getManiobrabilidad()
 {
-	return _maniobrabilidad;
+    return _maniobrabilidad;
 }
+
+//METODOS
+//void cargar(int id);
+//void mostrar();
 
 

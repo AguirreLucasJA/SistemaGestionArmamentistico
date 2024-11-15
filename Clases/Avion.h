@@ -2,7 +2,6 @@
 #include <string>//para poder usar string
 #include "Producto.h"
 
-
 class Avion : public Producto
 {
 
@@ -27,7 +26,6 @@ public:
     std::string getTamanio();
     std::string getManiobrabilidad();
 
-
     //void cargar(int id);
     //void mostrar();
 
@@ -40,5 +38,4 @@ private:
     char _proposito[30];
     char _tamanio[30];
     char _maniobrabilidad[30];
-
 };

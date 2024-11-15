@@ -1,8 +1,6 @@
 #pragma once
 #include <string>//para poder usar string
 #include "Producto.h"
-//#include "ClasesArchivos/ArchivoTanque.h"
-
 
 class Tanque : public Producto
 {
@@ -24,7 +22,6 @@ public:
     void setMovilidad(std::string movilidad);
     void setPrecision(std::string precision);
 
-
     int getAlcanceOperativo();
     int getPeso();
     int getTorretaCalibre();
@@ -38,7 +35,6 @@ public:
     std::string getTipoBlindaje();
     std::string getMovilidad();
     std::string getPrecision();
-
 
     //void cargar(int id);
     //void mostrar();

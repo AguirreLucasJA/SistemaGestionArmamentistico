@@ -142,11 +142,32 @@ bool ArchivoPais::leerTodos(Pais *vecRegistros, int cantidadReg)
 
 int ArchivoPais::getNuevoId()
 {
-    int nuevoId;
+    FILE *pFile;
+    Pais registro;
+    int nuevoId = 0;
 
-    nuevoId =  getCantidadReg();
+    pFile = fopen(_nombreArchivo.c_str(), "rb");
 
-    return ++ nuevoId;
+    if(pFile == nullptr)
+    {
+        return 1; //si no pudo abrir el archivo
+    }
+
+    fseek(pFile, - _tamReg, SEEK_END);
+
+    if (fread(&registro, _tamReg, 1, pFile) == 1)
+    {
+        nuevoId = registro.getId() +1;
+    }
+
+    else
+    {
+        nuevoId = 1; // Si el archivo está vacío / no se pudo leerlo
+    }
+
+    fclose(pFile);
+
+    return nuevoId;
 }
 
 int ArchivoPais::buscarXUsuario(std::string usuario)
