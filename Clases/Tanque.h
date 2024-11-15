@@ -1,6 +1,7 @@
 #pragma once
 #include <string>//para poder usar string
 #include "Producto.h"
+//#include "ClasesArchivos/ArchivoTanque.h"
 
 
 class Tanque : public Producto
