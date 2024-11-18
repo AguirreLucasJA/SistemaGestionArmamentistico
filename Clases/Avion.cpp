@@ -114,13 +114,13 @@ void Avion::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_tipo, "CAZA");
+        setTipo("CAZA");
         break;
     case 2:
-        strcpy(_tipo, "BOMBARDERO");
+        setTipo("BOMBARDERO");
         break;
     case 3:
-        strcpy(_tipo, "CAZA-BOMBARDERO");
+        setTipo("CAZA-BOMBARDERO");
         break;
     }
 
@@ -141,13 +141,13 @@ void Avion::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_proposito, "AIRE");
+        setProposito("AIRE");
         break;
     case 2:
-        strcpy(_proposito, "TIERRA");
+        setProposito("TIERRA");
         break;
     case 3:
-        strcpy(_proposito, "AIRE-TIERRA");
+        setProposito("AIRE-TIERRA");
         break;
     }
 
@@ -168,13 +168,13 @@ void Avion::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_tamanio, "CHICO");
+        setTamanio("CHICO");
         break;
     case 2:
-        strcpy(_tamanio, "MEDIANO");
+        setTamanio("MEDIANO");
         break;
     case 3:
-        strcpy(_tamanio, "GRANDE");
+        setTamanio("GRANDE");
         break;
     }
 
@@ -206,10 +206,10 @@ void Avion::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_maniobrabilidad, "ALTA");
+        setManiobrabilidad("ALTA");
         break;
     case 2:
-        strcpy(_maniobrabilidad, "BAJA");
+        setManiobrabilidad("BAJA");
         break;
     }
 
@@ -241,10 +241,10 @@ void Avion::cargar(int id)
     switch(opcion)
     {
     case 1:
-        _ametralladora = true;
+        setAmetralladora(true);
         break;
     case 2:
-        _ametralladora = false;
+        setAmetralladora(false);
         break;
     }
 
@@ -260,6 +260,12 @@ void Avion::cargar(int id)
     setAlcanceOperativo(alcanceOperativo);
 
 }
-//void mostrar();
+void Avion::mostrar()
+{
+    Producto::mostrar();
+
+
+
+}
 
 

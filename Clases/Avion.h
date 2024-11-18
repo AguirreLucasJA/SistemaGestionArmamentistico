@@ -27,7 +27,7 @@ public:
     std::string getManiobrabilidad();
 
     void cargar(int id);
-    //void mostrar();
+    void mostrar();
 
 private:
     int _velocidadMax;

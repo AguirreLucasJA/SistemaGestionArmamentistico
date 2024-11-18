@@ -122,10 +122,10 @@ void Misil::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_tipoPropulsion, "COHETE");
+        setTipoPropulsion("COHETE");
         break;
     case 2:
-        strcpy(_tipoPropulsion, "REACCION");
+        setTipoPropulsion("REACCION");
         break;
     }
 
@@ -145,10 +145,10 @@ void Misil::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_tipoGuia, "TOTAL");
+        setTipoGuia("TOTAL");
         break;
     case 2:
-        strcpy(_tipoGuia, "PARCIAL");
+        setTipoGuia("PARCIAL");
         break;
     }
 
@@ -202,10 +202,10 @@ void Misil::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_tipoCombustible, "SOLIDO");
+        setTipoCombustible("SOLIDO");
         break;
     case 2:
-        strcpy(_tipoCombustible, "LIQUIDO");
+        setTipoCombustible("LIQUIDO");
         break;
     }
 
@@ -227,16 +227,16 @@ void Misil::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_tipoCarga, "EXPLOSIVA");
+        setTipoCarga("EXPLOSIVA");
         break;
     case 2:
-        strcpy(_tipoCarga, "NUCLEAR");
+        setTipoCarga("NUCLEAR");
         break;
     case 3:
-        strcpy(_tipoCarga, "QUIMICA");
+        setTipoCarga("QUIMICA");
         break;
     case 4:
-        strcpy(_tipoCarga, "BIOLOGIA");
+        setTipoCarga("BIOLOGIA");
         break;
 
     }
@@ -259,16 +259,16 @@ void Misil::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(_tipoAtaque, "AIRE-AIRE");
+        setTipoAtaque("AIRE-AIRE");
         break;
     case 2:
-        strcpy(_tipoAtaque, "AIRE-TIERRA");
+        setTipoAtaque("AIRE-TIERRA");
         break;
     case 3:
-        strcpy(_tipoAtaque, "TIERRA-AIRE");
+        setTipoAtaque("TIERRA-AIRE");
         break;
     case 4:
-        strcpy(_tipoAtaque, "TIERRA-TIERRA");
+        setTipoAtaque("TIERRA-TIERRA");
         break;
     }
 
@@ -288,10 +288,10 @@ void Misil::cargar(int id)
     switch(opcion)
     {
     case 1:
-        _hipersonico = true;
+        setHipersonico(true);
         break;
     case 2:
-        _hipersonico = false;
+        setHipersonico(false);
         break;
     }
     cin.ignore();
@@ -300,15 +300,15 @@ void Misil::cargar(int id)
 void Misil::mostrar()
 {
     Producto::mostrar();
-    cout << "CANTIDAD CABEZAS EXPLOSIVAS: " << _cantCabezasExplosivas << endl;
-    cout << "VELOCIDAD MAXIMA: " << _velocidadMax << endl;
-    cout << "PESO: " << _peso << endl;
-    cout << "TIPO DE COMBUSTIBLE: " << _tipoCombustible << endl;
-    cout << "TIPO DE CARGA: " << _tipoCarga << endl;
-    cout << "TIPO ATAQUE: " << _tipoAtaque << endl;
-    cout << "TIPO DE PROPULSION: " << _tipoPropulsion << endl;
-    cout << "TIPO DE GUIA: " << _tipoGuia << endl;
-    cout << "HIPERSONICO: " << (_hipersonico ? "Si" : "No") << endl;
+    cout << "CANTIDAD CABEZAS EXPLOSIVAS: " << getCantCabezasExplosivas() << endl;
+    cout << "VELOCIDAD MAXIMA: " << getVelocidadMax() << endl;
+    cout << "PESO: " << getPeso() << endl;
+    cout << "TIPO DE COMBUSTIBLE: " << getTipoCombustible() << endl;
+    cout << "TIPO DE CARGA: " << getTipoCarga() << endl;
+    cout << "TIPO ATAQUE: " << getTipoAtaque() << endl;
+    cout << "TIPO DE PROPULSION: " << getTipoPropulsion() << endl;
+    cout << "TIPO DE GUIA: " << getTipoGuia() << endl;
+    cout << "HIPERSONICO: " << (getHipersonico() ? "Si" : "No") << endl;
 }
 
 
