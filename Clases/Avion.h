@@ -17,8 +17,8 @@ public:
     void setTamanio(std::string tamanio);
     void setManiobrabilidad(std::string maniobrabilidad);
 
-    int getsetVelocidadMax();
-    int getsetCantMisiles();
+    int getVelocidadMax();
+    int getCantMisiles();
     int getAlcanceOperativo();
     bool getAmetralladora();
     std::string getTipo();
