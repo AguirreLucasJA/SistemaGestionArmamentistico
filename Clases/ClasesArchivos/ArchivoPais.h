@@ -2,8 +2,6 @@
 #include <string>
 #include "../Pais.h"
 
-
-
 class ArchivoPais
 {
 public:

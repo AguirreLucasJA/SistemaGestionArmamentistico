@@ -1,12 +1,12 @@
-#include "ArchivoMisil.h"
+#include "ArchivoBuque.h"
 
-ArchivoMisil::ArchivoMisil()
+ArchivoBuque::ArchivoBuque()
 {
-    _nombreArchivo = "ARCHIVOS/MISIL.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
-    _tamReg = sizeof(Misil); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
+    _nombreArchivo = "ARCHIVOS/BUQUE.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
+    _tamReg = sizeof(Buque); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
 }
 
-bool ArchivoMisil::guardar(const Misil &registro)
+bool ArchivoBuque::guardar(const Buque &registro)
 {
     FILE *pFile;
     bool result;
@@ -25,7 +25,7 @@ bool ArchivoMisil::guardar(const Misil &registro)
     return result;
 }
 
-bool ArchivoMisil::guardar(const Misil &registro, int pos)
+bool ArchivoBuque::guardar(const Buque &registro, int pos)
 {
     FILE *pFile;
     bool result;
@@ -46,10 +46,10 @@ bool ArchivoMisil::guardar(const Misil &registro, int pos)
     return result;
 }
 
-int ArchivoMisil::buscarXId(int id)
+int ArchivoBuque::buscarXId(int id)
 {
     FILE *pFile;
-    Misil registro;
+    Buque registro;
     int pos = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -81,7 +81,7 @@ int ArchivoMisil::buscarXId(int id)
 
 }
 
-int ArchivoMisil::getCantidadReg()
+int ArchivoBuque::getCantidadReg()
 {
     int totalByte;
     FILE *pFile;
@@ -100,10 +100,10 @@ int ArchivoMisil::getCantidadReg()
     return totalByte / _tamReg; ///CANT TOTAL DE REG SIN DISCRIMINAR LOS ELIMINADOS
 }
 
-Misil ArchivoMisil::leer(int pos)
+Buque ArchivoBuque::leer(int pos)
 {
     FILE *pFile;
-    Misil registro;
+    Buque registro;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
 
@@ -121,7 +121,7 @@ Misil ArchivoMisil::leer(int pos)
     return registro;
 }
 
-bool ArchivoMisil::leerTodos(Misil *vecRegistros, int cantidadReg)
+bool ArchivoBuque::leerTodos(Buque *vecRegistros, int cantidadReg)
 {
     FILE *pFile;
     bool result;
@@ -140,10 +140,10 @@ bool ArchivoMisil::leerTodos(Misil *vecRegistros, int cantidadReg)
     return result;
 }
 
-int ArchivoMisil::getNuevoId()
+int ArchivoBuque::getNuevoId()
 {
     FILE *pFile;
-    Misil registro;
+    Buque registro;
     int nuevoId = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -170,10 +170,10 @@ int ArchivoMisil::getNuevoId()
     return nuevoId;
 }
 
-int ArchivoMisil::buscarXNombre(std::string nombre)
+int ArchivoBuque::buscarXNombre(std::string nombre)
 {
     FILE *pFile;
-    Misil registro;
+    Buque registro;
     int pos = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -203,4 +203,3 @@ int ArchivoMisil::buscarXNombre(std::string nombre)
         return -1;
     }
 }
-

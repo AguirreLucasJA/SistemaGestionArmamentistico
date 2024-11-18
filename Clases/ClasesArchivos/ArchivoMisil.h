@@ -17,7 +17,6 @@ public:
     int getNuevoId();//Devuelve id AUTONUMERICO
     int buscarXNombre(std::string nombre);
 
-
 private:
     std::string _nombreArchivo;
     int _tamReg;

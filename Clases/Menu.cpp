@@ -107,7 +107,6 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     getline(cin, clave);
 
     bool ingresoAdmin = false;
-    //TODO: FALTA HACER SI HAY 2 USUARIOS CON EL MISMO NOMBRE SE QUEDA CON EL PRIMERO Y NO SIGUE FIJANDOSE EN EL RESTO DEL ARCHIVO
 
     regAdmin = archivoAdmin.leer(archivoAdmin.buscarXUsuario(usuario));
     if (regAdmin.getUsuario() == usuario && regAdmin.getClave() == clave && regAdmin.getEstado())
