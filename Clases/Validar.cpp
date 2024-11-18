@@ -13,7 +13,7 @@ bool Validar::esUsuarioValido(std::string nombreUsuario)
 {
     ArchivoNombreUsuario archNombreUsuario;
 
-    if(archNombreUsuario.buscarXUsuario(nombreUsuario) != -1)//TODO::REVISAR LAS CONDICIONES DEL CARGAR DE ENTIDAD Y EL != -1;
+    if(archNombreUsuario.buscarXUsuario(nombreUsuario) == -1)
     {
         return true;
     }

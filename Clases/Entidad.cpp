@@ -88,7 +88,7 @@ void Entidad::cargar(int id, int tipoUsuario)
     cout << "MAX 30 CARACTERES -> ING NOMBRE USUARIO: ";
     cin.ignore();// sino se saltea el ingreso del usuario.
     getline(cin, usuario);
-    while(!validar.esStringValido(usuario,30) || validar.esUsuarioValido(usuario) || usuario == "admin")
+    while(!validar.esStringValido(usuario,30) || !validar.esUsuarioValido(usuario) || usuario == "admin")
     {
 
         if(!validar.esStringValido(usuario,30))
@@ -101,7 +101,7 @@ void Entidad::cargar(int id, int tipoUsuario)
         }
 
 
-        if(validar.esUsuarioValido(usuario) || usuario == "admin")
+        if(!validar.esUsuarioValido(usuario) || usuario == "admin")
         {
             cout << "ERROR EL USUARIO YA EXISTE" << endl;
             system("pause");
