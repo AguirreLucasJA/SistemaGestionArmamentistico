@@ -42,7 +42,8 @@ void Producto::setDescripcion(string descripcion)
 
 }
 
-void Producto::setFecha(Fecha fecha){
+void Producto::setFecha(Fecha fecha)
+{
     _fechaAlta = fecha;
 }
 
@@ -87,7 +88,8 @@ string Producto::getDescripcion()
     return _descripcion;
 }
 
-Fecha Producto::getFechaAlta(){
+Fecha Producto::getFechaAlta()
+{
     return _fechaAlta;
 }
 
@@ -104,8 +106,9 @@ void Producto::cargar(int id) //le pasas el id autonumerico
     string nombre;
     string paisOrigen;
     string descripcion;
-
-    setFecha(fechaAlta);
+    long long precio;
+    int stock;
+    int lote;
 
     setId(id);//le setea el id obtenido con la funcion contar registros de la Clase Archivo del Producto
     cout << "CARGANDO ID: " << getId() << endl;//muestra el nuevo id autonumerico
@@ -113,7 +116,8 @@ void Producto::cargar(int id) //le pasas el id autonumerico
     cout<<"MAX 30 CARACTERES -> ING NOMBRE: ";
     cin.ignore();// sino se saltea el ingreso.
     getline(cin, nombre);
-    while(!validar.esStringValido(nombre,30))
+
+    while(!validar.esStringValido(nombre,30))//TODO:FALTA HACER LA VALIDACION DE LA TABLA INTERMEDIA PARA NO REPETIR NOMBRE
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
         system("pause");
@@ -121,18 +125,25 @@ void Producto::cargar(int id) //le pasas el id autonumerico
         cout << "REINGRESE NOMBRE:";
         getline(cin, nombre);
     }
-    setNombre(nombre);
-    cout<<"ING PRECIO: u$d ";
-    cin>>_precio;
-    cout<<"ING STOCK: ";
-    cin>>_stock;
-    cout<<"ING LOTE: ";
-    cin>>_lote;
 
+    setNombre(nombre);
+
+    cout<<"ING PRECIO: u$d ";
+    cin>> precio;
+    setPrecio(precio);
+
+    cout<<"ING STOCK: ";
+    cin>> stock;
+    setStock(stock);
+
+    cout<<"ING LOTE: ";
+    cin>> lote;
+    setLote(lote);
 
     cin.ignore();
     cout<<"MAX 30 CARACTERES -> ING PAIS DE ORIGEN: ";
     getline(cin, paisOrigen);
+
     while(!validar.esStringValido(paisOrigen,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
@@ -145,6 +156,7 @@ void Producto::cargar(int id) //le pasas el id autonumerico
 
     cout<<"MAX 30 CARACTERES -> ING DESCRIPCION: ";
     getline(cin, descripcion);
+
     while(!validar.esStringValido(descripcion,30))
     {
         cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
@@ -155,7 +167,8 @@ void Producto::cargar(int id) //le pasas el id autonumerico
     }
     setDescripcion(descripcion);
 
-    _estado = true;
+    setFecha(fechaAlta);
+    setEstado(true);
 
 }
 

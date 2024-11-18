@@ -46,12 +46,12 @@ void Avion::setManiobrabilidad(std::string maniobrabilidad)
 }
 
 //GETTERS
-int Avion::getsetVelocidadMax()
+int Avion::getVelocidadMax()
 {
     return _velocidadMax;
 }
 
-int Avion::getsetCantMisiles()
+int Avion::getCantMisiles()
 {
     return _cantMisiles;
 }
@@ -263,9 +263,14 @@ void Avion::cargar(int id)
 void Avion::mostrar()
 {
     Producto::mostrar();
-
-
-
+    cout << "VELOCIDAD MAXIMA: " << getVelocidadMax() << endl;
+    cout << "CANTIDAD DE MISILES: " << getCantMisiles() << endl;
+    cout << "ALCANCE OPERATIVO: " << getAlcanceOperativo() << endl;
+    cout << "AMETRALLADORA: " << (getAmetralladora() ? "Si" : "No") << endl;
+    cout << "TIPO: " << getTipo() << endl;
+    cout << "PROPOSITO: " << getProposito() << endl;
+    cout << "TAMANIO: " << getTamanio() << endl;
+    cout << "MANIOBRABILIDAD: " << getManiobrabilidad() << endl;
 }
 
 
