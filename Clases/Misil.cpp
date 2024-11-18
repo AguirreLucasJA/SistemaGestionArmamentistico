@@ -161,13 +161,13 @@ void Misil::cargar(int id)
     }
     setCantCabezasExplosivas(cantCabezasExplosivas);
 
-    cout << "ENTRE (101 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
+    cout << "ENTRE (100 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
     cin >> velocidadMax;
 
-    while(velocidadMax < 100 || velocidadMax > 10000)
+    while(velocidadMax < 100 || velocidadMax > 99999)
     {
         cout << "Velocidad ingresada incorrecta, re ingrese..." << endl;
-        cout << "ENTRE (101 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
+        cout << "ENTRE (100 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
         cin >> velocidadMax;
     }
 

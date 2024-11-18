@@ -26,7 +26,7 @@ public:
     std::string getTamanio();
     std::string getManiobrabilidad();
 
-    //void cargar(int id);
+    void cargar(int id);
     //void mostrar();
 
 private:
