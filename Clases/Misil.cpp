@@ -1,4 +1,5 @@
 #include "Misil.h"
+#include "Validar.h"
 #include <iostream>//PARA LOS COUT
 #include<cstring>//para utilizar strcpy
 using namespace std;
@@ -98,6 +99,7 @@ bool Misil::getHipersonico()
 //METODOS
 void Misil::cargar(int id)
 {
+    Validar validar;
     int opcion = 0;
     int cantCabezasExplosivas;
     int velocidadMax;
@@ -110,7 +112,7 @@ void Misil::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion != 1 && opcion != 2)
+    while(!validar.esRangoValido(1, 2, opcion))
     {
         cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
         cout << "OPCION: ";
@@ -133,7 +135,7 @@ void Misil::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion != 1 && opcion != 2)
+    while(!validar.esRangoValido(1, 2, opcion))
     {
         cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
         cout << "OPCION: ";
@@ -152,8 +154,7 @@ void Misil::cargar(int id)
 
     cout << "MAX 10 -> ING CANTIDAD DE CABEZAS EXPLOSIVAS: ";
     cin >> cantCabezasExplosivas;
-
-    while(cantCabezasExplosivas > 10 || cantCabezasExplosivas < 0)
+    while(!validar.esRangoValido(0, 10, cantCabezasExplosivas))
     {
         cout << "Cantidad ingresada incorrecta, re ingrese..." << endl;
         cout << "MAX 10 -> ING CANTIDAD DE CABEZAS EXPLOSIVAS: ";
@@ -164,7 +165,7 @@ void Misil::cargar(int id)
     cout << "ENTRE (100 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
     cin >> velocidadMax;
 
-    while(velocidadMax < 100 || velocidadMax > 99999)
+    while(!validar.esRangoValido(100, 99999, velocidadMax))
     {
         cout << "Velocidad ingresada incorrecta, re ingrese..." << endl;
         cout << "ENTRE (100 - 99999)KM/H -> ING VELOCIDAD MAXIMA: ";
@@ -176,7 +177,7 @@ void Misil::cargar(int id)
     cout << "ENTRE (1 - 4)TN -> ING PESO: ";
     cin >> peso;
 
-    while(peso < 0 || peso > 5)
+    while(!validar.esRangoValido(1, 5, peso))
     {
         cout << "Peso ingresado incorrecto, re ingrese..." << endl;
         cout << "ENTRE (1 - 4)TN -> ING PESO: ";
@@ -191,7 +192,7 @@ void Misil::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion != 1 && opcion != 2)
+    while(!validar.esRangoValido(1, 2, opcion))
     {
         cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
         cout << "OPCION: ";
@@ -216,7 +217,7 @@ void Misil::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion < 1 || opcion > 4)
+    while(!validar.esRangoValido(1, 4, opcion))
     {
         cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
         cout << "OPCION: ";
@@ -248,7 +249,7 @@ void Misil::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion < 1 || opcion > 4)
+    while(!validar.esRangoValido(1, 4, opcion))
     {
         cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
         cout << "OPCION: ";
@@ -277,7 +278,7 @@ void Misil::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion != 1 && opcion != 2)
+    while(!validar.esRangoValido(1, 2, opcion))
     {
         cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
         cout << "OPCION: ";

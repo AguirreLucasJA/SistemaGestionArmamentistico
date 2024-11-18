@@ -1,4 +1,5 @@
 #include "Avion.h"
+#include "Validar.h"
 #include <iostream>//PARA LOS COUT
 #include<cstring>//para utilizar strcpy
 using namespace std;
@@ -88,6 +89,7 @@ std::string Avion::getManiobrabilidad()
 //METODOS
 void Avion::cargar(int id)
 {
+    Validar validar;
     int opcion = 0;
     int velocidadMax;
 
@@ -100,7 +102,7 @@ void Avion::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion < 1 || opcion > 4)
+    while(!validar.esRangoValido(1, 3, opcion))
     {
         cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
         cout << "OPCION: ";
@@ -127,7 +129,7 @@ void Avion::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion < 1 || opcion > 3)
+    while(!validar.esRangoValido(1, 3, opcion))
     {
         cout << "Opcion incorrecta, re ingrese..." << endl;
         cout << "OPCION: ";
@@ -154,7 +156,7 @@ void Avion::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion < 1 || opcion > 3)
+    while(!validar.esRangoValido(1, 3, opcion))
     {
         cout << "Opcion incorrecta, re ingrese..." << endl;
         cout << "OPCION: ";
@@ -177,7 +179,7 @@ void Avion::cargar(int id)
     cout << "ENTRE (800 - 2000)KM/H -> ING VELOCIDAD MAXIMA: ";
     cin >> velocidadMax;
 
-    while(velocidadMax < 800 || velocidadMax > 2000)
+    while(!validar.esRangoValido(800, 2000, velocidadMax))
     {
         cout << "Velocidad ingresada incorrecta, re ingrese..." << endl;
         cout << "ENTRE (800 - 2000)KM/H -> ING VELOCIDAD MAXIMA: ";
@@ -190,7 +192,7 @@ void Avion::cargar(int id)
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(opcion < 1 || opcion > 2)
+    while(!validar.esRangoValido(1, 2, opcion))
     {
         cout << "Opcion incorrecta, re ingrese..." << endl;
         cout << "OPCION: ";
@@ -200,10 +202,10 @@ void Avion::cargar(int id)
     switch(opcion)
     {
     case 1:
-        strcpy(Maniobrabilidad, "ALTA");
+        strcpy(_maniobrabilidad, "ALTA");
         break;
     case 2:
-        strcpy(Maniobrabilidad, "BAJA");
+        strcpy(_maniobrabilidad, "BAJA");
         break;
     }
 }
