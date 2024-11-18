@@ -92,6 +92,8 @@ void Avion::cargar(int id)
     Validar validar;
     int opcion = 0;
     int velocidadMax;
+    int cantMisiles;
+    int alcanceOperativo;
 
     Producto::cargar(id);
 
@@ -186,6 +188,8 @@ void Avion::cargar(int id)
         cin >> velocidadMax;
     }
 
+    setVelocidadMax(velocidadMax);
+
     cout<<"MANIOBRABILIDAD: " << endl;
     cout << "1- ALTA" << endl;
     cout << "2- BAJA" << endl;
@@ -208,6 +212,53 @@ void Avion::cargar(int id)
         strcpy(_maniobrabilidad, "BAJA");
         break;
     }
+
+    cout<<"MAX 30 -> ING CANTIDAD DE MISILES: ";
+    cin>> cantMisiles;
+
+    while(!validar.esRangoValido(0, 30, cantMisiles))
+    {
+        cout << "Cantidad ingresada incorrecta, re ingrese..." << endl;
+        cout << "MAX 30 -> ING CANTIDAD DE MISILES: ";
+        cin >> cantMisiles;
+    }
+
+    setCantMisiles(cantMisiles);
+
+    cout<<"AMETRALLADORA: " << endl;
+    cout << "1- SI" << endl;
+    cout << "2- NO" << endl;
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(!validar.esRangoValido(1, 2, opcion))
+    {
+        cout << "Opcion incorrecta, re ingrese..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
+    }
+
+    switch(opcion)
+    {
+    case 1:
+        _ametralladora = true;
+        break;
+    case 2:
+        _ametralladora = false;
+        break;
+    }
+
+    cout<<"ENTRE (100 - 2000)KM/H -> ING ALCANCE OPERATIVO: ";
+    cin>> alcanceOperativo;
+    while(!validar.esRangoValido(100, 2000, alcanceOperativo))
+    {
+        cout << "Alcance operativo incorrecto, re ingrese..." << endl;
+        cout<<"ENTRE (100 - 2000)KM/H -> ING ALCANCE OPERATIVO: ";
+        cin>> alcanceOperativo;
+    }
+
+    setAlcanceOperativo(alcanceOperativo);
+
 }
 //void mostrar();
 
