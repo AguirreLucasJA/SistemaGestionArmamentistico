@@ -192,11 +192,12 @@ void Avion::cargar(int id)
 
     cout<<"MANIOBRABILIDAD: " << endl;
     cout << "1- ALTA" << endl;
-    cout << "2- BAJA" << endl;
+    cout << "2- MEDIA" << endl;
+    cout << "3- BAJA" << endl;
     cout << "OPCION: ";
     cin >> opcion;
 
-    while(!validar.esRangoValido(1, 2, opcion))
+    while(!validar.esRangoValido(1, 3, opcion))
     {
         cout << "Opcion incorrecta, re ingrese..." << endl;
         cout << "OPCION: ";
@@ -209,6 +210,9 @@ void Avion::cargar(int id)
         setManiobrabilidad("ALTA");
         break;
     case 2:
+        setManiobrabilidad("MEDIA");
+        break;
+    case 3:
         setManiobrabilidad("BAJA");
         break;
     }
@@ -263,14 +267,15 @@ void Avion::cargar(int id)
 void Avion::mostrar()
 {
     Producto::mostrar();
+    cout << "TIPO: " << getTipo() << endl;
     cout << "VELOCIDAD MAXIMA: " << getVelocidadMax() << endl;
+    cout << "MANIOBRABILIDAD: " << getManiobrabilidad() << endl;
+    cout << "AMETRALLADORA: " << (getAmetralladora() ? "Si" : "No") << endl;
+
+    cout << "PROPOSITO: " << getProposito() << endl;
     cout << "CANTIDAD DE MISILES: " << getCantMisiles() << endl;
     cout << "ALCANCE OPERATIVO: " << getAlcanceOperativo() << endl;
-    cout << "AMETRALLADORA: " << (getAmetralladora() ? "Si" : "No") << endl;
-    cout << "TIPO: " << getTipo() << endl;
-    cout << "PROPOSITO: " << getProposito() << endl;
     cout << "TAMANIO: " << getTamanio() << endl;
-    cout << "MANIOBRABILIDAD: " << getManiobrabilidad() << endl;
 }
 
 

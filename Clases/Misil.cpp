@@ -177,7 +177,7 @@ void Misil::cargar(int id)
     cout << "ENTRE (1 - 4)TN -> ING PESO: ";
     cin >> peso;
 
-    while(!validar.esRangoValido(1, 5, peso))
+    while(!validar.esRangoValido(1, 4, peso))
     {
         cout << "Peso ingresado incorrecto, re ingrese..." << endl;
         cout << "ENTRE (1 - 4)TN -> ING PESO: ";
@@ -300,13 +300,14 @@ void Misil::cargar(int id)
 void Misil::mostrar()
 {
     Producto::mostrar();
+    cout << "PESO: " << getPeso() << endl;
+    cout << "TIPO DE PROPULSION: " << getTipoPropulsion() << endl;
+
     cout << "CANTIDAD CABEZAS EXPLOSIVAS: " << getCantCabezasExplosivas() << endl;
     cout << "VELOCIDAD MAXIMA: " << getVelocidadMax() << endl;
-    cout << "PESO: " << getPeso() << endl;
     cout << "TIPO DE COMBUSTIBLE: " << getTipoCombustible() << endl;
     cout << "TIPO DE CARGA: " << getTipoCarga() << endl;
     cout << "TIPO ATAQUE: " << getTipoAtaque() << endl;
-    cout << "TIPO DE PROPULSION: " << getTipoPropulsion() << endl;
     cout << "TIPO DE GUIA: " << getTipoGuia() << endl;
     cout << "HIPERSONICO: " << (getHipersonico() ? "Si" : "No") << endl;
 }

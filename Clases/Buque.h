@@ -26,8 +26,8 @@ public:
     std::string getManiobrabilidad();
     bool getAmetralladoraa();
 
-    //void cargar(int id);
-    //void mostrar();
+    void cargar(int id);
+    void mostrar();
 
 private:
     int _cantTorretas;
