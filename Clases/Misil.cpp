@@ -272,7 +272,7 @@ void Misil::cargar(int id)
         break;
     }
 
-    cout << "ES HIPERSONICO: " << endl;
+    cout << "ING HIPERSONICO: " << endl;
     cout << "1- SI" << endl;
     cout << "2- NO" << endl;
     cout << "OPCION: ";
@@ -302,7 +302,6 @@ void Misil::mostrar()
     Producto::mostrar();
     cout << "PESO: " << getPeso() << endl;
     cout << "TIPO DE PROPULSION: " << getTipoPropulsion() << endl;
-
     cout << "CANTIDAD CABEZAS EXPLOSIVAS: " << getCantCabezasExplosivas() << endl;
     cout << "VELOCIDAD MAXIMA: " << getVelocidadMax() << endl;
     cout << "TIPO DE COMBUSTIBLE: " << getTipoCombustible() << endl;

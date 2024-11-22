@@ -24,7 +24,7 @@ public:
     std::string getBlindaje();
     std::string getTipoPropulsion();
     std::string getManiobrabilidad();
-    bool getAmetralladoraa();
+    bool getAmetralladora();
 
     void cargar(int id);
     void mostrar();

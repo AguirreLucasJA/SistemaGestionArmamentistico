@@ -81,7 +81,7 @@ std::string Buque::getManiobrabilidad()
     return _maniobrabilidad;
 }
 
-bool Buque::getAmetralladoraa()
+bool Buque::getAmetralladora()
 {
     return _ametralladora;
 }
@@ -226,7 +226,7 @@ void Buque::cargar(int id)
         break;
     }
 
-    cout<<"MANIOBRABILIDAD: " << endl;
+    cout<<"ING MANIOBRABILIDAD: " << endl;
     cout << "1- ALTA" << endl;
     cout << "2- MEDIA" << endl;
     cout << "3- BAJA" << endl;
@@ -253,7 +253,7 @@ void Buque::cargar(int id)
         break;
     }
 
-    cout<<"AMETRALLADORA: " << endl;
+    cout<<"ING AMETRALLADORA: " << endl;
     cout << "1- SI" << endl;
     cout << "2- NO" << endl;
     cout << "OPCION: ";
@@ -283,10 +283,8 @@ void Buque::mostrar()
     cout << "VELOCIDAD MAXIMA: " << getVelocidadMax() << endl;
     cout << "MANIOBRABILIDAD: " << getManiobrabilidad() << endl;
     cout << "AMETRALLADORA: " << (getAmetralladora() ? "Si" : "No") << endl;
-
     cout << "PESO: " << getPeso() << endl;
     cout << "TIPO DE PROPULSION: " << getTipoPropulsion() << endl;
-
     cout << "CANTIDAD DE TORRETAS: " << getCantTorretas() << endl;
     cout << "BLINDAJE: " << getBlindaje() << endl;
 }

@@ -11,7 +11,7 @@ public:
     void setAlcanceOperativo(int alcanceOperativo);
     void setPeso(int peso);
     void setTorretaCalibre(int torretaCalibre);
-    void setVelocidad(int velocidad);
+    void setVelocidadMax(int velocidad);
     void setAmetralladora(bool ametralladora);
     void setTorretaBlindada(bool torretablindada);
     void setAntiTanque(bool antiTanque);
@@ -36,8 +36,8 @@ public:
     std::string getMovilidad();
     std::string getPrecision();
 
-    //void cargar(int id);
-    //void mostrar();
+    void cargar(int id);
+    void mostrar();
 
 private:
     int _alcanceOperativo;

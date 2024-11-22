@@ -124,7 +124,7 @@ void Avion::cargar(int id)
         break;
     }
 
-    cout<<"PROPOSITO: " << endl;
+    cout<<"ING PROPOSITO: " << endl;
     cout << "1- AIRE" << endl;
     cout << "2- TIERRA" << endl;
     cout << "3- AIRE-TIERRA" << endl;
@@ -151,7 +151,7 @@ void Avion::cargar(int id)
         break;
     }
 
-    cout<<"TAMANIO: " << endl;
+    cout<<"ING TAMANIO: " << endl;
     cout << "1- CHICO" << endl;
     cout << "2- MEDIANO" << endl;
     cout << "3- GRANDE" << endl;
@@ -190,7 +190,7 @@ void Avion::cargar(int id)
 
     setVelocidadMax(velocidadMax);
 
-    cout<<"MANIOBRABILIDAD: " << endl;
+    cout<<"ING MANIOBRABILIDAD: " << endl;
     cout << "1- ALTA" << endl;
     cout << "2- MEDIA" << endl;
     cout << "3- BAJA" << endl;
@@ -229,7 +229,7 @@ void Avion::cargar(int id)
 
     setCantMisiles(cantMisiles);
 
-    cout<<"AMETRALLADORA: " << endl;
+    cout<<"ING AMETRALLADORA: " << endl;
     cout << "1- SI" << endl;
     cout << "2- NO" << endl;
     cout << "OPCION: ";
@@ -252,12 +252,12 @@ void Avion::cargar(int id)
         break;
     }
 
-    cout<<"ENTRE (100 - 2000)KM/H -> ING ALCANCE OPERATIVO: ";
+    cout<<"ENTRE (100 - 2000)KM -> ING ALCANCE OPERATIVO: ";
     cin>> alcanceOperativo;
     while(!validar.esRangoValido(100, 2000, alcanceOperativo))
     {
         cout << "Alcance operativo incorrecto, re ingrese..." << endl;
-        cout<<"ENTRE (100 - 2000)KM/H -> ING ALCANCE OPERATIVO: ";
+        cout<<"ENTRE (100 - 2000)KM -> ING ALCANCE OPERATIVO: ";
         cin>> alcanceOperativo;
     }
 
@@ -271,7 +271,6 @@ void Avion::mostrar()
     cout << "VELOCIDAD MAXIMA: " << getVelocidadMax() << endl;
     cout << "MANIOBRABILIDAD: " << getManiobrabilidad() << endl;
     cout << "AMETRALLADORA: " << (getAmetralladora() ? "Si" : "No") << endl;
-
     cout << "PROPOSITO: " << getProposito() << endl;
     cout << "CANTIDAD DE MISILES: " << getCantMisiles() << endl;
     cout << "ALCANCE OPERATIVO: " << getAlcanceOperativo() << endl;
