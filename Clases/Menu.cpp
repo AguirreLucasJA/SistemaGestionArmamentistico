@@ -1283,7 +1283,7 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            modificarAvion();
             system("pause");
             break;
 
@@ -1375,6 +1375,99 @@ void Menu::mostrarAviones(bool ordenadoPorEstado, bool mostrarEliminados) //TODO
         }
     }
     delete [] vecAvion;
+}
+
+/// MODIFICAR AVION
+void Menu::modificarAvion()//MODIFICA MISIL EXISTENTE EN ARCHIVO
+{
+    Validar validar;
+    ArchivoAvion ArchAvion;
+    Avion reg;
+    int id;
+    int pos;
+    string respuesta;
+    cin.ignore();//arregla de subMenu Misil el "cin>>opcion;" sino se saltea el LISTAR MISILES.
+    cout << "LISTAR AVIONES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarAviones(false);
+    }
+
+    cout << "INGRESE EL ID A MODIFICAR: ";
+    cin >> id;
+    cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
+    pos = ArchAvion.buscarXId(id);
+
+    if(pos != -1) // SI encontro el avion
+    {
+        reg = ArchAvion.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+            cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+            long long precio;
+            string paisOrigen;
+            string descripcion;
+            //si le ingresas cualquier otra cosa que no sea s/S RETURN al subMenuStock
+            if(respuesta == "s" || respuesta == "S")
+            {
+
+                cout << "MAX 30 CARACTERES -> ING NUEVO PAIS DE ORIGEN: ";
+                getline(cin, paisOrigen);
+                while(!validar.esStringValido(paisOrigen,30))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE PAIS DE ORIGEN:";
+                    getline(cin, paisOrigen);
+                }
+                reg.setPaisOrigen(paisOrigen);
+
+                cout << "MAX 100 CARACTERES -> ING NUEVA DESCRIPCION: ";
+                getline(cin, descripcion);
+                while(!validar.esStringValido(descripcion,100))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 100 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE DESCRIPCION:";
+                    getline(cin, descripcion);
+                }
+                reg.setDescripcion(descripcion);
+
+                cout << "ING NUEVO PRECIO: $";
+                cin >> precio;
+                reg.setPrecio(precio);
+
+                if(ArchAvion.guardar(reg,pos))
+                {
+                    cout << "Se modifico con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo modificar el avion!" << endl;
+                }
+
+            }
+            else//NO eligio modificar el avion.
+            {
+                cout << "El avion no fue modificado" << endl;
+            }
+        }
+        else
+        {
+            cout << "El avion no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El avion no se encuentra en el sistema." << endl;
+    }
 }
 
 /// SUBMENU STOCK BUQUE
