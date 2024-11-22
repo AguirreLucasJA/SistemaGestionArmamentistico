@@ -1168,7 +1168,7 @@ void Menu::eliminarMisil()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
     }
 }
 
-/// AGREGAR STOCK
+/// AGREGAR STOCK MISIL
 void Menu::agregarStockMisil()//ACUMULA STOCK DE MISILES
 {
     int Id;
@@ -1277,7 +1277,7 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            eliminarAvion();
             system("pause");
             break;
 
@@ -1289,7 +1289,7 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            agregarStockAvion();
             system("pause");
             break;
 
@@ -1457,6 +1457,138 @@ void Menu::modificarAvion()//MODIFICA MISIL EXISTENTE EN ARCHIVO
             else//NO eligio modificar el avion.
             {
                 cout << "El avion no fue modificado" << endl;
+            }
+        }
+        else
+        {
+            cout << "El avion no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El avion no se encuentra en el sistema." << endl;
+    }
+}
+
+/// ELIMINAR AVION
+void Menu::eliminarAvion()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
+{
+    int Id;
+    int pos;
+    Avion reg;
+    ArchivoAvion ArchAvion;
+    string respuesta;
+    cin.ignore();//arregla de subMenuMisil el "cin>>opcion;" sino se saltea el LISTAR MISILES.
+    cout << "LISTAR AVIONES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarAviones(false);
+    }
+
+    cout << "INGRESE EL ID A ELIMINAR: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    pos = ArchAvion.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchAvion.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA ELIMINAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuMisil
+            if(respuesta == "s" || respuesta == "S")//SI eligio eliminar el Avion.
+            {
+                reg.setEstado(false);
+
+                if(ArchAvion.guardar(reg, pos))
+                {
+                    cout << "Se elimino con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo eliminar el avion!" << endl;
+                }
+            }
+            else//NO eligio eliminar el avion.
+            {
+                cout << "El avion no fue eliminado!" << endl;
+            }
+        }
+        else
+        {
+            cout << "El avion no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El avion no se encuentra en el sistema." << endl;
+    }
+}
+
+/// AGREGAR STOCK AVION
+void Menu::agregarStockAvion()//ACUMULA STOCK DE MISILES
+{
+    int Id;
+    int pos;
+    Avion reg;
+    ArchivoAvion ArchAvion;
+    string respuesta;
+    int stock = 0;
+    cin.ignore();//arregla de subMenuAvion el "cin>>opcion;" sino se saltea el LISTAR MISILES.
+    cout << "LISTAR AVIONES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarAviones(false);
+    }
+
+    cout << "INGRESE EL ID A AGREGAR STOCK: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    pos = ArchAvion.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchAvion.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA AGREGAR STOCK? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuAvion
+            if(respuesta == "s" || respuesta == "S")//SI eligio agregar stock al Avion.
+            {
+                cout << "INGRESE STOCK A AGREGAR: ";
+                cin >> stock;
+                stock += reg.getStock();
+                reg.setStock(stock);
+
+                if(ArchAvion.guardar(reg, pos))
+                {
+                    cout << "Se agrego stock con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo agregar stock!" << endl;
+                }
+            }
+            else//NO eligio agregar stock al Avion.
+            {
+                cout << "El stock no fue modificado!" << endl;
             }
         }
         else

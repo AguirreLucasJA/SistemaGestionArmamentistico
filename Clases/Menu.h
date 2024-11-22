@@ -43,6 +43,8 @@ public:
     void subMenuStockAviones();//SUBMENU ABM AVION
     void altaAvion();//ABM AVION
     void modificarAvion();//ABM AVION
+    void eliminarAvion();//ABM MISIL
+    void agregarStockAvion();
 
     void subMenuStockBuques();
     void subMenuStockTanques();
