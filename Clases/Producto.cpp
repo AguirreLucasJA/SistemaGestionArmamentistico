@@ -125,17 +125,17 @@ void Producto::cargar(int id) //le pasas el id autonumerico
             cout << "ERROR SOBREPASO LIMITE DE CARACTERES" << endl;
             system("pause");
             system("cls");
-            cout << "MAX 30 CARACTERES -> REINGRESE UN USUARIO DISTINTO:";
+            cout << "MAX 30 CARACTERES -> REINGRESE UN NOMBRE DISTINTO:";
             getline(cin, nombre);
         }
 
 
         if(!validar.esNombreProductoValido(nombre))
         {
-            cout << "ERROR EL USUARIO YA EXISTE" << endl;
+            cout << "ERROR EL NOMBRE YA EXISTE" << endl;
             system("pause");
             system("cls");
-            cout << "MAX 30 CARACTERES -> REINGRESE UN USUARIO DISTINTO:";
+            cout << "MAX 30 CARACTERES -> REINGRESE UN NOMBRE DISTINTO:";
             getline(cin, nombre);
         }
 

@@ -14,12 +14,14 @@ using namespace rlutil;//rlutil::
 #include"NombreUsuario.h"
 #include"NombreProducto.h"
 #include "Misil.h"
+#include "Avion.h"
 
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
 #include"ClasesArchivos/ArchivoNombreUsuario.h"
 #include"ClasesArchivos/ArchivoNombreProducto.h"
 #include "ClasesArchivos/ArchivoMisil.h"
+#include "ClasesArchivos/ArchivoAvion.h"
 
 
 
@@ -942,7 +944,7 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
 /// ALTA MISIL
 void Menu::altaMisil()//CARGA UN NUEVO MISIL AL ARCHIVO
 {
- int id;
+    int id;
     Misil regMisil;
     ArchivoMisil ArchMisil;
     NombreProducto regNombreProducto;
@@ -952,7 +954,7 @@ void Menu::altaMisil()//CARGA UN NUEVO MISIL AL ARCHIVO
     regMisil.cargar(id);//carga un nuevo regMisil admin setenadole el ID obtenido
     regNombreProducto.setNombre(regMisil.getNombre());
 
-    if(ArchMisil.guardar(regMisil) && ArchNombreProducto.guardar(regNombreProducto)) //lo cargan en archivo admin
+    if(ArchMisil.guardar(regMisil) && ArchNombreProducto.guardar(regNombreProducto)) //lo cargan en archivo
     {
         cout << "ALTA EXITOSA..." << endl;
 
@@ -1308,7 +1310,71 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
 /// ALTA AVION
 void Menu::altaAvion()//CARGA UN NUEVO AVION AL ARCHIVO
 {
+    int id;
+    Avion regAvion;
+    ArchivoAvion ArchAvion;
+    NombreProducto regNombreProducto;
+    ArchivoNombreProducto ArchNombreProducto;
 
+    id = ArchAvion.getNuevoId(); //obtiene nuevo ID autonumerico.
+    regAvion.cargar(id);//carga un nuevo regAvion admin setenadole el ID obtenido
+    regNombreProducto.setNombre(regAvion.getNombre());
+
+    if(ArchAvion.guardar(regAvion) && ArchNombreProducto.guardar(regNombreProducto)) //lo carga en archivo
+    {
+        cout << "ALTA EXITOSA..." << endl;
+
+    }
+    else
+    {
+        cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+    }
+}
+
+/// MOSTRAR AVIONES
+void Menu::mostrarAviones(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+{
+    ArchivoAvion ArchAvion;
+    Avion *vecAvion = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
+
+    int cant = ArchAvion.getCantidadReg();
+
+    vecAvion = new Avion[cant];
+
+    //verifico memoria
+    if(vecAvion == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    if(ArchAvion.leerTodos(vecAvion,cant))
+    {
+
+        if (ordenadoPorEstado)
+        {
+            ordenarPorEstado(vecAvion, cant);
+        }
+
+        for(int i=0; i<cant; i++)
+        {
+            if(!mostrarEliminados)
+            {
+                if(vecAvion[i].getEstado())//si esta eliminado no lo muestra
+                {
+                    vecAvion[i].mostrar();
+                    cout << "-----------------------" << endl;
+                }
+            }
+            else
+            {
+                vecAvion[i].mostrar();
+                cout << "-----------------------" << endl;
+            }
+        }
+    }
+    delete [] vecAvion;
 }
 
 /// SUBMENU STOCK BUQUE
@@ -1646,7 +1712,7 @@ void Menu::ordenarPorEstado(Pais *vecPais, int cantidad)
 ///ORDENAR USUARIOS POR ESTADO SOBRECARGA
 void Menu::ordenarPorEstado(Misil *vecMisil, int cantidad)
 {
-int i, j;
+    int i, j;
     int posEstado;
 
     for(i = 0; i < cantidad - 1; i++)
@@ -1666,6 +1732,33 @@ int i, j;
             Misil aux = vecMisil[i];
             vecMisil[i] = vecMisil[posEstado];
             vecMisil[posEstado] = aux;
+        }
+    }
+}
+
+///ORDENAR USUARIOS POR ESTADO SOBRECARGA
+void Menu::ordenarPorEstado(Avion *vecAvion, int cantidad)
+{
+    int i, j;
+    int posEstado;
+
+    for(i = 0; i < cantidad - 1; i++)
+    {
+        posEstado = i;
+
+        for (j = i + 1; j < cantidad; j++)
+        {
+            if (vecAvion[j].getEstado() > vecAvion[posEstado].getEstado())
+            {
+                posEstado = j;
+            }
+        }
+
+        if (i != posEstado)
+        {
+            Avion aux = vecAvion[i];
+            vecAvion[i] = vecAvion[posEstado];
+            vecAvion[posEstado] = aux;
         }
     }
 }

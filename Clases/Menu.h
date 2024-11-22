@@ -2,6 +2,7 @@
 #include"Pais.h"
 #include"Admin.h"
 #include"Misil.h"
+#include"Avion.h"
 
 class Menu
 {
@@ -24,6 +25,7 @@ public:
     void mostrarAdmins(bool ordenadoPorEstado, bool mostrarEliminados = false);//SE USA EN "BAJA", "MODIFICACION" DE ADMIN Y LISTADOS
     void mostrarPaises(bool ordenadoPorEstado, bool mostrarEliminados = false);//SE USA EN "BAJA", "MODIFICACION" DE PAIS Y LISTADOS
     void mostrarMisiles(bool ordenadoPorEstado, bool mostrarEliminados = false);
+    void mostrarAviones(bool ordenadoPorEstado, bool mostrarEliminados = false);
 
     void menuPaises();//SUBMENU PAIS DENTRO DE MENU PRINCIPAL ADMIN
     void altaPais();//ABM PAIS
@@ -40,6 +42,7 @@ public:
 
     void subMenuStockAviones();
     void altaAvion();//ABM AVION
+
     void subMenuStockBuques();
     void subMenuStockTanques();
 
@@ -47,9 +50,11 @@ public:
     void listarAdmins();
     void listarPaises();
     void listarMisiles();
+
     void ordenarPorEstado(Admin *vecAdmin, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Pais *vecPais, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Misil *vecMisil, int cantidad);//ACTIVOS PRIMERO
+    void ordenarPorEstado(Avion *vecAvion, int cantidad);//ACTIVOS PRIMERO
 
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 ///-------------------------------------------------------------------------------//
