@@ -39,6 +39,7 @@ public:
     void agregarStockMisil();
 
     void subMenuStockAviones();
+    void altaAvion();//ABM AVION
     void subMenuStockBuques();
     void subMenuStockTanques();
 

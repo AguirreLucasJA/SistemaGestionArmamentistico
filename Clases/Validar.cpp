@@ -1,5 +1,7 @@
 #include "Validar.h"
 #include "ClasesArchivos/ArchivoNombreUsuario.h"
+#include "ClasesArchivos/ArchivoNombreProducto.h"
+
 bool Validar::esStringValido(std::string cadena, int tam)
 {
     if(cadena.size() < tam)
@@ -9,11 +11,23 @@ bool Validar::esStringValido(std::string cadena, int tam)
     return false;
 }
 
-bool Validar::esUsuarioValido(std::string nombreUsuario)
+bool Validar::esNombreUsuarioValido(std::string nombreUsuario)
 {
     ArchivoNombreUsuario archNombreUsuario;
 
     if(archNombreUsuario.buscarXUsuario(nombreUsuario) == -1)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool Validar::esNombreProductoValido(std::string nombreProducto)
+{
+    ArchivoNombreProducto archNombreProducto;
+
+    if(archNombreProducto.buscarXNombre(nombreProducto) == -1)
     {
         return true;
     }

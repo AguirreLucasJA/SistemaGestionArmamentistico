@@ -117,13 +117,28 @@ void Producto::cargar(int id) //le pasas el id autonumerico
     cin.ignore();// sino se saltea el ingreso.
     getline(cin, nombre);
 
-    while(!validar.esStringValido(nombre,30))//TODO:FALTA HACER LA VALIDACION DE LA TABLA INTERMEDIA PARA NO REPETIR NOMBRE
+    while(!validar.esStringValido(nombre,30) || !validar.esNombreProductoValido(nombre))
     {
-        cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
-        system("pause");
-        system("cls");
-        cout << "REINGRESE NOMBRE:";
-        getline(cin, nombre);
+
+       if(!validar.esStringValido(nombre,30))
+        {
+            cout << "ERROR SOBREPASO LIMITE DE CARACTERES" << endl;
+            system("pause");
+            system("cls");
+            cout << "MAX 30 CARACTERES -> REINGRESE UN USUARIO DISTINTO:";
+            getline(cin, nombre);
+        }
+
+
+        if(!validar.esNombreProductoValido(nombre))
+        {
+            cout << "ERROR EL USUARIO YA EXISTE" << endl;
+            system("pause");
+            system("cls");
+            cout << "MAX 30 CARACTERES -> REINGRESE UN USUARIO DISTINTO:";
+            getline(cin, nombre);
+        }
+
     }
 
     setNombre(nombre);

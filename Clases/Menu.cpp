@@ -12,11 +12,13 @@ using namespace rlutil;//rlutil::
 #include "Admin.h"
 #include "Pais.h"
 #include"NombreUsuario.h"
+#include"NombreProducto.h"
 #include "Misil.h"
 
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
 #include"ClasesArchivos/ArchivoNombreUsuario.h"
+#include"ClasesArchivos/ArchivoNombreProducto.h"
 #include "ClasesArchivos/ArchivoMisil.h"
 
 
@@ -940,16 +942,20 @@ void Menu::subMenuStockMisiles()//SUBMENU ABM MISIL QUE ESTA DENTRO DE LAS OPCIO
 /// ALTA MISIL
 void Menu::altaMisil()//CARGA UN NUEVO MISIL AL ARCHIVO
 {
-
-    int id;
-    Misil reg;
+ int id;
+    Misil regMisil;
     ArchivoMisil ArchMisil;
-    //devuelve la cantidad -1 de los reg del archivo
+    NombreProducto regNombreProducto;
+    ArchivoNombreProducto ArchNombreProducto;
+
     id = ArchMisil.getNuevoId(); //obtiene nuevo ID autonumerico.
-    reg.cargar(id);//carga un nuevo reg Misil setenadole el ID obtenido
-    if(ArchMisil.guardar(reg)) //lo cargan en archivo Misil
+    regMisil.cargar(id);//carga un nuevo regMisil admin setenadole el ID obtenido
+    regNombreProducto.setNombre(regMisil.getNombre());
+
+    if(ArchMisil.guardar(regMisil) && ArchNombreProducto.guardar(regNombreProducto)) //lo cargan en archivo admin
     {
         cout << "ALTA EXITOSA..." << endl;
+
     }
     else
     {
@@ -1263,7 +1269,7 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
 
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+            altaAvion();
             system("pause");
             break;
 
@@ -1297,6 +1303,12 @@ void Menu::subMenuStockAviones()//SUBMENU ABM AVION QUE ESTA DENTRO DE LAS OPCIO
 
         }
     }
+}
+
+/// ALTA AVION
+void Menu::altaAvion()//CARGA UN NUEVO AVION AL ARCHIVO
+{
+
 }
 
 /// SUBMENU STOCK BUQUE
