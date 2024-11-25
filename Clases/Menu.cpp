@@ -9,12 +9,8 @@ using namespace rlutil;//rlutil::
 #include "Validar.h"
 
 #include "Menu.h"
-#include "Admin.h"
-#include "Pais.h"
 #include"NombreUsuario.h"
 #include"NombreProducto.h"
-#include "Misil.h"
-#include "Avion.h"
 
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
@@ -22,6 +18,7 @@ using namespace rlutil;//rlutil::
 #include"ClasesArchivos/ArchivoNombreProducto.h"
 #include "ClasesArchivos/ArchivoMisil.h"
 #include "ClasesArchivos/ArchivoAvion.h"
+#include "ClasesArchivos/ArchivoBuque.h"
 
 
 
@@ -1317,7 +1314,7 @@ void Menu::altaAvion()//CARGA UN NUEVO AVION AL ARCHIVO
     ArchivoNombreProducto ArchNombreProducto;
 
     id = ArchAvion.getNuevoId(); //obtiene nuevo ID autonumerico.
-    regAvion.cargar(id);//carga un nuevo regAvion admin setenadole el ID obtenido
+    regAvion.cargar(id);//carga un nuevo regAvion setenadole el ID obtenido
     regNombreProducto.setNombre(regAvion.getNombre());
 
     if(ArchAvion.guardar(regAvion) && ArchNombreProducto.guardar(regNombreProducto)) //lo carga en archivo
@@ -1638,25 +1635,25 @@ void Menu::subMenuStockBuques()//SUBMENU ABM BUQUE QUE ESTA DENTRO DE LAS OPCION
 
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+            altaBuque();
             system("pause");
             break;
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            eliminarBuque();
             system("pause");
             break;
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            modificarBuque();
             system("pause");
             break;
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            agregarStockBuque();
             system("pause");
             break;
 
@@ -1670,6 +1667,301 @@ void Menu::subMenuStockBuques()//SUBMENU ABM BUQUE QUE ESTA DENTRO DE LAS OPCION
             system("pause");
             break;
         }
+    }
+}
+
+/// ALTA BUQUE
+void Menu::altaBuque()//CARGA UN NUEVO BUQUE AL ARCHIVO
+{
+    int id;
+    Buque regBuque;
+    ArchivoBuque ArchBuque;
+    NombreProducto regNombreProducto;
+    ArchivoNombreProducto ArchNombreProducto;
+
+    id = ArchBuque.getNuevoId(); //obtiene nuevo ID autonumerico.
+    regBuque.cargar(id);//carga un nuevo regBuque setenadole el ID obtenido
+    regNombreProducto.setNombre(regBuque.getNombre());
+
+    if(ArchBuque.guardar(regBuque) && ArchNombreProducto.guardar(regNombreProducto)) //lo carga en archivo
+    {
+        cout << "ALTA EXITOSA..." << endl;
+
+    }
+    else
+    {
+        cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+    }
+}
+
+/// MOSTRAR BUQUES
+void Menu::mostrarBuques(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+{
+    ArchivoBuque ArchBuque;
+    Buque *vecBuque = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
+
+    int cant = ArchBuque.getCantidadReg();
+
+    vecBuque = new Buque[cant];
+
+    //verifico memoria
+    if(vecBuque == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    if(ArchBuque.leerTodos(vecBuque,cant))
+    {
+
+        if (ordenadoPorEstado)
+        {
+            ordenarPorEstado(vecBuque, cant);
+        }
+
+        for(int i=0; i<cant; i++)
+        {
+            if(!mostrarEliminados)
+            {
+                if(vecBuque[i].getEstado())//si esta eliminado no lo muestra
+                {
+                    vecBuque[i].mostrar();
+                    cout << "-----------------------" << endl;
+                }
+            }
+            else
+            {
+                vecBuque[i].mostrar();
+                cout << "-----------------------" << endl;
+            }
+        }
+    }
+    delete [] vecBuque;
+}
+
+/// MODIFICAR BUQUE
+void Menu::modificarBuque()//MODIFICA BUQUE EXISTENTE EN ARCHIVO
+{
+    Validar validar;
+    ArchivoBuque ArchBuque;
+    Buque reg;
+    int id;
+    int pos;
+    string respuesta;
+    cin.ignore();//arregla de subMenu Buque el "cin>>opcion;" sino se saltea el LISTAR BUQUES.
+    cout << "LISTAR BUQUES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarBuques(false);
+    }
+
+    cout << "INGRESE EL ID A MODIFICAR: ";
+    cin >> id;
+    cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
+    pos = ArchBuque.buscarXId(id);
+
+    if(pos != -1) // SI encontro el Buque
+    {
+        reg = ArchBuque.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+            cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+            long long precio;
+            string paisOrigen;
+            string descripcion;
+            //si le ingresas cualquier otra cosa que no sea s/S RETURN al subMenuStock
+            if(respuesta == "s" || respuesta == "S")
+            {
+
+                cout << "MAX 30 CARACTERES -> ING NUEVO PAIS DE ORIGEN: ";
+                getline(cin, paisOrigen);
+                while(!validar.esStringValido(paisOrigen,30))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE PAIS DE ORIGEN:";
+                    getline(cin, paisOrigen);
+                }
+                reg.setPaisOrigen(paisOrigen);
+
+                cout << "MAX 100 CARACTERES -> ING NUEVA DESCRIPCION: ";
+                getline(cin, descripcion);
+                while(!validar.esStringValido(descripcion,100))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 100 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE DESCRIPCION:";
+                    getline(cin, descripcion);
+                }
+                reg.setDescripcion(descripcion);
+
+                cout << "ING NUEVO PRECIO: $";
+                cin >> precio;
+                reg.setPrecio(precio);
+
+                if(ArchBuque.guardar(reg,pos))
+                {
+                    cout << "Se modifico con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo modificar el buque!" << endl;
+                }
+
+            }
+            else//NO eligio modificar el buque.
+            {
+                cout << "El buque no fue modificado" << endl;
+            }
+        }
+        else
+        {
+            cout << "El buque no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El buque no se encuentra en el sistema." << endl;
+    }
+}
+
+/// ELIMINAR BUQUE
+void Menu::eliminarBuque()//ELIMINACION LOGICA DE BUQUE EXISTENTE EN ARCHIVO
+{
+    int Id;
+    int pos;
+    Buque reg;
+    ArchivoBuque ArchBuque;
+    string respuesta;
+    cin.ignore();//arregla de subMenuBuque el "cin>>opcion;" sino se saltea el LISTAR BUQUES.
+    cout << "LISTAR BUQUES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarBuques(false);
+    }
+
+    cout << "INGRESE EL ID A ELIMINAR: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    pos = ArchBuque.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchBuque.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA ELIMINAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuBuque
+            if(respuesta == "s" || respuesta == "S")//SI eligio eliminar el Buque.
+            {
+                reg.setEstado(false);
+
+                if(ArchBuque.guardar(reg, pos))
+                {
+                    cout << "Se elimino con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo eliminar el buque!" << endl;
+                }
+            }
+            else//NO eligio eliminar el buque.
+            {
+                cout << "El buque no fue eliminado!" << endl;
+            }
+        }
+        else
+        {
+            cout << "El buque no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El buque no se encuentra en el sistema." << endl;
+    }
+}
+
+/// AGREGAR STOCK BUQUE
+void Menu::agregarStockBuque()//ACUMULA STOCK DE BUQUES
+{
+    int Id;
+    int pos;
+    Buque reg;
+    ArchivoBuque ArchBuque;
+    string respuesta;
+    int stock = 0;
+    cin.ignore();//arregla de subMenuBuque el "cin>>opcion;" sino se saltea el LISTAR BUQUES.
+    cout << "LISTAR BUQUES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarBuques(false);
+    }
+
+    cout << "INGRESE EL ID A AGREGAR STOCK: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA AGREGAR STOCK?? (s / n): "
+
+    pos = ArchBuque.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchBuque.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA AGREGAR STOCK? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuBuque
+            if(respuesta == "s" || respuesta == "S")//SI eligio agregar stock al Buque.
+            {
+                cout << "INGRESE STOCK A AGREGAR: ";
+                cin >> stock;
+                stock += reg.getStock();
+                reg.setStock(stock);
+
+                if(ArchBuque.guardar(reg, pos))
+                {
+                    cout << "Se agrego stock con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo agregar stock!" << endl;
+                }
+            }
+            else//NO eligio agregar stock al Buque.
+            {
+                cout << "El stock no fue modificado!" << endl;
+            }
+        }
+        else
+        {
+            cout << "El buque no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El buque no se encuentra en el sistema." << endl;
     }
 }
 
@@ -1934,7 +2226,7 @@ void Menu::ordenarPorEstado(Pais *vecPais, int cantidad)
     }
 }
 
-///ORDENAR USUARIOS POR ESTADO SOBRECARGA
+///ORDENAR PRODUCTOS POR ESTADO SOBRECARGA
 void Menu::ordenarPorEstado(Misil *vecMisil, int cantidad)
 {
     int i, j;
@@ -1961,7 +2253,7 @@ void Menu::ordenarPorEstado(Misil *vecMisil, int cantidad)
     }
 }
 
-///ORDENAR USUARIOS POR ESTADO SOBRECARGA
+///ORDENAR PRODUCTOS POR ESTADO SOBRECARGA
 void Menu::ordenarPorEstado(Avion *vecAvion, int cantidad)
 {
     int i, j;
@@ -1984,6 +2276,33 @@ void Menu::ordenarPorEstado(Avion *vecAvion, int cantidad)
             Avion aux = vecAvion[i];
             vecAvion[i] = vecAvion[posEstado];
             vecAvion[posEstado] = aux;
+        }
+    }
+}
+
+///ORDENAR PRODUCTOS POR ESTADO SOBRECARGA
+void Menu::ordenarPorEstado(Buque *vecBuque, int cantidad)
+{
+    int i, j;
+    int posEstado;
+
+    for(i = 0; i < cantidad - 1; i++)
+    {
+        posEstado = i;
+
+        for (j = i + 1; j < cantidad; j++)
+        {
+            if (vecBuque[j].getEstado() > vecBuque[posEstado].getEstado())
+            {
+                posEstado = j;
+            }
+        }
+
+        if (i != posEstado)
+        {
+            Buque aux = vecBuque[i];
+            vecBuque[i] = vecBuque[posEstado];
+            vecBuque[posEstado] = aux;
         }
     }
 }
