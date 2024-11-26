@@ -4,6 +4,8 @@
 #include"Misil.h"
 #include"Avion.h"
 #include"Buque.h"
+#include "Venta.h"
+#include "DetalleVenta.h"
 
 
 class Menu

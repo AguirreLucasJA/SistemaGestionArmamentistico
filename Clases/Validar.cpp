@@ -46,3 +46,15 @@ bool Validar::esRangoValido(int minimo, int maximo, int numero)
         return false; // El número está fuera del rango
     }
 }
+
+///VALIDAR STOCK MISIL
+
+///VALIDAR STOCK AVION
+
+///VALIDAR STOCK BUQUE
+
+///VALIDAR STOCK TANQUE
+
+
+
+
