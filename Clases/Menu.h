@@ -4,6 +4,7 @@
 #include"Misil.h"
 #include"Avion.h"
 #include"Buque.h"
+#include"Tanque.h"
 
 
 class Menu
@@ -29,6 +30,7 @@ public:
     void mostrarMisiles(bool ordenadoPorEstado, bool mostrarEliminados = false);
     void mostrarAviones(bool ordenadoPorEstado, bool mostrarEliminados = false);
     void mostrarBuques(bool ordenadoPorEstado, bool mostrarEliminados = false);
+    void mostrarTanques(bool ordenadoPorEstado, bool mostrarEliminados = false);
 
     void menuPaises();//SUBMENU PAIS DENTRO DE MENU PRINCIPAL ADMIN
     void altaPais();//ABM PAIS
@@ -57,17 +59,25 @@ public:
 
 
     void subMenuStockTanques();
+    void altaTanque();//ABM TANQUE
+    void modificarTanque();//ABM TANQUE
+    void eliminarTanque();//ABM TANQUE
+    void agregarStockTanque();
 
     void menuListados();//SUBMENU LISTADOS DENTRO DEL MENU PRINCIPAL ADMIN STOCK
     void listarAdmins();
     void listarPaises();
     void listarMisiles();
+    void listarAviones();
+    void listarBuques();
+    void listarTanques();
 
     void ordenarPorEstado(Admin *vecAdmin, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Pais *vecPais, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Misil *vecMisil, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Avion *vecAvion, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Buque *vecBuque, int cantidad);//ACTIVOS PRIMERO
+    void ordenarPorEstado(Tanque *vecTanque, int cantidad);//ACTIVOS PRIMERO
 
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 ///-------------------------------------------------------------------------------//

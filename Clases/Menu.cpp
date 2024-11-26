@@ -19,6 +19,7 @@ using namespace rlutil;//rlutil::
 #include "ClasesArchivos/ArchivoMisil.h"
 #include "ClasesArchivos/ArchivoAvion.h"
 #include "ClasesArchivos/ArchivoBuque.h"
+#include "ClasesArchivos/ArchivoTanque.h"
 
 
 
@@ -1999,25 +2000,25 @@ void Menu::subMenuStockTanques()//SUBMENU ABM TANQUE QUE ESTA DENTRO DE LAS OPCI
 
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+            altaTanque();
             system("pause");
             break;
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            eliminarTanque();
             system("pause");
             break;
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            modificarTanque();
             system("pause");
             break;
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            agregarStockTanque();
             system("pause");
             break;
 
@@ -2031,6 +2032,302 @@ void Menu::subMenuStockTanques()//SUBMENU ABM TANQUE QUE ESTA DENTRO DE LAS OPCI
             system("pause");
             break;
         }
+    }
+}
+
+/// ALTA TANQUE
+void Menu::altaTanque()//CARGA UN NUEVO BUQUE AL ARCHIVO
+{
+    int id;
+    Tanque regTanque;
+    ArchivoTanque ArchTanque;
+    NombreProducto regNombreProducto;
+    ArchivoNombreProducto ArchNombreProducto;
+
+    id = ArchTanque.getNuevoId(); //obtiene nuevo ID autonumerico.
+    regTanque.cargar(id);//carga un nuevo regTanque setenadole el ID obtenido
+    regNombreProducto.setNombre(regTanque.getNombre());
+
+    if(ArchTanque.guardar(regTanque) && ArchNombreProducto.guardar(regNombreProducto)) //lo carga en archivo
+    {
+        cout << "ALTA EXITOSA..." << endl;
+
+    }
+    else
+    {
+        cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+    }
+}
+
+/// MOSTRAR TANQUES
+void Menu::mostrarTanques(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+{
+    ArchivoTanque ArchTanque;
+    Tanque *vecTanque = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
+
+    int cant = ArchTanque.getCantidadReg();
+
+    vecTanque = new Tanque[cant];
+
+    //verifico memoria
+    if(vecTanque == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    if(ArchTanque.leerTodos(vecTanque,cant))
+    {
+
+        if (ordenadoPorEstado)
+        {
+            ordenarPorEstado(vecTanque, cant);
+        }
+
+        for(int i=0; i<cant; i++)
+        {
+            if(!mostrarEliminados)
+            {
+                if(vecTanque[i].getEstado())//si esta eliminado no lo muestra
+                {
+                    vecTanque[i].mostrar();
+                    cout << "-----------------------" << endl;
+                }
+            }
+            else
+            {
+                vecTanque[i].mostrar();
+                cout << "-----------------------" << endl;
+            }
+        }
+    }
+    delete [] vecTanque;
+}
+
+
+/// MODIFICAR TANQUE
+void Menu::modificarTanque()//MODIFICA TANQUE EXISTENTE EN ARCHIVO
+{
+    Validar validar;
+    ArchivoTanque ArchTanque;
+    Tanque reg;
+    int id;
+    int pos;
+    string respuesta;
+    cin.ignore();//arregla de subMenu Tanque el "cin>>opcion;" sino se saltea el LISTAR TANQUES.
+    cout << "LISTAR TANQUES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarTanques(false);
+    }
+
+    cout << "INGRESE EL ID A MODIFICAR: ";
+    cin >> id;
+    cin.ignore();//sino esta se saltea "DESEA MODIFICAR ESTE REGISTRO?"
+    pos = ArchTanque.buscarXId(id);
+
+    if(pos != -1) // SI encontro el Buque
+    {
+        reg = ArchTanque.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+            cout << "DESEA MODIFICAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+            long long precio;
+            string paisOrigen;
+            string descripcion;
+            //si le ingresas cualquier otra cosa que no sea s/S RETURN al subMenuTanque
+            if(respuesta == "s" || respuesta == "S")
+            {
+
+                cout << "MAX 30 CARACTERES -> ING NUEVO PAIS DE ORIGEN: ";
+                getline(cin, paisOrigen);
+                while(!validar.esStringValido(paisOrigen,30))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 30 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE PAIS DE ORIGEN:";
+                    getline(cin, paisOrigen);
+                }
+                reg.setPaisOrigen(paisOrigen);
+
+                cout << "MAX 100 CARACTERES -> ING NUEVA DESCRIPCION: ";
+                getline(cin, descripcion);
+                while(!validar.esStringValido(descripcion,100))
+                {
+                    cout << "ERROR SOBREPASO LIMITE DE 100 CARACTERES" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "REINGRESE DESCRIPCION:";
+                    getline(cin, descripcion);
+                }
+                reg.setDescripcion(descripcion);
+
+                cout << "ING NUEVO PRECIO: $";
+                cin >> precio;
+                reg.setPrecio(precio);
+
+                if(ArchTanque.guardar(reg,pos))
+                {
+                    cout << "Se modifico con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo modificar el tanque!" << endl;
+                }
+
+            }
+            else//NO eligio modificar el tanque.
+            {
+                cout << "El tanque no fue modificado" << endl;
+            }
+        }
+        else
+        {
+            cout << "El tanque no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El tanque no se encuentra en el sistema." << endl;
+    }
+}
+
+/// ELIMINAR TANQUE
+void Menu::eliminarTanque()//ELIMINACION LOGICA DE TANQUE EXISTENTE EN ARCHIVO
+{
+    int Id;
+    int pos;
+    Tanque reg;
+    ArchivoTanque ArchTanque;
+    string respuesta;
+    cin.ignore();//arregla de subMenuTanque el "cin>>opcion;" sino se saltea el LISTAR TANQUES.
+    cout << "LISTAR TANQUES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarTanques(false);
+    }
+
+    cout << "INGRESE EL ID A ELIMINAR: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
+
+    pos = ArchTanque.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchTanque.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA ELIMINAR ESTE REGISTRO? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuTanque
+            if(respuesta == "s" || respuesta == "S")//SI eligio eliminar el Tanque.
+            {
+                reg.setEstado(false);
+
+                if(ArchTanque.guardar(reg, pos))
+                {
+                    cout << "Se elimino con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo eliminar el tanque!" << endl;
+                }
+            }
+            else//NO eligio eliminar el tanque.
+            {
+                cout << "El tanque no fue eliminado!" << endl;
+            }
+        }
+        else
+        {
+            cout << "El tanque no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El tanque no se encuentra en el sistema." << endl;
+    }
+}
+
+/// AGREGAR STOCK TANQUE
+void Menu::agregarStockTanque()//ACUMULA STOCK DE TANQUES
+{
+    int Id;
+    int pos;
+    Tanque reg;
+    ArchivoTanque ArchTanque;
+    string respuesta;
+    int stock = 0;
+    cin.ignore();//arregla de subMenuTanque el "cin>>opcion;" sino se saltea el LISTAR TANQUES.
+    cout << "LISTAR TANQUES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarTanques(false);
+    }
+
+    cout << "INGRESE EL ID A AGREGAR STOCK: ";
+    cin >> Id;
+    cin.ignore();//sino se saltea "DESEA AGREGAR STOCK?? (s / n): "
+
+    pos = ArchTanque.buscarXId(Id);
+
+    if(pos != -1)//si encontro el archivo
+    {
+        reg = ArchTanque.leer(pos);
+
+        if(reg.getEstado())//SI no esta eliminado
+        {
+            reg.mostrar();
+
+            cout << "DESEA AGREGAR STOCK? (s / n): ";
+            getline(cin, respuesta);
+
+            //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuTanque
+            if(respuesta == "s" || respuesta == "S")//SI eligio agregar stock al Tanque.
+            {
+                cout << "INGRESE STOCK A AGREGAR: ";
+                cin >> stock;
+                stock += reg.getStock();
+                reg.setStock(stock);
+
+                if(ArchTanque.guardar(reg, pos))
+                {
+                    cout << "Se agrego stock con exito!" << endl;
+                }
+                else
+                {
+                    cout << "No se pudo agregar stock!" << endl;
+                }
+            }
+            else//NO eligio agregar stock al Tanque.
+            {
+                cout << "El stock no fue modificado!" << endl;
+            }
+        }
+        else
+        {
+            cout << "El tanque no se encuentra en el sistema." << endl;
+        }
+    }
+    else
+    {
+        cout << "El tanque no se encuentra en el sistema." << endl;
     }
 }
 
@@ -2089,19 +2386,19 @@ void Menu::menuListados()//SUBMENU LISTADOS QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            listarAviones();
             system("pause");
             break;
 
         case 5:
             system("cls");
-            //TODO:FALTA HACER**
+            listarBuques();
             system("pause");
             break;
 
         case 6:
             system("cls");
-            //TODO:FALTA HACER**
+            listarTanques();
             system("pause");
             break;
 
@@ -2169,6 +2466,60 @@ void Menu::listarMisiles()//LISTA LOS MISILES ORDENADOS Y PREGUNTA SI QUERES VER
     else
     {
         mostrarMisiles(false);
+    }
+}
+
+///LISTAR AVIONES
+void Menu::listarAviones()//LISTA LOS AVIONES ORDENADOS Y PREGUNTA SI QUERES VERLOS A TODOS
+{
+    string respuesta;
+    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR AVIONES ELIMINADOS
+    cout << "LISTAR AVIONES ELIMINADOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarAviones(true, true);
+    }
+    else
+    {
+        mostrarAviones(false);
+    }
+}
+
+///LISTAR BUQUES
+void Menu::listarBuques()//LISTA LOS BUQUES ORDENADOS Y PREGUNTA SI QUERES VERLOS A TODOS
+{
+    string respuesta;
+    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR BUQUES ELIMINADOS
+    cout << "LISTAR BUQUES ELIMINADOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarBuques(true, true);
+    }
+    else
+    {
+        mostrarBuques(false);
+    }
+}
+
+///LISTAR TANQUES
+void Menu::listarTanques()//LISTA LOS TANQUES ORDENADOS Y PREGUNTA SI QUERES VERLOS A TODOS
+{
+    string respuesta;
+    cin.ignore();//arregla de MenuListados el "cin>>opcion;" sino se saltea el LISTAR TANQUES ELIMINADOS
+    cout << "LISTAR TANQUES ELIMINADOS? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
+    {
+        mostrarTanques(true, true);
+    }
+    else
+    {
+        mostrarTanques(false);
     }
 }
 
@@ -2303,6 +2654,33 @@ void Menu::ordenarPorEstado(Buque *vecBuque, int cantidad)
             Buque aux = vecBuque[i];
             vecBuque[i] = vecBuque[posEstado];
             vecBuque[posEstado] = aux;
+        }
+    }
+}
+
+///ORDENAR PRODUCTOS POR ESTADO SOBRECARGA
+void Menu::ordenarPorEstado(Tanque *vecTanque, int cantidad)
+{
+    int i, j;
+    int posEstado;
+
+    for(i = 0; i < cantidad - 1; i++)
+    {
+        posEstado = i;
+
+        for (j = i + 1; j < cantidad; j++)
+        {
+            if (vecTanque[j].getEstado() > vecTanque[posEstado].getEstado())
+            {
+                posEstado = j;
+            }
+        }
+
+        if (i != posEstado)
+        {
+            Tanque aux = vecTanque[i];
+            vecTanque[i] = vecTanque[posEstado];
+            vecTanque[posEstado] = aux;
         }
     }
 }
