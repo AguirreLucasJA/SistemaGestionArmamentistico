@@ -2434,6 +2434,7 @@ void Menu::menuPrincipalPais(Pais reg)
             break;
 
         case 0:
+        	return;
             break;
 
         default:
@@ -2458,8 +2459,6 @@ void Menu::solicitudDeAdquisiciones(Pais reg)
 
     if (cantProductos >0 && cantProductos <=4){
     DetalleVenta *vecDetalleVenta = new DetalleVenta[cantProductos];
-
-
     //TODO: FALTA HACER **
     //VALIDAR QUE SE HAYA ASIGNADO MEMORIA
     int opcion;
@@ -2538,11 +2537,6 @@ DetalleVenta Menu::comprarMisil()
 //TODO: FALTA HACER**
 
 //llamar al validar stock Misil
-
-
-
-
-
 
 
 }
