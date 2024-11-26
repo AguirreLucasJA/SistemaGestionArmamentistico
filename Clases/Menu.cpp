@@ -11,6 +11,8 @@ using namespace rlutil;//rlutil::
 #include "Menu.h"
 #include"NombreUsuario.h"
 #include"NombreProducto.h"
+#include "DetalleVenta.h"
+#include "Venta.h"
 
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
@@ -19,6 +21,7 @@ using namespace rlutil;//rlutil::
 #include "ClasesArchivos/ArchivoMisil.h"
 #include "ClasesArchivos/ArchivoAvion.h"
 #include "ClasesArchivos/ArchivoBuque.h"
+
 
 
 
@@ -2376,7 +2379,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 }
 
 /// MENU PRINCIPAL PAIS
-void Menu::menuPrincipalPais(Pais regPais)
+void Menu::menuPrincipalPais(Pais reg)
 {
     int opcion = -1;
     while(opcion!=0)
@@ -2408,19 +2411,19 @@ void Menu::menuPrincipalPais(Pais regPais)
         {
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+            solicitudDeAdquisiciones(reg);
             system("pause");
             break;
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            consultaDinero(reg);
             system("pause");
             break;
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            ingresoDinero(reg);
             system("pause");
             break;
 
@@ -2443,7 +2446,210 @@ void Menu::menuPrincipalPais(Pais regPais)
     }
 }
 
+/// SOLICITUD DE ADQUISICIONES - COMPRA
+void Menu::solicitudDeAdquisiciones(Pais reg)
+{
+    int cantProductos;
+
+    gotoxy (22,6);
+    cout << "DE LOS 4 TIPOS DE PRODUCTOS DISPONIBLES, INGRESE CUANTOS DESEA COMPRAR ";
+    cin >> cantProductos;
+    cout << endl;
+
+    if (cantProductos >0 && cantProductos <=4){
+    DetalleVenta *vecDetalleVenta = new DetalleVenta[cantProductos];
 
 
+    //TODO: FALTA HACER **
+    //VALIDAR QUE SE HAYA ASIGNADO MEMORIA
+    int opcion;
+    opcion = -1;
+
+    while(opcion!=0)
+    {
+        for(int i = 0; i < cantProductos; i++)
+        {
+
+            cls();
+            cabecera();
+            gotoxy (25,6);
+            cout << "SELECCIONE EL TIPO DE ARMAMENTO QUE DESEA COMPRAR ";
+            gotoxy (25,8);
+            cout << "1 - MISILES";
+            gotoxy (25,10);
+            cout << "2 - AVIONES";
+            gotoxy (25,12);
+            cout << "3 - BUQUES";
+            gotoxy (25,14);
+            cout << "4 - TANQUES";
+            gotoxy (25,16);
+            cout << "5 - CANCELAR";
+            gotoxy (25,18);
+            cout << "->  ";
+            cin >> opcion;
+
+            switch(opcion)
+            {
+
+            case 1:
+                //TODO: FALTA HACER**
+                break;
+
+            case 2:
+                //TODO: FALTA HACER**
+                break;
+
+            case 3:
+                //TODO: FALTA HACER**
+                break;
+
+            case 4:
+                //TODO: FALTA HACER**
+                break;
+
+            case 5:
+                //LIBERAR LA MEMORIA //TODO: FALTA HACER**
+                 return;
+                break;
+
+            default:
+                gotoxy (2,18);
+                cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+                gotoxy (2,19);
+                system("pause");
+                break;
+            }
+        }
+    }
+    }
+    else {
+		cout << "la cantidad de productos ingresada es invalida "<< endl;
+    }
+
+
+
+}
+
+
+///COMPRAR MISIL
+
+DetalleVenta Menu::comprarMisil()
+{
+//TODO: FALTA HACER**
+
+//llamar al validar stock Misil
+
+
+
+
+
+
+
+}
+
+///COMPRAR MISIL
+
+DetalleVenta Menu::comprarAvion()
+{
+//TODO: FALTA HACER**
+//llamar al validar stock Avion
+
+
+
+
+
+
+}
+
+///COMPRAR BUQUE
+
+DetalleVenta Menu::comprarBuque()
+{
+
+//TODO: FALTA HACER**
+
+//llamar al validar stock Buque
+
+
+
+
+
+
+}
+
+///COMPRAR TANQUE
+
+DetalleVenta Menu::comprarTanque()
+{
+//TODO: FALTA HACER**
+
+//llamar al validar stock Tanque
+
+
+
+
+
+}
+
+/// CONSULTA DE DINERO
+void Menu::consultaDinero(Pais reg){
+    cls();
+    cabecera();
+    ArchivoPais archivo;
+
+    int posicion = archivo.buscarXId(reg.getId());
+    reg = archivo.leer(posicion);
+
+    gotoxy (25,6);
+    cout<<"-----------------------------";
+    cout<<endl;
+    gotoxy (25,8);
+    cout <<"DINERO DISPONIBLE: U$D " << reg.getDineroCaja() <<endl;
+    cout<<endl;
+    gotoxy (25,10);
+    cout<<"-----------------------------";
+    cout<<endl;
+    cout<<endl;
+    system("pause");
+    menuPrincipalPais(reg);
+}
+
+/// INGRESO DE DINERO
+void Menu::ingresoDinero(Pais reg){
+    cls();
+    cabecera();
+    ArchivoPais archivo;
+    long long saldoNuevo = 0;
+
+    int posicion = archivo.buscarXId(reg.getId());
+    reg = archivo.leer(posicion);
+
+    gotoxy (25,6);
+    cout<<"-----------------------------";
+    cout<<endl;
+    gotoxy (28,8);
+    cout<<"SALDO ACTUAL: U$D " << reg.getDineroCaja() <<endl;
+    cout<<endl;
+    gotoxy (25,10);
+    cout<<"-----------------------------";
+
+    gotoxy (20,12);
+    cout<<"MONTO QUE DESEA INGRESAR A SU CUENTA: U$D ";
+    cin>> saldoNuevo;
+    saldoNuevo = saldoNuevo + reg.getDineroCaja();
+
+    reg.setDineroCaja(saldoNuevo);
+    archivo.guardar(reg,posicion);
+    cout<<endl;
+    reg = archivo.leer(posicion);
+
+    gotoxy (28,15);
+    cout<<"SALDO ACTUAL: U$D "  << reg.getDineroCaja() <<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
+    system("pause");
+    menuPrincipalPais(reg);
+}
 
 

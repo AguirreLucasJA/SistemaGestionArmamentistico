@@ -73,7 +73,15 @@ public:
 
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 ///-------------------------------------------------------------------------------//
-    void menuPrincipalPais(Pais regPais);//MENU PRINCIPAL PAIS CLIENTE
+    void menuPrincipalPais(Pais reg);//MENU PRINCIPAL PAIS CLIENTE
+	void solicitudDeAdquisiciones(Pais reg);
+	DetalleVenta comprarMisil ();
+	DetalleVenta comprarAvion ();
+	DetalleVenta comprarBuque ();
+	DetalleVenta comprarTanque ();
+	void consultaDinero(Pais reg);
+	void ingresoDinero(Pais reg);
+
 
 private:
     int opcion;

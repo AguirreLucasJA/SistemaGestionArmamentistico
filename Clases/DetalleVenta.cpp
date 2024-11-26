@@ -92,8 +92,6 @@ void DetalleVenta::mostrar()
     cout << "PRECIO UNITARIO: " << getPrecioUnitario () << endl;
     cout << "PRECIO TOTAL: " << getPrecioTotal ()<< endl;
 
-
-
 }
 
 
