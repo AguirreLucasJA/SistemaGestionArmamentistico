@@ -2792,13 +2792,13 @@ void Menu::menuPrincipalPais(Pais regPais)
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            consultaDinero(regPais);
             system("pause");
             break;
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            ingresoDinero(regPais);
             system("pause");
             break;
 
@@ -2821,6 +2821,64 @@ void Menu::menuPrincipalPais(Pais regPais)
     }
 }
 
+/// CONSULTA DE DINERO
+void Menu::consultaDinero(Pais regPais){
+
+    ArchivoPais archPais;
+    Pais registroPais;
+    int posicion;
+
+    posicion = archPais.buscarXId(regPais.getId());
+    registroPais = archPais.leer(posicion);
+
+    gotoxy (25,1);
+    cout<<"-----------------------------";
+    cout<<endl;
+    gotoxy (28,3);
+    cout<<"SALDO ACTUAL: U$D " << registroPais.getDineroCaja() <<endl;
+    cout<<endl;
+    gotoxy (25,5);
+    cout<<"-----------------------------";
+    cout<<endl;
+    cout<<endl;
+}
+
+/// INGRESO DE DINERO
+void Menu::ingresoDinero(Pais regPais){
+
+    ArchivoPais archPais;
+    long long saldoNuevo = 0;
+    Pais registroPais;
+    int posicion;
+
+    posicion = archPais.buscarXId(regPais.getId());
+    registroPais = archPais.leer(posicion);
+
+    gotoxy (25,1);
+    cout<<"-----------------------------";
+    cout<<endl;
+    gotoxy (28,3);
+    cout<<"SALDO: U$D " << registroPais.getDineroCaja() <<endl;
+    cout<<endl;
+    gotoxy (25,5);
+    cout<<"-----------------------------";
+
+    gotoxy (20,8);
+    cout<<"MONTO QUE DESEA INGRESAR A SU CUENTA: U$D ";
+    cin>> saldoNuevo;
+    saldoNuevo += registroPais.getDineroCaja();
+
+    registroPais.setDineroCaja(saldoNuevo);
+
+    archPais.guardar(registroPais,posicion);
+
+    registroPais = archPais.leer(posicion);
+
+    gotoxy (28,10);
+    cout<<"SALDO ACTUAL: U$D "  << registroPais.getDineroCaja() <<endl;
+    cout<<endl;
+    cout<<endl;
+}
 
 
 

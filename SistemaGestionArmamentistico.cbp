@@ -55,6 +55,8 @@
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoTanque.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoTanque.h" />
+		<Unit filename="Clases/DetalleVenta.cpp" />
+		<Unit filename="Clases/DetalleVenta.h" />
 		<Unit filename="Clases/Entidad.cpp" />
 		<Unit filename="Clases/Entidad.h" />
 		<Unit filename="Clases/Fecha.cpp" />
@@ -77,6 +79,8 @@
 		<Unit filename="Clases/Tanque.h" />
 		<Unit filename="Clases/Validar.cpp" />
 		<Unit filename="Clases/Validar.h" />
+		<Unit filename="Clases/Venta.cpp" />
+		<Unit filename="Clases/Venta.h" />
 		<Unit filename="Clases/rlutil.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
