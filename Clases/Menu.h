@@ -81,11 +81,11 @@ public:
 
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
 ///-------------------------------------------------------------------------------//
-    void menuPrincipalPais(Pais regPais);//MENU PRINCIPAL PAIS CLIENTE
+    void menuPrincipalPais(Pais &regPais);//MENU PRINCIPAL PAIS CLIENTE
 
-    void solicitudDeAdquisiciones(Pais regPais);
-    void consultaDinero(Pais regPais);
-    void ingresoDinero(Pais regPais);
+    void solicitudDeAdquisiciones(Pais &regPais);
+    void consultaDinero(Pais &regPais);
+    void ingresoDinero(Pais &regPais);
 
 private:
     int opcion;

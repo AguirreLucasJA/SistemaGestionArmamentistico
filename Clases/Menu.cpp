@@ -7,10 +7,12 @@ using namespace std;//std::
 using namespace rlutil;//rlutil::
 
 #include "Validar.h"
+#include "DetalleVenta.h"
 
 #include "Menu.h"
-#include"NombreUsuario.h"
-#include"NombreProducto.h"
+#include"NombreUsuario.h"//tablas intermedias
+#include"NombreProducto.h"//tablas intermedias
+#include"StockProducto.h"//tablas intermedias
 
 #include "ClasesArchivos/ArchivoAdmin.h"
 #include "ClasesArchivos/ArchivoPais.h"
@@ -2754,9 +2756,10 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 }
 
 /// MENU PRINCIPAL PAIS
-void Menu::menuPrincipalPais(Pais regPais)
+void Menu::menuPrincipalPais(Pais &regPais)
 {
     int opcion = -1;
+
     while(opcion!=0)
     {
 
@@ -2786,8 +2789,8 @@ void Menu::menuPrincipalPais(Pais regPais)
         {
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
-            system("pause");
+            solicitudDeAdquisiciones(regPais);
+            opcion = -1;
             break;
 
         case 2:
@@ -2822,7 +2825,8 @@ void Menu::menuPrincipalPais(Pais regPais)
 }
 
 /// CONSULTA DE DINERO
-void Menu::consultaDinero(Pais regPais){
+void Menu::consultaDinero(Pais &regPais)
+{
 
     ArchivoPais archPais;
     Pais registroPais;
@@ -2844,7 +2848,8 @@ void Menu::consultaDinero(Pais regPais){
 }
 
 /// INGRESO DE DINERO
-void Menu::ingresoDinero(Pais regPais){
+void Menu::ingresoDinero(Pais &regPais)
+{
 
     ArchivoPais archPais;
     long long saldoNuevo = 0;
@@ -2873,11 +2878,204 @@ void Menu::ingresoDinero(Pais regPais){
     gotoxy (28,10);
     cout<<"SALDO ACTUAL: U$D "  << registroPais.getDineroCaja() <<endl;
     cout<<endl;
+
     cout<<endl;
 
     archPais.guardar(registroPais,posicion);
 }
 
+/// SOLICITUD DE ADQUISICIONES //TODO::ARREGLAR EL PRESIONE LA TECLA PARA CONTINUAR Y CUANDO PONES UNA OPCION QUE NO ES VALIDA SE SALE UN MENU PARA ATRAS
+void Menu::solicitudDeAdquisiciones(Pais &regPais)
+{
+    long long dineroAcumulado = 0;
+    int cantProductos;
+    int tamanioMisil;
+    int tamanioAvion;
+    int tamanioBuque;
+    ArchivoMisil archivoMisil;
+    Misil misil;
+    ArchivoAvion archivoAvion;
+    Avion avion;
+    ArchivoBuque archivoBuque;
+    Buque buque;
+    ArchivoTanque archivoTanque;
+    Tanque tanque;
+    StockProducto *vecProductosMisil = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
+    StockProducto *vecProductosAvion = nullptr;
+    StockProducto *vecProductosBuque = nullptr;
+    StockProducto *vecProductosTanque = nullptr;
+    DetalleVenta *vecDetalleVenta = nullptr;
 
+    cls();
+    cabecera();
 
+    gotoxy (22,6);
+    cout << "CUANTOS PRODUCTOS VA A COMPRAR: ";
+    cin>>cantProductos;
+    cout<<endl;
+
+    while(cantProductos <= 0)
+    {
+        cout << "\tCantidad ingresada incorrecta, re ingrese..." << endl;
+        cout << endl << "\tCUANTOS PRODUCTOS VA A COMPRAR: ";
+        cin>>cantProductos;
+    }
+
+    // HACE UN VECTOR DE (TABLA INTERMEDIA STOCK PRODUCTO) PARA CADA PRODUCTO. GUARDANDO
+    // EN CADA POS DEL VECTOR EL ID Y STOCK DE CADA TIPO DE PRODUCTO.
+
+    tamanioMisil = archivoMisil.getCantidadReg();
+    vecProductosMisil = new StockProducto[tamanioMisil];
+
+    //verifico memoria
+    if(vecProductosMisil == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    for (int i = 0; i < tamanioMisil; i++)
+    {
+        misil = archivoMisil.leer(i);
+        vecProductosMisil[i].setId(misil.getId());
+        vecProductosMisil[i].setStock(misil.getStock());
+    }
+
+    /// creacion tabla intermedia para luego utilizarla para verificar stock
+
+    tamanioAvion = archivoAvion.getCantidadReg();
+    vecProductosAvion = new StockProducto[tamanioAvion];
+
+    //verifico memoria
+    if(vecProductosAvion == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    for (int i = 0; i < tamanioAvion; i++)
+    {
+        avion = archivoAvion.leer(i);
+        vecProductosAvion[i].setId(avion.getId());
+        vecProductosAvion[i].setStock(avion.getStock());
+    }
+
+    /// creacion tabla intermedia para luego utilizarla para verificar stock
+
+    tamanioBuque = archivoBuque.getCantidadReg();
+    vecProductosBuque = new StockProducto[tamanioBuque];
+
+    //verifico memoria
+    if(vecProductosBuque == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    for (int i = 0; i < tamanioBuque; i++)
+    {
+        buque = archivoBuque.leer(i);
+        vecProductosBuque[i].setId(buque.getId());
+        vecProductosBuque[i].setStock(buque.getStock());
+    }
+
+    /// creacion tabla intermedia para luego utilizarla para verificar stock
+
+    int tamanioTanque = archivoTanque.getCantidadReg();
+    vecProductosTanque = new StockProducto[tamanioTanque];
+
+    //verifico memoria
+    if(vecProductosTanque == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    for (int i = 0; i < tamanioTanque; i++)
+    {
+        tanque = archivoTanque.leer(i);
+        vecProductosTanque[i].setId(tanque.getId());
+        vecProductosTanque[i].setStock(tanque.getStock());
+    }
+
+    /// DEPENDIENDO DE CUANTOS QUERES COMPRAR ES LA CANTIDAD DE VUELTAS QUE PEGA EL FOR
+
+    vecDetalleVenta = new DetalleVenta[cantProductos];
+
+    //verifico memoria
+    if(vecDetalleVenta == nullptr)
+    {
+        cout << "No se pudo pedir memoria... " << endl;
+        system("pause");
+        return;
+    }
+
+    for(int i = 0; i < cantProductos; i++)
+    {
+        cls();
+        cabecera();
+        gotoxy (25,6);
+        cout << "SELECCIONE SU ARMAMENTO";
+        gotoxy (25,8);
+        cout << "1 - MISILES";
+        gotoxy (25,10);
+        cout << "2 - AVIONES";
+        gotoxy (25,12);
+        cout << "3 - BUQUES";
+        gotoxy (25,14);
+        cout << "4 - TANQUES";
+        gotoxy (25,16);
+        cout << "0 - CANCELAR";
+        gotoxy (25,18);
+        cout << "INGRESE UNA OPCION: ";
+        cin >> opcion;
+
+        switch(opcion)
+        {
+
+        case 1:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 2:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 3:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 4:
+            system("cls");
+            //TODO:FALTA HACER**
+            system("pause");
+            break;
+
+        case 0:
+            delete[] vecDetalleVenta;
+            delete[] vecProductosMisil;
+            delete[] vecProductosAvion;
+            delete[] vecProductosBuque;
+            delete[] vecProductosTanque;
+            break;
+
+        default:
+            gotoxy (2,21);
+            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
+            gotoxy (2,22);
+            system("pause");
+            break;
+        }
+    }
+}
 

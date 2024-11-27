@@ -75,6 +75,8 @@
 		<Unit filename="Clases/Pais.h" />
 		<Unit filename="Clases/Producto.cpp" />
 		<Unit filename="Clases/Producto.h" />
+		<Unit filename="Clases/StockProducto.cpp" />
+		<Unit filename="Clases/StockProducto.h" />
 		<Unit filename="Clases/Tanque.cpp" />
 		<Unit filename="Clases/Tanque.h" />
 		<Unit filename="Clases/Validar.cpp" />
