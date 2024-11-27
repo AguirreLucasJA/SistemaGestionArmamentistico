@@ -2870,14 +2870,12 @@ void Menu::ingresoDinero(Pais regPais){
 
     registroPais.setDineroCaja(saldoNuevo);
 
-    archPais.guardar(registroPais,posicion);
-
-    registroPais = archPais.leer(posicion);
-
     gotoxy (28,10);
     cout<<"SALDO ACTUAL: U$D "  << registroPais.getDineroCaja() <<endl;
     cout<<endl;
     cout<<endl;
+
+    archPais.guardar(registroPais,posicion);
 }
 
 
