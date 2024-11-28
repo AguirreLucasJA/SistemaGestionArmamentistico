@@ -88,7 +88,7 @@ public:
     void solicitudDeAdquisiciones(Pais &regPais);
     void consultaDinero(Pais &regPais);
     void ingresoDinero(Pais &regPais);
-    void comprarMisil (Pais &regPais, DetalleVenta &vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil);
+    void comprarMisil (Pais &regPais, DetalleVenta &detalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil);
 
 private:
     int opcion;

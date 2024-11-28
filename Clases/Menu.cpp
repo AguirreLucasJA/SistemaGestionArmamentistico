@@ -110,28 +110,38 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     cout<<"INGRESE SU CLAVE: ";
     getline(cin, clave);
 
-    bool ingresoAdmin = false;
+    bool ingreso = false;
 
-    regAdmin = archivoAdmin.leer(archivoAdmin.buscarXUsuario(usuario));
-    if (regAdmin.getUsuario() == usuario && regAdmin.getClave() == clave && regAdmin.getEstado())
+    if (archivoAdmin.buscarXUsuario(usuario) != -1)
+    {
+        regAdmin = archivoAdmin.leer(archivoAdmin.buscarXUsuario(usuario));
+
+        if (regAdmin.getClave() == clave && regAdmin.getEstado())
+        {
+            menuPrincipalAdmin();
+            ingreso = true;
+        }
+    }
+
+    if(usuario == "admin" && clave == "admin") // sino se pregunta si se ingresa el admin HARCODEADO PARA 1RA CARGA.
     {
         menuPrincipalAdmin();
-        ingresoAdmin = true;
+        ingreso = true;
     }
-    else if(usuario == "admin" && clave == "admin") // sino se pregunta si se ingresa el admin HARCODEADO PARA 1RA CARGA.
-    {
-        menuPrincipalAdmin();
-        ingresoAdmin = true;
-    }
-    else
+
+    if (archivoPais.buscarXUsuario(usuario) != -1)
     {
         regPais = archivoPais.leer(archivoPais.buscarXUsuario(usuario));
+
+        if (regPais.getClave() == clave && regPais.getEstado())
+        {
+            menuPrincipalPais(regPais);
+            ingreso = true;
+        }
+
     }
-    if (regPais.getUsuario() == usuario && regPais.getClave() == clave && regPais.getEstado())
-    {
-        menuPrincipalPais(regPais);
-    }
-    else if(ingresoAdmin==false)  //si no, nunca se ingreso un admin?
+
+    if(ingreso==false)  //si no, nunca se ingreso un admin?
     {
         cout << "Credenciales invalidas.";
         getch();//rlutil.h
@@ -1171,6 +1181,7 @@ void Menu::eliminarMisil()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
 /// AGREGAR STOCK MISIL
 void Menu::agregarStockMisil()//ACUMULA STOCK DE MISILES
 {
+    Validar validar;
     int Id;
     int pos;
     Misil reg;
@@ -1190,6 +1201,8 @@ void Menu::agregarStockMisil()//ACUMULA STOCK DE MISILES
     cin >> Id;
     cin.ignore();//sino se saltea "DESEA DAR DE BAJA ESTE REGISTRO? (s / n): "
 
+    system("cls");
+
     pos = ArchMisil.buscarXId(Id);
 
     if(pos != -1)//si encontro el archivo
@@ -1200,7 +1213,7 @@ void Menu::agregarStockMisil()//ACUMULA STOCK DE MISILES
         {
             reg.mostrar();
 
-            cout << "DESEA AGREGAR STOCK? (s / n): ";
+            cout << endl << "DESEA AGREGAR STOCK? (s / n): ";
             getline(cin, respuesta);
 
             //si le ingresas cualquier otra cosa que no sea "s/S" RETURN al subMenuMisil
@@ -1208,6 +1221,7 @@ void Menu::agregarStockMisil()//ACUMULA STOCK DE MISILES
             {
                 cout << "INGRESE STOCK A AGREGAR: ";
                 cin >> stock;
+
                 stock += reg.getStock();
                 reg.setStock(stock);
 
@@ -2892,13 +2906,13 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
     int tamanioMisil;
     int tamanioAvion;
     int tamanioBuque;
-    ArchivoMisil archivoMisil;
+    ArchivoMisil archMisil;
     Misil misil;
-    ArchivoAvion archivoAvion;
+    ArchivoAvion archAvion;
     Avion avion;
-    ArchivoBuque archivoBuque;
+    ArchivoBuque archBuque;
     Buque buque;
-    ArchivoTanque archivoTanque;
+    ArchivoTanque archTanque;
     Tanque tanque;
     StockProducto *vecProductosMisil = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
     StockProducto *vecProductosAvion = nullptr;
@@ -2924,7 +2938,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
     // HACE UN VECTOR DE (TABLA INTERMEDIA STOCK PRODUCTO) PARA CADA PRODUCTO. GUARDANDO
     // EN CADA POS DEL VECTOR EL ID Y STOCK DE CADA TIPO DE PRODUCTO.
 
-    tamanioMisil = archivoMisil.getCantidadReg();
+    tamanioMisil = archMisil.getCantidadReg();
     vecProductosMisil = new StockProducto[tamanioMisil];
 
     //verifico memoria
@@ -2937,14 +2951,14 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
     for (int i = 0; i < tamanioMisil; i++)
     {
-        misil = archivoMisil.leer(i);
+        misil = archMisil.leer(i);
         vecProductosMisil[i].setId(misil.getId());
         vecProductosMisil[i].setStock(misil.getStock());
     }
 
     /// creacion tabla intermedia para luego utilizarla para verificar stock
 
-    tamanioAvion = archivoAvion.getCantidadReg();
+    tamanioAvion = archAvion.getCantidadReg();
     vecProductosAvion = new StockProducto[tamanioAvion];
 
     //verifico memoria
@@ -2957,14 +2971,14 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
     for (int i = 0; i < tamanioAvion; i++)
     {
-        avion = archivoAvion.leer(i);
+        avion = archAvion.leer(i);
         vecProductosAvion[i].setId(avion.getId());
         vecProductosAvion[i].setStock(avion.getStock());
     }
 
     /// creacion tabla intermedia para luego utilizarla para verificar stock
 
-    tamanioBuque = archivoBuque.getCantidadReg();
+    tamanioBuque = archBuque.getCantidadReg();
     vecProductosBuque = new StockProducto[tamanioBuque];
 
     //verifico memoria
@@ -2977,14 +2991,14 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
     for (int i = 0; i < tamanioBuque; i++)
     {
-        buque = archivoBuque.leer(i);
+        buque = archBuque.leer(i);
         vecProductosBuque[i].setId(buque.getId());
         vecProductosBuque[i].setStock(buque.getStock());
     }
 
     /// creacion tabla intermedia para luego utilizarla para verificar stock
 
-    int tamanioTanque = archivoTanque.getCantidadReg();
+    int tamanioTanque = archTanque.getCantidadReg();
     vecProductosTanque = new StockProducto[tamanioTanque];
 
     //verifico memoria
@@ -2997,7 +3011,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
     for (int i = 0; i < tamanioTanque; i++)
     {
-        tanque = archivoTanque.leer(i);
+        tanque = archTanque.leer(i);
         vecProductosTanque[i].setId(tanque.getId());
         vecProductosTanque[i].setStock(tanque.getStock());
     }
@@ -3085,37 +3099,38 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
 ///COMPRAR MISIL
 
-void Menu::comprarMisil(Pais &regPais, DetalleVenta &vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil)
+void Menu::comprarMisil(Pais &regPais, DetalleVenta &detalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil)
 {
     Misil regMisil;
-    ArchivoMisil archivoMisil;
+    ArchivoMisil archMisil;
     Pais registroPais;
     ArchivoPais archPais;
     int posPais;
     string respuesta;
-    cin.ignore(); //Para listar los eliminados
+    cin.ignore(); //sino se saltea el listar misiles
     int id;
     int posMisil;
-    cout << "DESEA LISTAR LOS MISILES? (S/N)"<<endl;
-    cin>> respuesta;
     int cantidad;
     long long totalItem =0;
 
-    if ((respuesta == "S") || (respuesta == "s"))
-    {
-        listarMisiles();
-        system ("pause");
+    cout << "LISTAR MISILES? (s / n): ";
+    getline(cin, respuesta);
 
+    if (respuesta == "s" || respuesta == "S")
+    {
+        mostrarMisiles(false);
     }
 
-
-    cls();
-    cout <<"------------------"<< dineroAcumulado;
-    cout << "INGRESE EL ID DEL MISIL QUE DESEA COMPRAR: "<< endl;
+    cout << "INGRESE EL ID DEL MISIL QUE DESEA COMPRAR: ";
     cin>> id;
+
+    cin.ignore();
+
+    system("cls");
+
 //TODO:: TENGO DUDAS SOBRE ID-1.
-    posMisil = archivoMisil.buscarXId(id);
-    regMisil = archivoMisil.leer(posMisil);
+    posMisil = archMisil.buscarXId(id);
+    regMisil = archMisil.leer(posMisil);
     posPais = archPais.buscarXId(registroPais.getId());
     registroPais = archPais.leer(posPais);
 
@@ -3125,14 +3140,13 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta &vecDetalleVenta, long long 
         regMisil.mostrar();
 
         cout << endl;
-        cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (S/N) "<< endl;;
-        cin>> respuesta;
+        cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (s / n): ";
+        getline(cin, respuesta);
 
-        if ((respuesta == "S")||( respuesta =="s"))
-
+        if (respuesta == "s" || respuesta == "S")
         {
             cout << endl;
-            cout << "INGRESE LA CANTIDAD QUE DESEA ";
+            cout << "ING LA CANTIDAD QUE DESEA: ";
             cin >>cantidad;
 
             for(int j=0; j<tamanioMisil; j++) //Recorre tabla intermedia
@@ -3150,40 +3164,37 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta &vecDetalleVenta, long long 
 
                         if(totalItem <= (registroPais.getDineroCaja()- dineroAcumulado))
                         {
-                            vecDetalleVenta.setIdProducto(regMisil.getId());
-                            vecDetalleVenta.setPrecioUnitario(regMisil.getPrecio());
-                            vecDetalleVenta.setCantidad(cantidad);
-                            vecDetalleVenta.setDescripcion(regMisil.getDescripcion()); //TODO:: CHEQUEAR NOMBRE O DESCRIPCION.
-                            vecDetalleVenta.setPrecioTotal(dineroAcumulado);
-
+                            //TODO: TERMINAR DE HACER LA CARGA DEL DETALLE DE LA VENTA EN CURSO
+                            //detalleVenta.setIdVenta();
+                            //detalleVenta.setIdProducto();
+                            //detalleVenta.setCantidad();
+                            //detalleVenta.setNombreProducto();
+                            //detalleVenta.setPrecioUnitario();
+                            //detalleVenta.setPrecioTotal();
                         }
                         else
                         {
                             cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
-                            //TODO:: CHEQUEAR QUE NO SE GUARDE DETALLE DE VENTA PORQUE NO SE HIZO.
+                            detalleVenta = DetalleVenta();
+                            //TODO:: VER QUE HACER CON LOS DELLES DE VENTA DESCARTADOS.
                         }
                     }
                     else
                     {
                         cout << "NO HAY SUFICIENTE STOCK DEL PRODUCTO " << endl;
-                        //TODO:: CHEQUEAR QUE NO SE GUARDE DETALLE DE VENTA PORQUE NO SE HIZO.
-
+                        detalleVenta = DetalleVenta();
                     }
 
-
                 }
-
 
             }
         }
 
-
-
     }
     else
-        {
-            cout << "EL MISIL NO SE ENCUENTRA DISPONIBLE PARA LA COMPRA "<< endl;
-        }
+    {
+        cout << "EL MISIL NO SE ENCUENTRA DISPONIBLE PARA LA COMPRA "<< endl;
+    }
 }
 
 
