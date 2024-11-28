@@ -3039,7 +3039,10 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+
+            //Depende de qué vuelta está de la compra directamente le pasa uno dentro del vector.
+            //Ese unico objeto de tipo Detalle de Venta se lo pasa como refe para poder actualizarlo dentro del vector.
+            comprarMisil(regPais, vecDetalleVenta[i], dineroAcumulado, vecProductosMisil, tamanioMisil);
             system("pause");
             break;
 
@@ -3078,4 +3081,109 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
         }
     }
 }
+
+
+///COMPRAR MISIL
+
+void Menu::comprarMisil(Pais &regPais, DetalleVenta &vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil)
+{
+    Misil regMisil;
+    ArchivoMisil archivoMisil;
+    Pais registroPais;
+    ArchivoPais archPais;
+    int posPais;
+    string respuesta;
+    cin.ignore(); //Para listar los eliminados
+    int id;
+    int posMisil;
+    cout << "DESEA LISTAR LOS MISILES? (S/N)"<<endl;
+    cin>> respuesta;
+    int cantidad;
+    long long totalItem =0;
+
+    if ((respuesta == "S") || (respuesta == "s"))
+    {
+        listarMisiles();
+        system ("pause");
+
+    }
+
+
+    cls();
+    cout <<"------------------"<< dineroAcumulado;
+    cout << "INGRESE EL ID DEL MISIL QUE DESEA COMPRAR: "<< endl;
+    cin>> id;
+//TODO:: TENGO DUDAS SOBRE ID-1.
+    posMisil = archivoMisil.buscarXId(id);
+    regMisil = archivoMisil.leer(posMisil);
+    posPais = archPais.buscarXId(registroPais.getId());
+    registroPais = archPais.leer(posPais);
+
+
+    if (regMisil.getEstado()== true)
+    {
+        regMisil.mostrar();
+
+        cout << endl;
+        cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (S/N) "<< endl;;
+        cin>> respuesta;
+
+        if ((respuesta == "S")||( respuesta =="s"))
+
+        {
+            cout << endl;
+            cout << "INGRESE LA CANTIDAD QUE DESEA ";
+            cin >>cantidad;
+
+            for(int j=0; j<tamanioMisil; j++) //Recorre tabla intermedia
+            {
+
+                if(vecProductosMisil[j].getId() == id)  // Recorre la tabla intermedia buscando ID ingresado de MISIL
+                {
+                    //Tenes que tener stock mayor a 0 y además tenes que tener stock suficiente para la cantidad que queres comprar.
+                    if ((vecProductosMisil[j].getStock() >= cantidad) && (vecProductosMisil[j].getStock()>0))
+                    {
+                        totalItem = cantidad * regMisil.getPrecio();
+                        dineroAcumulado += totalItem; //Agrego al total de toda la compra (acumulo)
+
+                        // verifica que lo que esta comprando ahora sea mayor a lo que lleva comprando hasta el momento (VENTA TOTAL)
+
+                        if(totalItem <= (registroPais.getDineroCaja()- dineroAcumulado))
+                        {
+                            vecDetalleVenta.setIdProducto(regMisil.getId());
+                            vecDetalleVenta.setPrecioUnitario(regMisil.getPrecio());
+                            vecDetalleVenta.setCantidad(cantidad);
+                            vecDetalleVenta.setDescripcion(regMisil.getDescripcion()); //TODO:: CHEQUEAR NOMBRE O DESCRIPCION.
+                            vecDetalleVenta.setPrecioTotal(dineroAcumulado);
+
+                        }
+                        else
+                        {
+                            cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
+                            //TODO:: CHEQUEAR QUE NO SE GUARDE DETALLE DE VENTA PORQUE NO SE HIZO.
+                        }
+                    }
+                    else
+                    {
+                        cout << "NO HAY SUFICIENTE STOCK DEL PRODUCTO " << endl;
+                        //TODO:: CHEQUEAR QUE NO SE GUARDE DETALLE DE VENTA PORQUE NO SE HIZO.
+
+                    }
+
+
+                }
+
+
+            }
+        }
+
+
+
+    }
+    else
+        {
+            cout << "EL MISIL NO SE ENCUENTRA DISPONIBLE PARA LA COMPRA "<< endl;
+        }
+}
+
 
