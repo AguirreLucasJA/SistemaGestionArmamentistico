@@ -1,12 +1,12 @@
-#include "ArchivoAdmin.h"
+#include "ArchivoDetalleVenta.h"
 
-ArchivoAdmin::ArchivoAdmin()
+ArchivoDetalleVenta::ArchivoDetalleVenta()
 {
-    _nombreArchivo = "ARCHIVOS/ADMIN.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
-    _tamReg = sizeof(Admin); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
+    _nombreArchivo = "ARCHIVOS/DETALLEVENTA.DAT";////*ACA MODIFICAR EL NOMBRE DEL ARCHIVO*
+    _tamReg = sizeof(DetalleVenta); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
 }
 
-bool ArchivoAdmin::guardar(const Admin &registro)
+bool ArchivoDetalleVenta::guardar(const DetalleVenta &registro)
 {
     FILE *pFile;
     bool result;
@@ -25,7 +25,7 @@ bool ArchivoAdmin::guardar(const Admin &registro)
     return result;
 }
 
-bool ArchivoAdmin::guardar(const Admin &registro, int pos)
+bool ArchivoDetalleVenta::guardar(const DetalleVenta &registro, int pos)
 {
     FILE *pFile;
     bool result;
@@ -46,10 +46,10 @@ bool ArchivoAdmin::guardar(const Admin &registro, int pos)
     return result;
 }
 
-int ArchivoAdmin::buscarXId(int id)
+int ArchivoDetalleVenta::buscarXId(int id)
 {
     FILE *pFile;
-    Admin registro;
+    DetalleVenta registro;
     int pos = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -61,7 +61,7 @@ int ArchivoAdmin::buscarXId(int id)
 
     while(fread(&registro, _tamReg, 1, pFile)==1)
     {
-        if(registro.getId() == id)
+        if(registro.getIdVenta() == id)
         {
             break;
         }
@@ -70,7 +70,7 @@ int ArchivoAdmin::buscarXId(int id)
 
     fclose(pFile);
 
-    if(registro.getId() == id)
+    if(registro.getIdVenta() == id)
     {
         return pos;
     }
@@ -81,7 +81,7 @@ int ArchivoAdmin::buscarXId(int id)
 
 }
 
-int ArchivoAdmin::getCantidadReg()
+int ArchivoDetalleVenta::getCantidadReg()
 {
     int totalByte;
     FILE *pFile;
@@ -100,10 +100,10 @@ int ArchivoAdmin::getCantidadReg()
     return totalByte / _tamReg; ///CANT TOTAL DE REG SIN DISCRIMINAR LOS ELIMINADOS
 }
 
-Admin ArchivoAdmin::leer(int pos)
+DetalleVenta ArchivoDetalleVenta::leer(int pos)
 {
     FILE *pFile;
-    Admin registro;
+    DetalleVenta registro;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
 
@@ -121,7 +121,7 @@ Admin ArchivoAdmin::leer(int pos)
     return registro;
 }
 
-bool ArchivoAdmin::leerTodos(Admin *vecRegistros, int cantidadReg)
+bool ArchivoDetalleVenta::leerTodos(DetalleVenta *vecRegistros, int cantidadReg)
 {
     FILE *pFile;
     bool result;
@@ -140,40 +140,10 @@ bool ArchivoAdmin::leerTodos(Admin *vecRegistros, int cantidadReg)
     return result;
 }
 
-int ArchivoAdmin::getNuevoId()
+int ArchivoDetalleVenta::buscarXNombreProducto(std::string nombreProducto)
 {
     FILE *pFile;
-    Admin registro;
-    int nuevoId = 0;
-
-    pFile = fopen(_nombreArchivo.c_str(), "rb");
-
-    if(pFile == nullptr)
-    {
-        return 1; //si no pudo abrir el archivo
-    }
-
-    fseek(pFile, - _tamReg, SEEK_END);
-
-    if (fread(&registro, _tamReg, 1, pFile) == 1)
-    {
-        nuevoId = registro.getId() +1;
-    }
-
-    else
-    {
-        nuevoId = 1; // Si el archivo está vacío / no se pudo leerlo
-    }
-
-    fclose(pFile);
-
-    return nuevoId;
-}
-
-int ArchivoAdmin::buscarXUsuario(std::string usuario)
-{
-    FILE *pFile;
-    Admin registro;
+    DetalleVenta registro;
     int pos = 0;
 
     pFile = fopen(_nombreArchivo.c_str(), "rb");
@@ -185,7 +155,7 @@ int ArchivoAdmin::buscarXUsuario(std::string usuario)
 
     while(fread(&registro, _tamReg, 1, pFile)==1)
     {
-        if(registro.getUsuario() == usuario)
+        if(registro.getNombreProducto() == nombreProducto)
         {
             break;
         }
@@ -194,7 +164,7 @@ int ArchivoAdmin::buscarXUsuario(std::string usuario)
 
     fclose(pFile);
 
-    if(registro.getUsuario() == usuario)
+    if(registro.getNombreProducto() == nombreProducto)
     {
         return pos;
     }

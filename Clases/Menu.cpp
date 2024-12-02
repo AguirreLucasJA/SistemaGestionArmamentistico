@@ -1181,7 +1181,6 @@ void Menu::eliminarMisil()//ELIMINACION LOGICA DE PAIS EXISTENTE EN ARCHIVO
 /// AGREGAR STOCK MISIL
 void Menu::agregarStockMisil()//ACUMULA STOCK DE MISILES
 {
-    Validar validar;
     int Id;
     int pos;
     Misil reg;
@@ -3028,8 +3027,12 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
         return;
     }
 
+    int posDetalleVenta;
+
     for(int i = 0; i < cantProductos; i++)
     {
+
+        posDetalleVenta = i;
         cls();
         cabecera();
         gotoxy (25,6);
@@ -3056,7 +3059,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
             //Depende de qué vuelta está de la compra directamente le pasa uno dentro del vector.
             //Ese unico objeto de tipo Detalle de Venta se lo pasa como refe para poder actualizarlo dentro del vector.
-            comprarMisil(regPais, vecDetalleVenta[i], dineroAcumulado, vecProductosMisil, tamanioMisil);
+            comprarMisil(regPais, vecDetalleVenta, dineroAcumulado, vecProductosMisil, tamanioMisil, posDetalleVenta);
             system("pause");
             break;
 
@@ -3094,12 +3097,38 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
             break;
         }
     }
+/// Confirmar Compra.
+    cls();
+    cabecera();
+    int num;
+    gotoxy(10,8);
+    cout << "DESEA CONFIRMAR SU COMPRA? (1-SI / 2-NO)";
+    cin >> num;
+    if(num==1)
+    {
+        //TODO:FALTA IMPLEMENTAR CONFIRMAR COMPRA
+        //confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta, cantProductos, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
+    }
+    else
+    {
+        delete[] vecDetalleVenta;
+        delete[] vecProductosMisil;
+        delete[] vecProductosAvion;
+        delete[] vecProductosBuque;
+        delete[] vecProductosTanque;
+    }
+
+    delete[] vecDetalleVenta;
+    delete[] vecProductosMisil;
+    delete[] vecProductosAvion;
+    delete[] vecProductosBuque;
+    delete[] vecProductosTanque;
 }
 
 
 ///COMPRAR MISIL
 
-void Menu::comprarMisil(Pais &regPais, DetalleVenta &detalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil)
+void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil, int posDetalleVenta)
 {
     Misil regMisil;
     ArchivoMisil archMisil;
@@ -3128,73 +3157,225 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta &detalleVenta, long long &di
 
     system("cls");
 
-//TODO:: TENGO DUDAS SOBRE ID-1.
+
     posMisil = archMisil.buscarXId(id);
-    regMisil = archMisil.leer(posMisil);
-    posPais = archPais.buscarXId(registroPais.getId());
-    registroPais = archPais.leer(posPais);
 
-
-    if (regMisil.getEstado()== true)
+    if(posMisil != -1) // SI encontro el Misil
     {
-        regMisil.mostrar();
 
-        cout << endl;
-        cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (s / n): ";
-        getline(cin, respuesta);
+        regMisil = archMisil.leer(posMisil);
+        posPais = archPais.buscarXId(regPais.getId());
+        registroPais = archPais.leer(posPais);
 
-        if (respuesta == "s" || respuesta == "S")
+
+        if (regMisil.getEstado()== true)
         {
+            regMisil.mostrar();
+
             cout << endl;
-            cout << "ING LA CANTIDAD QUE DESEA: ";
-            cin >>cantidad;
+            cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (s / n): ";
+            getline(cin, respuesta);
 
-            for(int j=0; j<tamanioMisil; j++) //Recorre tabla intermedia
+            if (respuesta == "s" || respuesta == "S")
             {
+                cout << endl;
+                cout << "ING LA CANTIDAD QUE DESEA: ";
+                cin >>cantidad;
 
-                if(vecProductosMisil[j].getId() == id)  // Recorre la tabla intermedia buscando ID ingresado de MISIL
+                for(int j=0; j<tamanioMisil; j++) //Recorre tabla intermedia
                 {
-                    //Tenes que tener stock mayor a 0 y además tenes que tener stock suficiente para la cantidad que queres comprar.
-                    if ((vecProductosMisil[j].getStock() >= cantidad) && (vecProductosMisil[j].getStock()>0))
+
+                    if(vecProductosMisil[j].getId() == id)  // Recorre la tabla intermedia buscando ID ingresado de MISIL
                     {
-                        totalItem = cantidad * regMisil.getPrecio();
-                        dineroAcumulado += totalItem; //Agrego al total de toda la compra (acumulo)
-
-                        // verifica que lo que esta comprando ahora sea mayor a lo que lleva comprando hasta el momento (VENTA TOTAL)
-
-                        if(totalItem <= (registroPais.getDineroCaja()- dineroAcumulado))
+                        //Tenes que tener stock mayor a 0 y además tenes que tener stock suficiente para la cantidad que queres comprar.
+                        if ((vecProductosMisil[j].getStock() >= cantidad) && (vecProductosMisil[j].getStock()>0))
                         {
-                            //TODO: TERMINAR DE HACER LA CARGA DEL DETALLE DE LA VENTA EN CURSO
-                            //detalleVenta.setIdVenta();
-                            //detalleVenta.setIdProducto();
-                            //detalleVenta.setCantidad();
-                            //detalleVenta.setNombreProducto();
-                            //detalleVenta.setPrecioUnitario();
-                            //detalleVenta.setPrecioTotal();
+                            totalItem = cantidad * regMisil.getPrecio();
+                            dineroAcumulado += totalItem; //Agrego al total de toda la compra (acumulo)
+
+                            // verifica que lo que esta comprando ahora sea mayor a lo que lleva comprando hasta el momento (VENTA TOTAL)
+
+                            if(totalItem <= (registroPais.getDineroCaja()- dineroAcumulado))
+                            {
+                                //TODO: TERMINAR DE HACER LA CARGA DEL DETALLE DE LA VENTA EN CURSO
+                                //TODO: VER DND SETEARLE EL ID DE LA VENTA;
+                                //vecDetalleVenta[posDetalleVenta].setIdVenta();
+                                vecDetalleVenta[posDetalleVenta].setIdProducto(regMisil.getId());
+                                vecDetalleVenta[posDetalleVenta].setCantidad(cantidad);
+                                vecDetalleVenta[posDetalleVenta].setNombreProducto(regMisil.getNombre());
+                                vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regMisil.getPrecio());
+                                vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
+                            }
+                            else
+                            {
+                                cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
+                                vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+                                //TODO:: VER QUE HACER CON LOS DELLES DE VENTA DESCARTADOS.
+                            }
                         }
                         else
                         {
-                            cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
-                            detalleVenta = DetalleVenta();
-                            //TODO:: VER QUE HACER CON LOS DELLES DE VENTA DESCARTADOS.
+                            cout << "NO HAY SUFICIENTE STOCK DEL PRODUCTO " << endl;
+                            vecDetalleVenta[posDetalleVenta] = DetalleVenta();
                         }
-                    }
-                    else
-                    {
-                        cout << "NO HAY SUFICIENTE STOCK DEL PRODUCTO " << endl;
-                        detalleVenta = DetalleVenta();
+
                     }
 
                 }
-
             }
-        }
 
+        }
     }
     else
     {
-        cout << "EL MISIL NO SE ENCUENTRA DISPONIBLE PARA LA COMPRA "<< endl;
+        cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+        vecDetalleVenta[posDetalleVenta] = DetalleVenta();
     }
+}
+
+/// CONFIRMAR COMPRA
+void confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductos, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque)
+{
+    /*
+Fecha _fecha;
+
+    Venta venta;
+    ArchivoVenta archivoVenta;
+    ArchivoDetalleVenta archivoDetalle;
+
+    ArchivoPais archivoPais;
+    Misil misil;
+    ArchivoMisil archivoMisil;
+    Avion avion;
+    ArchivoAvion archivoAvion;
+    Buque buque;
+    ArchivoBuque archivoBuque;
+    Tanque tanque;
+    ArchivoTanque archivoTanque;
+
+    /// Generando, guardando y generando idVenta.
+    int numeroDeVenta;
+    if(archivoVenta.contarRegistros() <= 0) //si no hay registros setea id en 0
+    {
+        numeroDeVenta = 0;
+    }
+    else
+    {
+        numeroDeVenta = archivoVenta.contarRegistros();// si hay registros le setea el id con el numero
+    }
+    venta.setId(numeroDeVenta);//ACA VA EL ID AUTONUMERICO
+
+    venta.setCliente(reg.getNombrePais());//ACA EL ID DEL CLIENTE
+
+    venta.setFecha(_fecha);
+    venta.setCantidadItems(cantidadRegistros);//CANTIDAD QUE DESEO COMPRAR
+    venta.setMontoTotal(TotalDeVenta);//DINERO ACUMULADO DEL TOTAL DE LOS ITEMS/ DETALLES DE VENTA COMPRADOS
+
+    if(archivoVenta.grabarRegistro(venta))
+    {
+
+        /// Modificando el IdVenta del vector DetalleVentas
+        for (int i = 0; i < cantidadRegistros; ++i)
+        {
+            //ACA LE ASIGNAMOS AL DETALLE DE VENTA EL ID DE VENTA
+            detalle[i].setId(i+1); ///ESTO NO LO HACEMOS
+            detalle[i].setIdVenta(venta.getId()); ///ACA LE PONEMOS ID AUTONUMERICO DE VENTA
+        }
+
+        ///CON LA FUNCION GRABAR REGISTROS LE PASA EL VECTOR DE DETALLE DE VENTA Y LA CANTIDAD DE PRODUCTOS QUE QUIZO COMPRAR
+        ///Y LO GUARDA EN EL ARCHIVO.
+        if(archivoDetalle.grabarRegistros(detalle, cantidadRegistros))
+        {
+            ///modificando el stock de Misil.
+            int cantidad = archivoMisil.contarRegistros();
+            for(int i=0; i<cantidad; i++)
+            {
+                misil = archivoMisil.leerRegistro(i);
+                for(int j=0; j<cantidad; j++)
+                {
+
+
+                    ///modificando el stock de Buque.
+                    cantidad = archivoBuque.contarRegistros();
+                    for(int i=0; i<cantidad; i++)
+                    {
+                        buque = archivoBuque.leerRegistro(i);
+                        for(int j=0; j<cantidad; j++)
+                        {
+                            if(productosBuque[j].getId()== buque.getId())
+                            {
+                                buque.setStock(productosBuque[j].getStock());
+                                archivoBuque.modificarRegistro(buque, i);
+                            }
+                        }
+                    }
+
+                    ///modificando el stock de Tanque.
+                    cantidad = archivoTanque.contarRegistros();
+                    for(int i=0; i<cantidad; i++)
+                    {
+                        tanque = archivoTanque.leerRegistro(i);
+                        for(int j=0; j<cantidad; j++)
+                        {
+                            if(productosTanque[j].getId()== tanque.getId())
+                            {
+                                tanque.setStock(productosTanque[j].getStock());
+                                archivoTanque.modificarRegistro(tanque, i);
+                                if(productosMisil[j].getId()== misil.getId())
+                                {
+                                    misil.setStock(productosMisil[j].getStock());
+                                    archivoMisil.ModificarEnDisco(misil, i);
+                                }
+                            }
+                        }
+
+                        ///modificando el stock de Avion.
+                        cantidad = archivoAvion.contarRegistros();
+                        for(int i=0; i<cantidad; i++)
+                        {
+                            avion = archivoAvion.leerRegistro(i);
+                            for(int j=0; j<cantidad; j++)
+                            {
+                                if(productosAvion[j].getId()== avion.getId())
+                                {
+                                    avion.setStock(productosAvion[j].getStock());
+                                    archivoAvion.modificarRegistro(avion, i);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            ///modificando la billetera del pais
+            reg.setDineroCaja(reg.getDineroCaja() - TotalDeVenta);
+            int posPais = archivoPais.buscarRegistro(reg.getId());
+            archivoPais.modificarRegistro(reg,posPais);
+
+            cls();
+            cabecera();
+            gotoxy(10,8);
+            cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE.";
+            cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+
+        }
+        else
+        {
+            cls();
+            cabecera();
+            gotoxy(10,8);
+            cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
+        }
+    }
+    else
+    {
+        cls();
+        cabecera();
+        gotoxy(10,8);
+        cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
+    }
+    */
+
 }
 
 

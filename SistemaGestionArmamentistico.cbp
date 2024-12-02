@@ -45,6 +45,8 @@
 		<Unit filename="Clases/ClasesArchivos/ArchivoAvion.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoBuque.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoBuque.h" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoDetalleVenta.cpp" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoDetalleVenta.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoMisil.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoMisil.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoNombreProducto.cpp" />
@@ -55,6 +57,8 @@
 		<Unit filename="Clases/ClasesArchivos/ArchivoPais.h" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoTanque.cpp" />
 		<Unit filename="Clases/ClasesArchivos/ArchivoTanque.h" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoVenta.cpp" />
+		<Unit filename="Clases/ClasesArchivos/ArchivoVenta.h" />
 		<Unit filename="Clases/DetalleVenta.cpp" />
 		<Unit filename="Clases/DetalleVenta.h" />
 		<Unit filename="Clases/Entidad.cpp" />
