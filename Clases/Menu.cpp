@@ -3190,6 +3190,7 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
                         //Tenes que tener stock mayor a 0 y además tenes que tener stock suficiente para la cantidad que queres comprar.
                         if ((vecProductosMisil[j].getStock() >= cantidad) && (vecProductosMisil[j].getStock()>0))
                         {
+                            vecProductosMisil[j].setStock(vecProductosMisil[j].getStock() - cantidad);//le actualiza el stock a la tabla intermedia
                             totalItem = cantidad * regMisil.getPrecio();
                             dineroAcumulado += totalItem; //Agrego al total de toda la compra (acumulo)
 
@@ -3236,136 +3237,82 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
 /// CONFIRMAR COMPRA
 void confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductos, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque)
 {
-    /*
-Fecha _fecha;
-
-    Venta venta;
+    int id;
+    int cantReg;
+    bool esVentaValida[4] = {true};
+    Fecha fecha;
+    Venta regVenta;
     ArchivoVenta archivoVenta;
     ArchivoDetalleVenta archivoDetalle;
-
     ArchivoPais archivoPais;
-    Misil misil;
+    Misil regMisil;
     ArchivoMisil archivoMisil;
-    Avion avion;
+    Avion regAvion;
     ArchivoAvion archivoAvion;
-    Buque buque;
+    Buque regBuque;
     ArchivoBuque archivoBuque;
-    Tanque tanque;
+    Tanque regTanque;
     ArchivoTanque archivoTanque;
 
-    /// Generando, guardando y generando idVenta.
-    int numeroDeVenta;
-    if(archivoVenta.contarRegistros() <= 0) //si no hay registros setea id en 0
+    id = archivoVenta.getNuevoId();//obtiene nuevo ID autonumerico.
+
+    ///setear regVenta
+    regVenta.setId(id);
+    regVenta.setIdCliente(regPais.getId());
+    regVenta.setFecha(fecha);
+    regVenta.setCantidadItems(cantProductos);
+    regVenta.setMontoTotal(dineroAcumulado);//DINERO ACUMULADO = TOTAL DE LOS ITEMS DE LA VENTA
+
+    //TODO:: VER CUANDO GUARDAR LA VENTA EN EL ARCHIVO DESP DE VERIFICAR DINERO EN CAJA Y ACTUALIZACIONDE STOCK
+    //if(archivoVenta.grabarRegistro(regVenta))
+
+
+    /// setear el Id de la Venta en el vector DetalleVentas
+    for (int i = 0; i < cantProductos; ++i)
     {
-        numeroDeVenta = 0;
+        //ACA LE ASIGNAMOS AL DETALLE DE VENTA EL ID DE VENTA
+        vecDetalleVenta[i].setIdVenta(regVenta.getId());
     }
-    else
-    {
-        numeroDeVenta = archivoVenta.contarRegistros();// si hay registros le setea el id con el numero
-    }
-    venta.setId(numeroDeVenta);//ACA VA EL ID AUTONUMERICO
 
-    venta.setCliente(reg.getNombrePais());//ACA EL ID DEL CLIENTE
+    ///CON LA FUNCION GRABAR REGISTROS LE PASA EL VECTOR DE DETALLE DE VENTA Y LA CANTIDAD DE PRODUCTOS QUE QUIZO COMPRAR
+    ///Y LO GUARDA EN EL ARCHIVO.
 
-    venta.setFecha(_fecha);
-    venta.setCantidadItems(cantidadRegistros);//CANTIDAD QUE DESEO COMPRAR
-    venta.setMontoTotal(TotalDeVenta);//DINERO ACUMULADO DEL TOTAL DE LOS ITEMS/ DETALLES DE VENTA COMPRADOS
-
-    if(archivoVenta.grabarRegistro(venta))
+    if(archivoDetalle.grabarRegistros(vecDetalleVenta, cantProductos))
     {
 
-        /// Modificando el IdVenta del vector DetalleVentas
-        for (int i = 0; i < cantidadRegistros; ++i)
-        {
-            //ACA LE ASIGNAMOS AL DETALLE DE VENTA EL ID DE VENTA
-            detalle[i].setId(i+1); ///ESTO NO LO HACEMOS
-            detalle[i].setIdVenta(venta.getId()); ///ACA LE PONEMOS ID AUTONUMERICO DE VENTA
-        }
 
-        ///CON LA FUNCION GRABAR REGISTROS LE PASA EL VECTOR DE DETALLE DE VENTA Y LA CANTIDAD DE PRODUCTOS QUE QUIZO COMPRAR
-        ///Y LO GUARDA EN EL ARCHIVO.
-        if(archivoDetalle.grabarRegistros(detalle, cantidadRegistros))
+        cantReg = archivoMisil.getCantidadReg();
+        for(int i=0; i<cantReg; i++)
         {
-            ///modificando el stock de Misil.
-            int cantidad = archivoMisil.contarRegistros();
-            for(int i=0; i<cantidad; i++)
+            bool
+            regMisil = archivoMisil.leer(i);
+
+            for(int j=0; j<cantReg; j++)
             {
-                misil = archivoMisil.leerRegistro(i);
-                for(int j=0; j<cantidad; j++)
+                if(vecProductosMisil[j].getId()== regMisil.getId())
                 {
+                    regMisil.setStock(vecProductosMisil[j].getStock());
+                    //TODO:HACER LA COMPROBACION DE QUE SI PUDO GUARDAR O NO EN EL ARCHIVO
+                    esVentaValida[1] = archivoMisil.guardar(regMisil, i);
+                    break;
 
-
-                    ///modificando el stock de Buque.
-                    cantidad = archivoBuque.contarRegistros();
-                    for(int i=0; i<cantidad; i++)
-                    {
-                        buque = archivoBuque.leerRegistro(i);
-                        for(int j=0; j<cantidad; j++)
-                        {
-                            if(productosBuque[j].getId()== buque.getId())
-                            {
-                                buque.setStock(productosBuque[j].getStock());
-                                archivoBuque.modificarRegistro(buque, i);
-                            }
-                        }
-                    }
-
-                    ///modificando el stock de Tanque.
-                    cantidad = archivoTanque.contarRegistros();
-                    for(int i=0; i<cantidad; i++)
-                    {
-                        tanque = archivoTanque.leerRegistro(i);
-                        for(int j=0; j<cantidad; j++)
-                        {
-                            if(productosTanque[j].getId()== tanque.getId())
-                            {
-                                tanque.setStock(productosTanque[j].getStock());
-                                archivoTanque.modificarRegistro(tanque, i);
-                                if(productosMisil[j].getId()== misil.getId())
-                                {
-                                    misil.setStock(productosMisil[j].getStock());
-                                    archivoMisil.ModificarEnDisco(misil, i);
-                                }
-                            }
-                        }
-
-                        ///modificando el stock de Avion.
-                        cantidad = archivoAvion.contarRegistros();
-                        for(int i=0; i<cantidad; i++)
-                        {
-                            avion = archivoAvion.leerRegistro(i);
-                            for(int j=0; j<cantidad; j++)
-                            {
-                                if(productosAvion[j].getId()== avion.getId())
-                                {
-                                    avion.setStock(productosAvion[j].getStock());
-                                    archivoAvion.modificarRegistro(avion, i);
-                                }
-                            }
-                        }
-                    }
                 }
             }
-
-            ///modificando la billetera del pais
-            reg.setDineroCaja(reg.getDineroCaja() - TotalDeVenta);
-            int posPais = archivoPais.buscarRegistro(reg.getId());
-            archivoPais.modificarRegistro(reg,posPais);
-
-            cls();
-            cabecera();
-            gotoxy(10,8);
-            cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE.";
-            cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
-
         }
-        else
-        {
-            cls();
-            cabecera();
-            gotoxy(10,8);
-            cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
-        }
+
+
+
+        ///modificando la billetera del pais
+        reg.setDineroCaja(reg.getDineroCaja() - TotalDeVenta);
+        int posPais = archivoPais.buscarRegistro(reg.getId());
+        archivoPais.modificarRegistro(reg,posPais);
+
+        cls();
+        cabecera();
+        gotoxy(10,8);
+        cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE.";
+        cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+
     }
     else
     {
@@ -3374,7 +3321,15 @@ Fecha _fecha;
         gotoxy(10,8);
         cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
     }
-    */
+
+    else
+    {
+        cls();
+        cabecera();
+        gotoxy(10,8);
+        cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
+    }
+
 
 }
 

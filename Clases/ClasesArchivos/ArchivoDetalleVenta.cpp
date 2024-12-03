@@ -140,6 +140,30 @@ bool ArchivoDetalleVenta::leerTodos(DetalleVenta *vecRegistros, int cantidadReg)
     return result;
 }
 
+bool ArchivoDetalleVenta::grabarRegistros(DetalleVenta *vecRegistros, int cantidadReg)
+{
+    FILE *pFile;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+    if(pFile == nullptr)
+    {
+        return false;
+    }
+
+    for (int i = 0; i < cantidadReg; i++)
+    {
+        if (fwrite(&vecRegistros[i], _tamReg, 1, pFile) != 1)
+        {
+            fclose(pFile);
+            return false;
+        }
+    }
+
+    fclose(pFile);
+    return true;
+}
+
 int ArchivoDetalleVenta::buscarXNombreProducto(std::string nombreProducto)
 {
     FILE *pFile;

@@ -12,6 +12,7 @@ public:
     int getCantidadReg();//Devuelve cantidad de Registros
     DetalleVenta leer(int pos);//Lee un DetalleVenta en una posicion
     bool leerTodos(DetalleVenta *vecRegistros, int cantidadReg);//Lee todos
+    bool grabarRegistros(DetalleVenta *vecRegistros, int cantidadReg);
     int buscarXNombreProducto(std::string nombreProducto);//busca un DetalleVenta por su nombreProducto
 
 

@@ -8,7 +8,7 @@ void Venta::setId(int id)
     _id = id;
 }
 
-void Venta::idCliente (int idCliente)
+void Venta::setIdCliente (int idCliente)
 {
     _idCliente = idCliente;
 }

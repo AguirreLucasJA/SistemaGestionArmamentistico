@@ -6,7 +6,7 @@ class Venta
 public:
 
     void setId(int id);
-    void idCliente(int idCliente);
+    void setIdCliente(int idCliente);
     void setFecha(Fecha fecha);
     void setCantidadItems (int cantItems);
     void setMontoTotal(long long montoTotal);
