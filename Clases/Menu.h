@@ -6,6 +6,7 @@
 #include"Buque.h"
 #include"Tanque.h"
 #include "DetalleVenta.h"
+#include "Venta.h"
 #include "StockProducto.h"
 
 
