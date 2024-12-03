@@ -24,6 +24,18 @@ using namespace rlutil;//rlutil::
 #include "ClasesArchivos/ArchivoTanque.h"
 
 
+//SHOW ITEMS COLOR DEL CURSOR SELECCIONADOR
+/*void Menu::showItem (const char* text, int posx, int posy, bool selected){
+
+  if (selected){
+	rlutil::setBackgroundColor(rlutil::COLOR::WHITE)
+  }
+
+
+}
+*/
+
+
 
 /// DIBUJAR RECUADRO
 void Menu::dibujarCuadro(int x1, int y1, int x2, int y2)
@@ -187,32 +199,72 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS SUBMENU.
 {
     int opcion = -1;
+    int y=0; //declaro y para mover cursor
+    cabecera();
     while(opcion!=0)
     {
+        rlutil::hidecursor();
 
-        cabecera();
 
-        gotoxy (2,6);
+        gotoxy (30,6);
         cout << "MENU ADMINISTRADOR";
-        gotoxy (2,7);
+        gotoxy (30,7);
         cout << "------------------";
 
-        gotoxy (2,9);
+
+        gotoxy (30,9);
         cout << "1 - ADMINISTRADORES";
-        gotoxy (2,10);
+
+        gotoxy (30,10);
         cout << "2 - STOCK";
-        gotoxy (2,11);
+
+        gotoxy (30,11);
         cout << "3 - PAISES";
-        gotoxy (2,12);
+
+        gotoxy (30,12);
         cout << "4 - LISTADOS";
-        gotoxy (2,13);
+
+        gotoxy (30,13);
         cout << "5 - REPORTES";
-        gotoxy (2,14);
+
+        gotoxy (30,14);
         cout << "0 - SALIR DEL PROGRAMA";
-        gotoxy (2,16);
+
+        gotoxy (30,16);
         cout << "INGRESE UNA OPCION: ";
 
-        cin >> opcion;
+        //Dibujo el cursor >> con codigo ascii 175
+        rlutil::locate(28,10+y);
+        cout << (char)175 << endl;
+        //cin >> opcion;
+
+        int key = rlutil::getkey();
+
+        switch (key)
+        {
+        case 14: //UP
+            rlutil::locate(28,10+y);
+            std::cout<< " " <<std::endl;
+            y--;
+            if (y<0)
+            {
+                y=0;
+            }
+            break;
+
+        case 15: //DOWN
+            rlutil::locate(28,10+y);
+            std::cout<< " " <<std::endl;
+            y++;
+            if(y>5)
+            {
+                y = 5; //para que no siga de largo el cursor
+            }
+            break;
+        case 1: //OK ENTER
+            break;
+        }
+
 
         switch(opcion)
         {
@@ -240,10 +292,11 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             break;
 
         default:
-            gotoxy (2,19);
+            /*gotoxy (2,19);
             cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
             gotoxy (2,20);
             system("pause");
+            */
             break;
         }
     }
@@ -3237,7 +3290,7 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
 void confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductos, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque)
 {
     /*
-Fecha _fecha;
+    Fecha _fecha;
 
     Venta venta;
     ArchivoVenta archivoVenta;
