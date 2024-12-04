@@ -172,7 +172,7 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 
     while(respuesta < 0 || respuesta > 1) //para ver si queres volver a ingresar al sistema.
     {
-		system ("cls");
+        system ("cls");
         rlutil::hidecursor(); //esconde cursor principal
         gotoxy (30,6);
 
@@ -183,14 +183,15 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
         Menu::showItem (" SI ", 30, 9, y ==1);
         gotoxy (30,10);
 
-		 //Dibujo el cursor >> con codigo ascii 175
+        //Dibujo el cursor >> con codigo ascii 175
         rlutil::locate(28,8+y);
         cout << (char)175 << endl;
         //cin >> opcion;
         //cin>>respuesta;
-		int key = rlutil::getkey();
+        int key = rlutil::getkey();
 
-        switch (key){
+        switch (key)
+        {
 
         case 14: //UP
             rlutil::locate(30,8+y);
@@ -212,16 +213,16 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
             }
             break;
         case 1: //OK ENTER
-			 switch(y)
+            switch(y)
             {
 
             case 0:
-				respuesta = 0;
-				gotoxy (1,11);
-				cout << "Gracias por utilizar SGA" << endl;
+                respuesta = 0;
+                gotoxy (1,11);
+                cout << "Gracias por utilizar SGA" << endl;
 
-				return false;//NO QUIERE REGRESAR
-              // Sale del programa correctamente
+                return false;//NO QUIERE REGRESAR
+                // Sale del programa correctamente
                 break;
 
             case 1:
@@ -230,9 +231,9 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
 
                 break;
 
+            }
         }
-        }
-}
+    }
 }
 
 /// MENU PRINCIPAL ADMINISTRADOR
@@ -356,8 +357,9 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
 /// SUBMENU ADMIN
 void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
-	int y=0; //declaro y para mover cursor
+    int y=0; //declaro y para mover cursor
     opcion = -1;
+
     rlutil::hidecursor();
 
     while(opcion!=0) //si es ==0 vuelve al MENU PRINCIPAL ADMIN
@@ -379,11 +381,11 @@ void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL ME
         Menu::showItem( "MODIFICACION DE ADMINISTRADOR", 30,11, y ==2);
         gotoxy (2,11);
 
-		Menu::showItem( "VOLVER ATRAS", 30,12, y ==3);
+        Menu::showItem( "VOLVER ATRAS", 30,12, y ==3);
         gotoxy (2,12);
 
 
-		//Dibujo el cursor >> con codigo ascii 175
+        //Dibujo el cursor >> con codigo ascii 175
         rlutil::locate(28,9+y);
         cout << (char)175 << endl;
         //cin >> opcion;
@@ -418,26 +420,27 @@ void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL ME
             {
 
             case 1:
-            	system("cls");
+                system("cls");
                 altaAdmin();
                 break;
 
 
             case 2:
-            	system("cls");
+
+                system("cls");
                 eliminarAdmin();
 
                 break;
 
 
             case 3:
-            	system("cls");
+                system("cls");
                 modificarAdmin();
                 break;
 
 
             case 4:
-				opcion = 0;
+                opcion = 0;
                 system("cls");
                 cout << "Saliendo..." << endl;
                 rlutil::anykey();
@@ -698,63 +701,85 @@ void Menu::eliminarAdmin()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
 /// SUBMENU PAIS
 void Menu::menuPaises()//SUBMENU ABM PAISES QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
+	system("cls");
     opcion = -1;
+    int y= 0; //Declaro para poder mover el cursor Y
+    rlutil::hidecursor(); //escondo la barrita de escritura
 
     while(opcion!=0)
     {
-
-        cabecera();
 
         gotoxy (2,6);
         cout<<"MENU PAISES";
         gotoxy (2,7);
         cout<<"-----------";
 
-        gotoxy (2,9);
-        cout<<"1 - ALTA DE PAIS";
-        gotoxy (2,10);
-        cout<<"2 - BAJA DE PAIS";
-        gotoxy (2,11);
-        cout<<"3 - MODIFICACION DE PAIS";
-        gotoxy (2,12);
-        cout<<"0 - VOLVER ATRAS";
-        gotoxy (2,14);
-        cout<<"INGRESE UNA OPCION: ";
+        //Indico por parámetros el texto, las coordenadas de la pantalla y de y (si está o no seleccionado para que se coloree)
+        Menu::showItem("ALTA PAIS",30,9, y ==0);
+        gotoxy (30,9);
 
-        cin>>opcion;
+        Menu::showItem("BAJA DE PAIS",30,10, y ==1);
+        gotoxy (30,10);
+        Menu::showItem("MODIFICACION DE PAIS",30,11, y ==2);
+        gotoxy (30,11);
+        Menu::showItem("VOLVER ATRAS",30,12, y ==3);
+        gotoxy (30,12);
 
-        switch(opcion)
+        rlutil::locate(28,9+y);
+        cout << (char)175 << endl; //Dibujo el cursor >> con el codigo ascii 175
+        int key = rlutil::getkey(); //obtengo la tecla que se haya presionado y lo guardo en Key
+
+        switch (key)
         {
-
-        case 1:
-            system("cls");
-            altaPais();
-            system("pause");
+        case 14: //UP
+            rlutil::locate(28,9+y);
+            std::cout<< " " <<std::endl;
+            y--;
+            if (y<0)
+            {
+                y=0;
+            }
             break;
 
-        case 2:
-            system("cls");
-            eliminarPais();
-            system("pause");
+        case 15: //DOWN
+            rlutil::locate(28,9+y);
+            std::cout<< " " <<std::endl;
+            y++;
+            if(y>3)
+            {
+                y = 3; //para que no siga de largo el cursor
+            }
             break;
+        case 1: //OK ENTER
+            switch(y+1)
+            {
 
-        case 3:
-            system("cls");
-            modificarPais();
-            system("pause");
-            break;
+            case 1:
+                system("cls");
+                altaPais();
+                break;
 
-        case 0:
-            break;
+            case 2:
+                system("cls");
+                eliminarPais();
+                break;
 
-        default:
-            gotoxy (2,17);
-            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-            gotoxy (2,18);
-            system("pause");
-            break;
+            case 3:
+                system("cls");
+                modificarPais();
+                break;
+
+            case 4:
+				opcion = 0;
+                system("cls");
+                cout << "Saliendo..." << endl;
+                rlutil::anykey();
+                return; // Sale del programa correctamente
+                break;
+            }
         }
     }
+
 }
 
 /// ALTA PAIS
@@ -774,10 +799,12 @@ void Menu::altaPais()//CARGA UN NUEVO PAIS AL ARCHIVO
     if(ArchPais.guardar(regPais)&& ArchNombreUsuario.guardar(regNombreUsuario)) //lo cargan en archivo pais
     {
         cout << "ALTA EXITOSA..." << endl;
+        system("cls");
     }
     else
     {
         cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+        system("cls");
     }
 }
 
