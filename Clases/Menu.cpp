@@ -25,15 +25,21 @@ using namespace rlutil;//rlutil::
 
 
 //SHOW ITEMS COLOR DEL CURSOR SELECCIONADOR
-/*void Menu::showItem (const char* text, int posx, int posy, bool selected){
+void Menu::showItem (const char* text, int posx, int posy, bool selected){
 
   if (selected){
-	rlutil::setBackgroundColor(rlutil::COLOR::WHITE)
+	rlutil::setBackgroundColor(rlutil::COLOR::WHITE);
+  }
+  else {
+  rlutil::setBackgroundColor (rlutil::COLOR::GREY);
   }
 
+  rlutil::locate(posx, posy);
+  std::cout << text << std::endl;
+
+  rlutil::setBackgroundColor (rlutil::COLOR::GREY);
 
 }
-*/
 
 
 
@@ -205,45 +211,49 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
     {
         rlutil::hidecursor();
 
-
+		system("cls");
         gotoxy (30,6);
         cout << "MENU ADMINISTRADOR";
         gotoxy (30,7);
         cout << "------------------";
 
-
+		Menu::showItem( "ADMINISTRADORES" , 30,9, y ==0);
         gotoxy (30,9);
-        cout << "1 - ADMINISTRADORES";
+        //cout << "1 - ADMINISTRADORES";
 
+		Menu::showItem( "STOCK" , 30,10, y ==1);
         gotoxy (30,10);
-        cout << "2 - STOCK";
+        //cout << "2 - STOCK";
 
         gotoxy (30,11);
-        cout << "3 - PAISES";
+        Menu::showItem( "PAISES" , 30,11, y ==2);
+        //cout << "3 - PAISES";
 
+		Menu::showItem( "LISTADOS" ,30, 12, y ==3);
         gotoxy (30,12);
-        cout << "4 - LISTADOS";
+        //cout << "4 - LISTADOS";
 
+        Menu::showItem( "REPORTES" ,30, 13, y ==4);
         gotoxy (30,13);
-        cout << "5 - REPORTES";
+        //cout << "5 - REPORTES";
 
+        Menu::showItem( "SALIR DEL PROGRAMA" ,30, 14, y ==5);
         gotoxy (30,14);
-        cout << "0 - SALIR DEL PROGRAMA";
-
-        gotoxy (30,16);
-        cout << "INGRESE UNA OPCION: ";
+        //cout << "0 - SALIR DEL PROGRAMA";
 
         //Dibujo el cursor >> con codigo ascii 175
-        rlutil::locate(28,10+y);
+        rlutil::locate(28,9+y);
         cout << (char)175 << endl;
         //cin >> opcion;
 
         int key = rlutil::getkey();
 
+
+
         switch (key)
         {
         case 14: //UP
-            rlutil::locate(28,10+y);
+            rlutil::locate(28,9+y);
             std::cout<< " " <<std::endl;
             y--;
             if (y<0)
@@ -253,7 +263,7 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             break;
 
         case 15: //DOWN
-            rlutil::locate(28,10+y);
+            rlutil::locate(28,9+y);
             std::cout<< " " <<std::endl;
             y++;
             if(y>5)
@@ -262,45 +272,51 @@ void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS 
             }
             break;
         case 1: //OK ENTER
-            break;
+            switch(y+1)
+            {
+
+            case 1:
+                menuAdmin();
+                break;
+
+
+            case 2:
+                menuStock();
+
+                break;
+
+
+            case 3:
+				menuPaises();
+                break;
+
+
+            case 4:
+				menuListados();
+                break;
+
+
+            case 5:
+				menuReportes();
+                break;
+
+            case 6:
+                opcion = 0;
+                system("cls");
+                cout << "Gracias por utilizar SGA. Saliendo..." << endl;
+                rlutil::anykey();
+                return; // Sale del programa correctamente
+               return;
+
+
+            }
+
         }
 
-
-        switch(opcion)
-        {
-        case 1:
-            menuAdmin();
-            break;
-
-        case 2:
-            menuStock();
-            break;
-
-        case 3:
-            menuPaises();
-            break;
-
-        case 4:
-            menuListados();
-            break;
-
-        case 5:
-            menuReportes();
-            break;
-
-        case 0:
-            break;
-
-        default:
-            /*gotoxy (2,19);
-            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-            gotoxy (2,20);
-            system("pause");
-            */
-            break;
-        }
     }
+
 }
+
 
 /// SUBMENU ADMIN
 void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
