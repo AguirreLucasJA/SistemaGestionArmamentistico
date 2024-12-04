@@ -24,6 +24,25 @@ using namespace rlutil;//rlutil::
 #include "ClasesArchivos/ArchivoDetalleVenta.h"
 #include "ClasesArchivos/ArchivoVenta.h"
 
+///SHOW ITEMS COLOR DEL CURSOR SELECCIONADOR
+void Menu::showItem (const char* text, int posx, int posy, bool selected)
+{
+
+    if (selected)
+    {
+        rlutil::setBackgroundColor(rlutil::COLOR::WHITE);
+    }
+    else
+    {
+        rlutil::setBackgroundColor (rlutil::COLOR::GREY);
+    }
+
+    rlutil::locate(posx, posy);
+    std::cout << text << std::endl;
+
+    rlutil::setBackgroundColor (rlutil::COLOR::GREY);
+
+}
 
 
 /// DIBUJAR RECUADRO
@@ -149,166 +168,292 @@ bool Menu::menuOpcion()// MENU INGRESO USERS/ADMINS
     }
 
     int respuesta = -1;
+    int y=0; //declaro y para mover cursor
 
     while(respuesta < 0 || respuesta > 1) //para ver si queres volver a ingresar al sistema.
     {
-        system("cls");
-        cabecera();
-        gotoxy (29,6);
+		system ("cls");
+        rlutil::hidecursor(); //esconde cursor principal
+        gotoxy (30,6);
+
         cout<<"REINGRESAR AL SISTEMA?: ";
-        gotoxy (29,7);
-        cout<<"0. NO";
-        gotoxy (29,8);
-        cout<<"1. SI";
-        gotoxy (29,10);
-        cout<<"OPCION: ";
-        cin>>respuesta;
-        cin.ignore();
-        if(respuesta < 0 || respuesta > 1)//si ingresaste algo distinto q 1 ó 0 te pide reingresar opcion
-        {
-            cout << "Ingreso incorrecto... re ingrese.." << endl;
-            getch();//espera precionar tecla para continuar
+        gotoxy (30,7);
+        Menu::showItem (" NO ", 30, 8, y ==0);
+        gotoxy (30,8);
+        Menu::showItem (" SI ", 30, 9, y ==1);
+        gotoxy (30,10);
+
+		 //Dibujo el cursor >> con codigo ascii 175
+        rlutil::locate(28,8+y);
+        cout << (char)175 << endl;
+        //cin >> opcion;
+        //cin>>respuesta;
+		int key = rlutil::getkey();
+
+        switch (key){
+
+        case 14: //UP
+            rlutil::locate(30,8+y);
+            std::cout<< " " <<std::endl;
+            y--;
+            if (y<0)
+            {
+                y=0;
+            }
+            break;
+
+        case 15: //DOWN
+            rlutil::locate(28,8+y);
+            std::cout<< " " <<std::endl;
+            y++;
+            if(y>1)
+            {
+                y = 1; //para que no siga de largo el cursor
+            }
+            break;
+        case 1: //OK ENTER
+			 switch(y)
+            {
+
+            case 0:
+				respuesta = 0;
+				gotoxy (1,11);
+				cout << "Gracias por utilizar SGA" << endl;
+
+				return false;//NO QUIERE REGRESAR
+              // Sale del programa correctamente
+                break;
+
+            case 1:
+                return true; //QUIERE REINGRESAR
+                system("cls");
+
+                break;
+
         }
-    }
-
-    if(respuesta == 0)
-    {
-        return false;// si no quiere reingresar
-    }
-    else
-    {
-        return true;// si quiere reingresar
-    }
-
-    gotoxy (2,22);
-    anykey();//espera una el ingreso de una tecla para continuar
+        }
+}
 }
 
 /// MENU PRINCIPAL ADMINISTRADOR
 void Menu::menuPrincipalAdmin() //MENU ADMIN QUE TE LLEVA AL RESTO DE LOS OTROS SUBMENU.
 {
     int opcion = -1;
+    int y=0; //declaro y para mover cursor
+    cabecera();
     while(opcion!=0)
     {
+        rlutil::hidecursor();
 
-        cabecera();
-
-        gotoxy (2,6);
+        system("cls");
+        gotoxy (30,6);
         cout << "MENU ADMINISTRADOR";
-        gotoxy (2,7);
+        gotoxy (30,7);
         cout << "------------------";
 
-        gotoxy (2,9);
-        cout << "1 - ADMINISTRADORES";
-        gotoxy (2,10);
-        cout << "2 - STOCK";
-        gotoxy (2,11);
-        cout << "3 - PAISES";
-        gotoxy (2,12);
-        cout << "4 - LISTADOS";
-        gotoxy (2,13);
-        cout << "5 - REPORTES";
-        gotoxy (2,14);
-        cout << "0 - SALIR DEL PROGRAMA";
-        gotoxy (2,16);
-        cout << "INGRESE UNA OPCION: ";
+        Menu::showItem( "ADMINISTRADORES", 30,9, y ==0);
+        gotoxy (30,9);
+        //cout << "1 - ADMINISTRADORES";
 
-        cin >> opcion;
+        Menu::showItem( "STOCK", 30,10, y ==1);
+        gotoxy (30,10);
+        //cout << "2 - STOCK";
 
-        switch(opcion)
+        gotoxy (30,11);
+        Menu::showItem( "PAISES", 30,11, y ==2);
+        //cout << "3 - PAISES";
+
+        Menu::showItem( "LISTADOS",30, 12, y ==3);
+        gotoxy (30,12);
+        //cout << "4 - LISTADOS";
+
+        Menu::showItem( "REPORTES",30, 13, y ==4);
+        gotoxy (30,13);
+        //cout << "5 - REPORTES";
+
+        Menu::showItem( "SALIR DEL PROGRAMA",30, 14, y ==5);
+        gotoxy (30,14);
+        //cout << "0 - SALIR DEL PROGRAMA";
+
+        //Dibujo el cursor >> con codigo ascii 175
+        rlutil::locate(28,9+y);
+        cout << (char)175 << endl;
+        //cin >> opcion;
+
+        int key = rlutil::getkey();
+
+
+
+        switch (key)
         {
-        case 1:
-            menuAdmin();
+        case 14: //UP
+            rlutil::locate(28,9+y);
+            std::cout<< " " <<std::endl;
+            y--;
+            if (y<0)
+            {
+                y=0;
+            }
             break;
 
-        case 2:
-            menuStock();
+        case 15: //DOWN
+            rlutil::locate(28,9+y);
+            std::cout<< " " <<std::endl;
+            y++;
+            if(y>5)
+            {
+                y = 5; //para que no siga de largo el cursor
+            }
             break;
+        case 1: //OK ENTER
+            switch(y+1)
+            {
 
-        case 3:
-            menuPaises();
-            break;
+            case 1:
+                menuAdmin();
+                break;
 
-        case 4:
-            menuListados();
-            break;
 
-        case 5:
-            menuReportes();
-            break;
+            case 2:
+                menuStock();
 
-        case 0:
-            break;
+                break;
 
-        default:
-            gotoxy (2,19);
-            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-            gotoxy (2,20);
-            system("pause");
-            break;
+
+            case 3:
+                menuPaises();
+                break;
+
+
+            case 4:
+                menuListados();
+                break;
+
+
+            case 5:
+                menuReportes();
+                break;
+
+            case 6:
+                opcion = 0;
+                system("cls");
+                cout << "Saliendo..." << endl;
+                rlutil::anykey();
+                return; // Sale del programa correctamente
+                return;
+
+
+            }
+
         }
+
     }
+
 }
+
+
 
 /// SUBMENU ADMIN
 void Menu::menuAdmin()//SUBMENU ABM ADMIN QUE ESTA DENTRO DE LAS OPCIONES DEL MENU PRINCIPAL ADMIN
 {
+	int y=0; //declaro y para mover cursor
     opcion = -1;
+    rlutil::hidecursor();
 
     while(opcion!=0) //si es ==0 vuelve al MENU PRINCIPAL ADMIN
     {
 
-        cabecera();
+        system ("cls");
 
         gotoxy (2,6);
         cout<<"MENU ADMINISTRADORES";
         gotoxy (2,7);
         cout<<"--------------------";
 
+        Menu::showItem( "ALTA DE ADMINISTRADOR", 30,9, y ==0);
         gotoxy (2,9);
-        cout<<"1 - ALTA DE ADMINISTRADOR";
+
+        Menu::showItem( "BAJA DE ADMINISTRADOR", 30,10, y ==1);
         gotoxy (2,10);
-        cout<<"2 - BAJA DE ADMINISTRADOR";
+
+        Menu::showItem( "MODIFICACION DE ADMINISTRADOR", 30,11, y ==2);
         gotoxy (2,11);
-        cout<<"3 - MODIFICACION DE ADMINISTRADOR";
+
+		Menu::showItem( "VOLVER ATRAS", 30,12, y ==3);
         gotoxy (2,12);
-        cout<<"0 - VOLVER ATRAS";
-        gotoxy (2,14);
-        cout<<"INGRESE UNA OPCION: ";
-
-        cin>>opcion;
 
 
-        switch(opcion)
+		//Dibujo el cursor >> con codigo ascii 175
+        rlutil::locate(28,9+y);
+        cout << (char)175 << endl;
+        //cin >> opcion;
+
+        int key = rlutil::getkey();
+
+
+
+        switch (key)
         {
-        case 1:
-            system("cls");
-            altaAdmin();
-            system("pause");
-            break;
-        case 2:
-            system("cls");
-            eliminarAdmin();
-            system("pause");
-            break;
-        case 3:
-            system("cls");
-            modificarAdmin();
-            system("pause");
+        case 14: //UP
+            rlutil::locate(28,9+y);
+            std::cout<< " " <<std::endl;
+            y--;
+            if (y<0)
+            {
+                y=0;
+            }
             break;
 
-        case 0:
+        case 15: //DOWN
+            rlutil::locate(28,9+y);
+            std::cout<< " " <<std::endl;
+            y++;
+            if(y>3)
+            {
+                y = 3; //para que no siga de largo el cursor
+            }
             break;
+        case 1: //OK ENTER
+            switch(y+1)
+            {
 
-        default:
-            gotoxy (2,17);
-            cout << "LA OPCION INGRESADA NO ES VALIDA" << endl;
-            gotoxy (2,18);
-            system("pause");
-            break;
+            case 1:
+            	system("cls");
+                altaAdmin();
+                break;
+
+
+            case 2:
+            	system("cls");
+                eliminarAdmin();
+
+                break;
+
+
+            case 3:
+            	system("cls");
+                modificarAdmin();
+                break;
+
+
+            case 4:
+				opcion = 0;
+                system("cls");
+                cout << "Saliendo..." << endl;
+                rlutil::anykey();
+                return; // Sale del programa correctamente
+                break;
+
+
+            }
+
         }
+
     }
+
 }
+
+
 
 /// ALTA ADMIN
 void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
@@ -327,11 +472,13 @@ void Menu::altaAdmin()//CARGAR UN NUEVO ADMIN AL ARCHIVO
     if(ArchAdmin.guardar(regAdmin) && ArchNombreUsuario.guardar(regNombreUsuario)) //lo cargan en archivo admin
     {
         cout << "ALTA EXITOSA..." << endl;
+        system("pause");
 
     }
     else
     {
         cout << "NO SE HA PODIDO GRABAR EL REGISTRO.";
+        system("pause");
     }
 }
 
@@ -451,26 +598,31 @@ void Menu::modificarAdmin()//MODIFICA ADMIN EXISTENTE EN ARCHIVO
                 if(ArchAdmin.guardar(reg,pos))
                 {
                     cout << "Se modifico con exito!" << endl;
+                    system("pause");
                 }
                 else
                 {
                     cout << "No se pudo modificar el admin!" << endl;
+                    system("pause");
                 }
 
             }
             else//NO eligio modificar el admin.
             {
                 cout << "El admin no fue modificado" << endl;
+                system("pause");
             }
         }
         else
         {
             cout << "El admin no se encuentra en el sistema." << endl;
+            system("pause");
         }
     }
     else
     {
         cout << "El admin no se encuentra en el sistema." << endl;
+        system("pause");
     }
 }
 
@@ -516,25 +668,30 @@ void Menu::eliminarAdmin()//ELIMINACION LOGICA DE ADMIN EXISTENTE EN ARCHIVO
                 if(ArchAdmin.guardar(reg, pos))
                 {
                     cout << "Se elimino con exito!" << endl;
+                    system("pause");
                 }
                 else
                 {
                     cout << "No se pudo eliminar el admin!" << endl;
+                    system("pause");
                 }
             }
             else//NO eligio eliminar el admin.
             {
                 cout << "El admin no fue eliminado!" << endl;
+                system("pause");
             }
         }
         else
         {
             cout << "El admin no se encuentra en el sistema." << endl;
+            //system("pause");
         }
     }
     else
     {
         cout << "El admin no se encuentra en el sistema." << endl;
+        //system("pause");
     }
 }
 
