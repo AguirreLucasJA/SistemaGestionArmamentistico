@@ -3101,7 +3101,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 /// Confirmar Compra.
     cls();
     cabecera();
-
+//TODO:: CONDICIONAL PARA CUANDO NO ALCANZA LA PLATA O NO HAY STOCK.
     gotoxy(10,8);
     cout << "CONFIRMAR COMPRA?" << endl;
     gotoxy(10,9);
@@ -3123,8 +3123,16 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
     {
     case 1:
         confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta, cantProductos, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
+        delete[] vecDetalleVenta;
+        delete[] vecProductosMisil;
+        delete[] vecProductosAvion;
+        delete[] vecProductosBuque;
+        delete[] vecProductosTanque;
         break;
     case 2:
+    	gotoxy(10,14);
+        cout<<"COMPRA CANCELADA"<<endl;
+        system ("pause");
         delete[] vecDetalleVenta;
         delete[] vecProductosMisil;
         delete[] vecProductosAvion;
@@ -3133,11 +3141,6 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
         break;
     }
 
-    delete[] vecDetalleVenta;
-    delete[] vecProductosMisil;
-    delete[] vecProductosAvion;
-    delete[] vecProductosBuque;
-    delete[] vecProductosTanque;
 }
 
 
@@ -3209,8 +3212,8 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
                             totalItem = cantidad * regMisil.getPrecio();
                             dineroAcumulado += totalItem; //Agrego al total de toda la compra (acumulo)
 
-                            cout << "DINERO ACUMULADO*******" << dineroAcumulado << endl;
-                            system("pause");
+                            //cout << "DINERO ACUMULADO*******" << dineroAcumulado << endl;
+
 
                             // verifica que lo que esta comprando hasta el momento le alcance
 
@@ -3228,13 +3231,15 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
                             {
                                 cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
                                 vecDetalleVenta[posDetalleVenta] = DetalleVenta();
-                                //TODO:: VER QUE HACER CON LOS DELLES DE VENTA DESCARTADOS.
+
+
                             }
                         }
                         else
                         {
-                            cout << "NO HAY SUFICIENTE STOCK DEL PRODUCTO " << endl;
+                            cout << "NO HAY SUFICIENTE STOCK DEL MISIL " << endl;
                             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+
                         }
 
                         break;
@@ -3243,18 +3248,23 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
 
                 }
             }
+            else
+            {
+                cout << "EL MISIL NO SE AGREGO A SU COMPRA" << endl;
+                vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+
+            }
 
         }
+        else
+        {
+            cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+            vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+        }
+
     }
 
-    else
-    {
-        cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
-        vecDetalleVenta[posDetalleVenta] = DetalleVenta();
-    }
-    cout << "**COMPRA/DETALLE DE VENTA CANCELADO ARREGLAR SALIDAS POR EL FALSO" << endl;
-    //vecDetalleVenta[posDetalleVenta] = DetalleVenta();
-    system("pause");
+
 }
 
 /// CONFIRMAR COMPRA
@@ -3354,8 +3364,10 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
             cabecera();
             gotoxy(10,8);
             //TODO:: NO VERIFICAMOS SI EL STOCK DE LOS PRODUCTOS  Y EL DINERO EN CAJA DEL PAIS SE ACTUALIZO BIEN.
-            cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE.";
-            cout<<endl<<endl<<endl<<endl<<endl<<endl<<endl<<endl;
+            cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE."<<endl<<endl;
+
+            system("pause");
+
 
         }
         else
@@ -3377,8 +3389,5 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
 }
 
 
-
-//TODO::ACA NOS QUEDAMOS
-//SE ROMPE CUANDO MANDAMOS A CARGAR DE UNA EL VECTOR DE REGISTROS DE DETALLES DE VENTA AL ARCHIVO. REVISAR LA FUNCION.
 
 
