@@ -3101,7 +3101,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 /// Confirmar Compra.
     cls();
     cabecera();
-//TODO:: CONDICIONAL PARA CUANDO NO ALCANZA LA PLATA O NO HAY STOCK.
+//TODO:: !!ACA NOS QUEDAMOS CONDICIONAL PARA CUANDO NO ALCANZA LA PLATA O NO HAY STOCK.
     gotoxy(10,8);
     cout << "CONFIRMAR COMPRA?" << endl;
     gotoxy(10,9);
@@ -3297,6 +3297,7 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
     regVenta.setCantidadItems(cantProductos);
     regVenta.setMontoTotal(dineroAcumulado);//DINERO ACUMULADO = TOTAL DE LOS ITEMS DE LA VENTA
 
+    //TODO:: ACÁ NOS QUEDAMOS, VERIFICAR CUÁNDO GUARDAR LA VENTA CONTEMPLANDO DETALLES DE VENTA CONTEMPLANDO LOS PRODUCTOS QUE REALMENTE SE PUDIERON COMPRAR DE LOS QUE NO
     if(archivoVenta.guardar(regVenta))
     {
 
