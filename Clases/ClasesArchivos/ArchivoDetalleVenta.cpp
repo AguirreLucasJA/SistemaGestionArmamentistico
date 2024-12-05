@@ -6,6 +6,30 @@ ArchivoDetalleVenta::ArchivoDetalleVenta()
     _tamReg = sizeof(DetalleVenta); ////*ACA MODIFICAR EL TAMAÑO DEL REG.*
 }
 
+bool ArchivoDetalleVenta::grabarRegistros(DetalleVenta *vecRegistros, int cantidadReg)
+{
+    FILE *pFile;
+
+    pFile = fopen(_nombreArchivo.c_str(), "ab");
+
+    if(pFile == nullptr)
+    {
+        return false;
+    }
+
+    for (int i = 0; i < cantidadReg; i++)
+    {
+        if (fwrite(&vecRegistros[i], _tamReg, 1, pFile) != 1)
+        {
+            fclose(pFile);
+            return false;
+        }
+    }
+
+    fclose(pFile);
+    return true;
+}
+
 bool ArchivoDetalleVenta::guardar(const DetalleVenta &registro)
 {
     FILE *pFile;
@@ -19,6 +43,25 @@ bool ArchivoDetalleVenta::guardar(const DetalleVenta &registro)
     }
 
     result = fwrite(&registro, _tamReg, 1, pFile) == 1;
+
+    fclose(pFile);
+
+    return result;
+}
+
+bool ArchivoDetalleVenta::leerTodos(DetalleVenta *vecRegistros, int cantidadReg)
+{
+    FILE *pFile;
+    bool result;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+    if(pFile == nullptr)
+    {
+        return false;
+    }
+
+    result = fread(vecRegistros, _tamReg, cantidadReg, pFile) == cantidadReg;
 
     fclose(pFile);
 
@@ -121,48 +164,7 @@ DetalleVenta ArchivoDetalleVenta::leer(int pos)
     return registro;
 }
 
-bool ArchivoDetalleVenta::leerTodos(DetalleVenta *vecRegistros, int cantidadReg)
-{
-    FILE *pFile;
-    bool result;
 
-    pFile = fopen(_nombreArchivo.c_str(), "rb");
-
-    if(pFile == nullptr)
-    {
-        return false;
-    }
-
-    result = fread(vecRegistros, _tamReg, cantidadReg, pFile) == cantidadReg;
-
-    fclose(pFile);
-
-    return result;
-}
-
-bool ArchivoDetalleVenta::grabarRegistros(DetalleVenta *vecRegistros, int cantidadReg)
-{
-    FILE *pFile;
-
-    pFile = fopen(_nombreArchivo.c_str(), "rb");
-
-    if(pFile == nullptr)
-    {
-        return false;
-    }
-
-    for (int i = 0; i < cantidadReg; i++)
-    {
-        if (fwrite(&vecRegistros[i], _tamReg, 1, pFile) != 1)
-        {
-            fclose(pFile);
-            return false;
-        }
-    }
-
-    fclose(pFile);
-    return true;
-}
 
 int ArchivoDetalleVenta::buscarXNombreProducto(std::string nombreProducto)
 {

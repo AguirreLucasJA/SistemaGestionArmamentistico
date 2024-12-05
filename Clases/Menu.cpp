@@ -2804,7 +2804,6 @@ void Menu::menuPrincipalPais(Pais &regPais)
         case 1:
             system("cls");
             solicitudDeAdquisiciones(regPais);
-            opcion = -1;
             break;
 
         case 2:
@@ -2902,6 +2901,7 @@ void Menu::ingresoDinero(Pais &regPais)
 void Menu::solicitudDeAdquisiciones(Pais &regPais)
 {
     long long dineroAcumulado = 0;
+    Validar validar;
     int cantProductos;
     int tamanioMisil;
     int tamanioAvion;
@@ -3101,21 +3101,36 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 /// Confirmar Compra.
     cls();
     cabecera();
-    int num;
+
     gotoxy(10,8);
-    cout << "DESEA CONFIRMAR SU COMPRA? (1-SI / 2-NO): ";
-    cin >> num;
-    if(num==1)
+    cout << "CONFIRMAR COMPRA?" << endl;
+    gotoxy(10,9);
+    cout << "1- SI" << endl;
+    gotoxy(10,10);
+    cout << "2- NO" << endl;
+    gotoxy(10,11);
+    cout << "OPCION: ";
+    cin >> opcion;
+
+    while(!validar.esRangoValido(1, 2, opcion))
     {
-        confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta, cantProductos, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
+        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+        cout << "OPCION: ";
+        cin >> opcion;
     }
-    else
+
+    switch(opcion)
     {
+    case 1:
+        confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta, cantProductos, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
+        break;
+    case 2:
         delete[] vecDetalleVenta;
         delete[] vecProductosMisil;
         delete[] vecProductosAvion;
         delete[] vecProductosBuque;
         delete[] vecProductosTanque;
+        break;
     }
 
     delete[] vecDetalleVenta;
@@ -3197,7 +3212,7 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
                             cout << "DINERO ACUMULADO*******" << dineroAcumulado << endl;
                             system("pause");
 
-                            // verifica que lo que esta comprando ahora sea mayor a lo que lleva comprando hasta el momento (VENTA TOTAL)
+                            // verifica que lo que esta comprando hasta el momento le alcance
 
                             if((registroPais.getDineroCaja()- dineroAcumulado) >= 0)
                             {
@@ -3231,11 +3246,15 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
 
         }
     }
+
     else
     {
         cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
         vecDetalleVenta[posDetalleVenta] = DetalleVenta();
     }
+    cout << "**COMPRA/DETALLE DE VENTA CANCELADO ARREGLAR SALIDAS POR EL FALSO" << endl;
+    //vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+    system("pause");
 }
 
 /// CONFIRMAR COMPRA
@@ -3243,8 +3262,8 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
 {
     int id;
     int cantReg;
+    int posReg;
     Pais registroPais;
-    int posPais;
     Fecha fecha;
     Venta regVenta;
     ArchivoVenta archivoVenta;
@@ -3285,84 +3304,51 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
         if(archivoDetalle.grabarRegistros(vecDetalleVenta, cantProductos))
         {
 
-
             cantReg = archivoMisil.getCantidadReg();
 
             for(int i=0; i<cantReg; i++)
             {
-                regMisil = archivoMisil.leer(i);
-
-                for(int j=0; j<cantReg; j++)
-                {
-                    if(vecProductosMisil[j].getId()== regMisil.getId())
-                    {
-                        regMisil.setStock(vecProductosMisil[j].getStock());
-                        archivoMisil.guardar(regMisil, i);
-                        break;
-
-                    }
-                }
+                posReg = archivoMisil.buscarXId(vecProductosMisil[i].getId());
+                regMisil = archivoMisil.leer(posReg);
+                regMisil.setStock(vecProductosMisil[i].getStock());
+                archivoMisil.guardar(regMisil, posReg);
             }
 
             cantReg = archivoAvion.getCantidadReg();
 
             for(int i=0; i<cantReg; i++)
             {
-                regAvion = archivoAvion.leer(i);
-
-                for(int j=0; j<cantReg; j++)
-                {
-                    if(vecProductosAvion[j].getId()== regAvion.getId())
-                    {
-                        regAvion.setStock(vecProductosAvion[j].getStock());
-                        archivoAvion.guardar(regAvion, i);
-                        break;
-
-                    }
-                }
+                posReg = archivoAvion.buscarXId(vecProductosAvion[i].getId());
+                regAvion = archivoAvion.leer(posReg);
+                regAvion.setStock(vecProductosAvion[i].getStock());
+                archivoAvion.guardar(regAvion, posReg);
             }
 
             cantReg = archivoBuque.getCantidadReg();
 
             for(int i=0; i<cantReg; i++)
             {
-                regBuque = archivoBuque.leer(i);
-
-                for(int j=0; j<cantReg; j++)
-                {
-                    if(vecProductosBuque[j].getId()== regBuque.getId())
-                    {
-                        regBuque.setStock(vecProductosBuque[j].getStock());
-                        archivoBuque.guardar(regBuque, i);
-                        break;
-
-                    }
-                }
+                posReg = archivoBuque.buscarXId(vecProductosBuque[i].getId());
+                regBuque = archivoBuque.leer(posReg);
+                regBuque.setStock(vecProductosBuque[i].getStock());
+                archivoBuque.guardar(regBuque, posReg);
             }
 
             cantReg = archivoTanque.getCantidadReg();
 
             for(int i=0; i<cantReg; i++)
             {
-                regTanque = archivoTanque.leer(i);
-
-                for(int j=0; j<cantReg; j++)
-                {
-                    if(vecProductosTanque[j].getId()== regTanque.getId())
-                    {
-                        regTanque.setStock(vecProductosTanque[j].getStock());
-                        archivoTanque.guardar(regTanque, i);
-                        break;
-
-                    }
-                }
+                posReg = archivoTanque.buscarXId(vecProductosTanque[i].getId());
+                regTanque = archivoTanque.leer(posReg);
+                regTanque.setStock(vecProductosTanque[i].getStock());
+                archivoTanque.guardar(regTanque, posReg);
             }
 
             ///modificacion de dinero en caja del pais
-            posPais = archivoPais.buscarXId(regPais.getId());
-            registroPais = archivoPais.leer(posPais);
+            posReg = archivoPais.buscarXId(regPais.getId());
+            registroPais = archivoPais.leer(posReg);
             registroPais.setDineroCaja(registroPais.getDineroCaja() - dineroAcumulado);
-            archivoPais.guardar(registroPais,posPais);
+            archivoPais.guardar(registroPais,posReg);
 
             cls();
             cabecera();
