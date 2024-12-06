@@ -2901,6 +2901,7 @@ void Menu::ingresoDinero(Pais &regPais)
 void Menu::solicitudDeAdquisiciones(Pais &regPais)
 {
     long long dineroAcumulado = 0;
+    int cantProductosComprados = 0;
     Validar validar;
     int cantProductos;
     int tamanioMisil;
@@ -3060,7 +3061,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
             //Depende de qué vuelta está de la compra directamente le pasa uno dentro del vector.
             //Ese unico objeto de tipo Detalle de Venta se lo pasa como refe para poder actualizarlo dentro del vector.
-            comprarMisil(regPais, vecDetalleVenta, dineroAcumulado, vecProductosMisil, tamanioMisil, posDetalleVenta);
+            comprarMisil(regPais, cantProductosComprados, vecDetalleVenta, dineroAcumulado, vecProductosMisil, tamanioMisil, posDetalleVenta);
             system("pause");
             break;
 
@@ -3122,7 +3123,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
     switch(opcion)
     {
     case 1:
-        confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta, cantProductos, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
+        confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta,cantProductos, cantProductosComprados, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
         delete[] vecDetalleVenta;
         delete[] vecProductosMisil;
         delete[] vecProductosAvion;
@@ -3130,7 +3131,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
         delete[] vecProductosTanque;
         break;
     case 2:
-    	gotoxy(10,14);
+        gotoxy(10,14);
         cout<<"COMPRA CANCELADA"<<endl;
         system ("pause");
         delete[] vecDetalleVenta;
@@ -3146,7 +3147,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
 ///COMPRAR MISIL
 
-void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil, int posDetalleVenta)
+void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil, int posDetalleVenta)
 {
     Misil regMisil;
     ArchivoMisil archMisil;
@@ -3159,6 +3160,8 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
     int posMisil;
     int cantidad;
     long long totalItem =0;
+    bool dinero = false;
+    bool stock=false;
 
     cout << "LISTAR MISILES? (s / n): ";
     getline(cin, respuesta);
@@ -3208,40 +3211,67 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
                         //Tenes que tener stock mayor a 0 y además tenes que tener stock suficiente para la cantidad que queres comprar.
                         if ((vecProductosMisil[j].getStock() >= cantidad) && (vecProductosMisil[j].getStock()>0))
                         {
-                            vecProductosMisil[j].setStock(vecProductosMisil[j].getStock() - cantidad);//le actualiza el stock a la tabla intermedia
+                            stock=true;
+                            //vecProductosMisil[j].setStock(vecProductosMisil[j].getStock() - cantidad);//le actualiza el stock a la tabla intermedia
                             totalItem = cantidad * regMisil.getPrecio();
-                            //TODO:: ACÁ VIJARSE EL TEMA DEL "DINEROACUMULADO" QUE ACUMULE SOLO LOS QUE REALMENTE DECIDIO COMPRAR, SIN HABERSE CANSELADO POR ALGUNA RAZON-STOCK-Y X Q NO LE ALCANZO-
-                            dineroAcumulado += totalItem; //Agrego al total de toda la compra (acumulo)
 
-                            //cout << "DINERO ACUMULADO*******" << dineroAcumulado << endl;
+                            //Agrego al total de toda la compra (acumulo)
+
+
 
 
                             // verifica que lo que esta comprando hasta el momento le alcance
 
-                            if((registroPais.getDineroCaja()- dineroAcumulado) >= 0)
-                            {
-
-                                vecDetalleVenta[posDetalleVenta].setIdProducto(regMisil.getId());
-                                vecDetalleVenta[posDetalleVenta].setCantidad(cantidad);
-                                vecDetalleVenta[posDetalleVenta].setNombreProducto(regMisil.getNombre());
-                                vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regMisil.getPrecio());
-                                vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
-
-                            }
-                            else
-                            {
-                                cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
-                                vecDetalleVenta[posDetalleVenta] = DetalleVenta();
-
-
-                            }
                         }
                         else
                         {
                             cout << "NO HAY SUFICIENTE STOCK DEL MISIL " << endl;
                             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+                            stock=false;
+
 
                         }
+
+                        if(registroPais.getDineroCaja()- (dineroAcumulado + totalItem) >= 0)
+                        {
+
+
+                            dinero=true;
+
+                            /*vecDetalleVenta[posDetalleVenta].setIdProducto(regMisil.getId());
+                            vecDetalleVenta[posDetalleVenta].setCantidad(cantidad);
+                            vecDetalleVenta[posDetalleVenta].setNombreProducto(regMisil.getNombre());
+                            vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regMisil.getPrecio());
+                            vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
+                            */
+
+                        }
+                        else
+                        {
+                            cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
+                            vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+                            dinero=false;
+
+
+                        }
+
+
+                        if (dinero ==true && stock == true)
+                        {
+                            cantProductosComprados ++;
+                            dineroAcumulado += totalItem;
+                            vecProductosMisil[j].setStock(vecProductosMisil[j].getStock() - cantidad);
+                            vecDetalleVenta[posDetalleVenta].setIdProducto(regMisil.getId());
+                            vecDetalleVenta[posDetalleVenta].setCantidad(cantidad);
+                            vecDetalleVenta[posDetalleVenta].setNombreProducto(regMisil.getNombre());
+                            vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regMisil.getPrecio());
+                            vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
+                            cout << "SE AGREGO EL PRODUCTO A LA COMPRA"<< endl;
+                            cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
+
+
+                        }
+
 
                         break;
 
@@ -3269,7 +3299,7 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
 }
 
 /// CONFIRMAR COMPRA
-void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductos, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque)
+void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductos, int cantProductosComprados, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque)
 {
     int id;
     int cantReg;
@@ -3295,10 +3325,10 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
     regVenta.setId(id);
     regVenta.setIdCliente(regPais.getId());
     regVenta.setFecha(fecha);
-    regVenta.setCantidadItems(cantProductos);
-    regVenta.setMontoTotal(dineroAcumulado);//ACA OJO POR QUE LE MANDO TODOS INCLUSIVE LAS COMPRAS QUE NO SE PUDIERON REALIZAR DINERO ACUMULADO = TOTAL DE LOS ITEMS DE LA VENTA
+    regVenta.setCantidadItems(cantProductosComprados);
+    regVenta.setMontoTotal(dineroAcumulado);
 
-    //TODO:: ACÁ NOS QUEDAMOS, VERIFICAR CUÁNDO GUARDAR LA VENTA CONTEMPLANDO DETALLES DE VENTA CONTEMPLANDO LOS PRODUCTOS QUE REALMENTE SE PUDIERON COMPRAR DE LOS QUE NO
+
     if(archivoVenta.guardar(regVenta))
     {
 
@@ -3313,7 +3343,7 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
         ///CON LA FUNCION GRABAR REGISTROS LE PASA EL VECTOR DE DETALLE DE VENTA Y LA CANTIDAD DE PRODUCTOS QUE QUIZO COMPRAR
         ///Y LO GUARDA EN EL ARCHIVO.
 
-        //TODO:: ACÁ ANTES DE GRABAR LOS REGS DETALLE DE VENTAS
+
 
         if(archivoDetalle.grabarRegistros(vecDetalleVenta, cantProductos))
         {
@@ -3361,8 +3391,7 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
             ///modificacion de dinero en caja del pais
             posReg = archivoPais.buscarXId(regPais.getId());
             registroPais = archivoPais.leer(posReg);
-            //ACA VER QUE ONDA POR QUE EL DINERO ACUMULADO TIENE EL DE TODAS LAS COMPRAS EFECTUADAS O NO Y
-            //LO QUE PASA ES QUE EL SALDO PUEDE QUEDAR NEGATIVO VER QUE HACER PARA QUE NO PASE ESO.. UN CONDICIONAL
+
             registroPais.setDineroCaja(registroPais.getDineroCaja() - dineroAcumulado);
             archivoPais.guardar(registroPais,posReg);
 
