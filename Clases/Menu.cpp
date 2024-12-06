@@ -2903,7 +2903,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
     long long dineroAcumulado = 0;
     int cantProductosComprados = 0;
     Validar validar;
-    int cantProductos;
+    int cantProductosAComprar;
     int tamanioMisil;
     int tamanioAvion;
     int tamanioBuque;
@@ -2926,14 +2926,14 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
     gotoxy (22,6);
     cout << "CUANTOS PRODUCTOS VA A COMPRAR: ";
-    cin>>cantProductos;
+    cin>>cantProductosAComprar;
     cout<<endl;
 
-    while(cantProductos <= 0)
+    while(cantProductosAComprar <= 0)
     {
         cout << "\tCantidad ingresada incorrecta, re ingrese..." << endl;
         cout << endl << "\tCUANTOS PRODUCTOS VA A COMPRAR: ";
-        cin>>cantProductos;
+        cin>>cantProductosAComprar;
     }
 
     // HACE UN VECTOR DE (TABLA INTERMEDIA STOCK PRODUCTO) PARA CADA PRODUCTO. GUARDANDO
@@ -3019,7 +3019,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
     /// DEPENDIENDO DE CUANTOS QUERES COMPRAR ES LA CANTIDAD DE VUELTAS QUE PEGA EL FOR
 
-    vecDetalleVenta = new DetalleVenta[cantProductos];
+    vecDetalleVenta = new DetalleVenta[cantProductosAComprar];
 
     //verifico memoria
     if(vecDetalleVenta == nullptr)
@@ -3031,7 +3031,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
     int posDetalleVenta;
 
-    for(int i = 0; i < cantProductos; i++)
+    for(int i = 0; i < cantProductosAComprar; i++)
     {
 
         posDetalleVenta = i;
@@ -3099,49 +3099,55 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
             break;
         }
     }
-/// Confirmar Compra.
-    cls();
-    cabecera();
-//TODO:: !!ACA NOS QUEDAMOS CONDICIONAL PARA CUANDO NO ALCANZA LA PLATA O NO HAY STOCK.
-    gotoxy(10,8);
-    cout << "CONFIRMAR COMPRA?" << endl;
-    gotoxy(10,9);
-    cout << "1- SI" << endl;
-    gotoxy(10,10);
-    cout << "2- NO" << endl;
-    gotoxy(10,11);
-    cout << "OPCION: ";
-    cin >> opcion;
 
-    while(!validar.esRangoValido(1, 2, opcion))
+//CANTPRODUCTOS COMPRADOS TIENE LA CANTIDAD DE COMPRAS QUE SI SE REALIZARON, CONSULTAMOS QUE AL MENOS UN DETALLE DE VENTA SE HAYA PODIDO EFECTUAR.
+    if (cantProductosComprados > 0)
     {
-        cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+/// Confirmar Compra.
+        cls();
+        cabecera();
+//TODO:: !!ACA NOS QUEDAMOS CONDICIONAL PARA CUANDO NO ALCANZA LA PLATA O NO HAY STOCK.
+        gotoxy(10,8);
+        cout << "CONFIRMAR COMPRA?" << endl;
+        gotoxy(10,9);
+        cout << "1- SI" << endl;
+        gotoxy(10,10);
+        cout << "2- NO" << endl;
+        gotoxy(10,11);
         cout << "OPCION: ";
         cin >> opcion;
-    }
 
-    switch(opcion)
-    {
-    case 1:
-        confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta,cantProductos, cantProductosComprados, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
-        delete[] vecDetalleVenta;
-        delete[] vecProductosMisil;
-        delete[] vecProductosAvion;
-        delete[] vecProductosBuque;
-        delete[] vecProductosTanque;
-        break;
-    case 2:
-        gotoxy(10,14);
-        cout<<"COMPRA CANCELADA"<<endl;
-        system ("pause");
-        delete[] vecDetalleVenta;
-        delete[] vecProductosMisil;
-        delete[] vecProductosAvion;
-        delete[] vecProductosBuque;
-        delete[] vecProductosTanque;
-        break;
-    }
+        while(!validar.esRangoValido(1, 2, opcion))
+        {
+            cout << "Opcion incorrecta, seleccione nuevamente..." << endl;
+            cout << "OPCION: ";
+            cin >> opcion;
+        }
 
+        switch(opcion)
+        {
+        case 1:
+            confirmarCompra(regPais, dineroAcumulado, vecDetalleVenta,cantProductosAComprar, cantProductosComprados, vecProductosMisil, vecProductosAvion, vecProductosBuque, vecProductosTanque);
+            delete[] vecDetalleVenta;
+            delete[] vecProductosMisil;
+            delete[] vecProductosAvion;
+            delete[] vecProductosBuque;
+            delete[] vecProductosTanque;
+            break;
+        case 2:
+            gotoxy(10,14);
+            cout<<"COMPRA CANCELADA"<<endl;
+            system ("pause");
+            delete[] vecDetalleVenta;
+            delete[] vecProductosMisil;
+            delete[] vecProductosAvion;
+            delete[] vecProductosBuque;
+            delete[] vecProductosTanque;
+            break;
+        }
+
+    }
+//TODO:: VER SI CREAR CONSTRUCTOR POR DEFECTO PARA VENTA, EN CASO DE QUE NO HAYA NINGUNA COMPRA, ES DECIR =0
 }
 
 
@@ -3303,7 +3309,7 @@ void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta 
 }
 
 /// CONFIRMAR COMPRA
-void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductos, int cantProductosComprados, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque)
+void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductosAComprar, int cantProductosComprados, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque)
 {
     int id;
     int cantReg;
@@ -3323,90 +3329,102 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
     Tanque regTanque;
     ArchivoTanque archivoTanque;
 
-    id = archivoVenta.getNuevoId();//obtiene nuevo ID autonumerico.
-
-    ///setear regVenta
-    regVenta.setId(id);
-    regVenta.setIdCliente(regPais.getId());
-    regVenta.setFecha(fecha);
-    regVenta.setCantidadItems(cantProductosComprados);
-    regVenta.setMontoTotal(dineroAcumulado);
-
-
-    if(archivoVenta.guardar(regVenta))
+    if (cantProductosComprados >0)
     {
 
+        id = archivoVenta.getNuevoId();//obtiene nuevo ID autonumerico.
 
-        /// setear el Id de la Venta en el vector DetalleVentas
-        for (int i = 0; i < cantProductos; ++i)
-        {
-            //ACA LE ASIGNAMOS AL DETALLE DE VENTA EL ID DE VENTA
-            vecDetalleVenta[i].setIdVenta(regVenta.getId());
-        }
-
-        ///CON LA FUNCION GRABAR REGISTROS LE PASA EL VECTOR DE DETALLE DE VENTA Y LA CANTIDAD DE PRODUCTOS QUE QUIZO COMPRAR
-        ///Y LO GUARDA EN EL ARCHIVO.
+        ///setear regVenta
+        regVenta.setId(id);
+        regVenta.setIdCliente(regPais.getId());
+        regVenta.setFecha(fecha);
+        regVenta.setCantidadItems(cantProductosComprados);
+        regVenta.setMontoTotal(dineroAcumulado);
 
 
-
-        if(archivoDetalle.grabarRegistros(vecDetalleVenta, cantProductos))
+        if(archivoVenta.guardar(regVenta))
         {
 
-            cantReg = archivoMisil.getCantidadReg();
 
-            for(int i=0; i<cantReg; i++)
+            /// setear el Id de la Venta en el vector DetalleVentas
+            for (int i = 0; i < cantProductosAComprar; ++i)
             {
-                posReg = archivoMisil.buscarXId(vecProductosMisil[i].getId());
-                regMisil = archivoMisil.leer(posReg);
-                regMisil.setStock(vecProductosMisil[i].getStock());
-                archivoMisil.guardar(regMisil, posReg);
+                //ACA LE ASIGNAMOS AL DETALLE DE VENTA EL ID DE VENTA
+                vecDetalleVenta[i].setIdVenta(regVenta.getId());
             }
 
-            cantReg = archivoAvion.getCantidadReg();
+            ///CON LA FUNCION GRABAR REGISTROS LE PASA EL VECTOR DE DETALLE DE VENTA Y LA CANTIDAD DE PRODUCTOS QUE QUIZO COMPRAR
+            ///Y LO GUARDA EN EL ARCHIVO.
 
-            for(int i=0; i<cantReg; i++)
+
+
+            if(archivoDetalle.grabarRegistros(vecDetalleVenta, cantProductosAComprar))
             {
-                posReg = archivoAvion.buscarXId(vecProductosAvion[i].getId());
-                regAvion = archivoAvion.leer(posReg);
-                regAvion.setStock(vecProductosAvion[i].getStock());
-                archivoAvion.guardar(regAvion, posReg);
+
+                cantReg = archivoMisil.getCantidadReg();
+
+                for(int i=0; i<cantReg; i++)
+                {
+                    posReg = archivoMisil.buscarXId(vecProductosMisil[i].getId());
+                    regMisil = archivoMisil.leer(posReg);
+                    regMisil.setStock(vecProductosMisil[i].getStock());
+                    archivoMisil.guardar(regMisil, posReg);
+                }
+
+                cantReg = archivoAvion.getCantidadReg();
+
+                for(int i=0; i<cantReg; i++)
+                {
+                    posReg = archivoAvion.buscarXId(vecProductosAvion[i].getId());
+                    regAvion = archivoAvion.leer(posReg);
+                    regAvion.setStock(vecProductosAvion[i].getStock());
+                    archivoAvion.guardar(regAvion, posReg);
+                }
+
+                cantReg = archivoBuque.getCantidadReg();
+
+                for(int i=0; i<cantReg; i++)
+                {
+                    posReg = archivoBuque.buscarXId(vecProductosBuque[i].getId());
+                    regBuque = archivoBuque.leer(posReg);
+                    regBuque.setStock(vecProductosBuque[i].getStock());
+                    archivoBuque.guardar(regBuque, posReg);
+                }
+
+                cantReg = archivoTanque.getCantidadReg();
+
+                for(int i=0; i<cantReg; i++)
+                {
+                    posReg = archivoTanque.buscarXId(vecProductosTanque[i].getId());
+                    regTanque = archivoTanque.leer(posReg);
+                    regTanque.setStock(vecProductosTanque[i].getStock());
+                    archivoTanque.guardar(regTanque, posReg);
+                }
+
+                ///modificacion de dinero en caja del pais
+                posReg = archivoPais.buscarXId(regPais.getId());
+                registroPais = archivoPais.leer(posReg);
+
+                registroPais.setDineroCaja(registroPais.getDineroCaja() - dineroAcumulado);
+                archivoPais.guardar(registroPais,posReg);
+
+                cls();
+                cabecera();
+                gotoxy(10,8);
+                //TODO:: NO VERIFICAMOS SI EL STOCK DE LOS PRODUCTOS  Y EL DINERO EN CAJA DEL PAIS SE ACTUALIZO BIEN.
+                cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE."<<endl<<endl;
+
+                system("pause");
+
+
             }
-
-            cantReg = archivoBuque.getCantidadReg();
-
-            for(int i=0; i<cantReg; i++)
+            else
             {
-                posReg = archivoBuque.buscarXId(vecProductosBuque[i].getId());
-                regBuque = archivoBuque.leer(posReg);
-                regBuque.setStock(vecProductosBuque[i].getStock());
-                archivoBuque.guardar(regBuque, posReg);
+                cls();
+                cabecera();
+                gotoxy(10,8);
+                cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
             }
-
-            cantReg = archivoTanque.getCantidadReg();
-
-            for(int i=0; i<cantReg; i++)
-            {
-                posReg = archivoTanque.buscarXId(vecProductosTanque[i].getId());
-                regTanque = archivoTanque.leer(posReg);
-                regTanque.setStock(vecProductosTanque[i].getStock());
-                archivoTanque.guardar(regTanque, posReg);
-            }
-
-            ///modificacion de dinero en caja del pais
-            posReg = archivoPais.buscarXId(regPais.getId());
-            registroPais = archivoPais.leer(posReg);
-
-            registroPais.setDineroCaja(registroPais.getDineroCaja() - dineroAcumulado);
-            archivoPais.guardar(registroPais,posReg);
-
-            cls();
-            cabecera();
-            gotoxy(10,8);
-            //TODO:: NO VERIFICAMOS SI EL STOCK DE LOS PRODUCTOS  Y EL DINERO EN CAJA DEL PAIS SE ACTUALIZO BIEN.
-            cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE."<<endl<<endl;
-
-            system("pause");
-
 
         }
         else
@@ -3416,15 +3434,9 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
             gotoxy(10,8);
             cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
         }
+    }
+//TODO:: Acá llega si la venta NO TIENE DETALLES DE VENTAS COMPRADOS;
 
-    }
-    else
-    {
-        cls();
-        cabecera();
-        gotoxy(10,8);
-        cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
-    }
 }
 
 
