@@ -3210,6 +3210,7 @@ void Menu::comprarMisil(Pais &regPais, DetalleVenta *vecDetalleVenta, long long 
                         {
                             vecProductosMisil[j].setStock(vecProductosMisil[j].getStock() - cantidad);//le actualiza el stock a la tabla intermedia
                             totalItem = cantidad * regMisil.getPrecio();
+                            //TODO:: ACÁ VIJARSE EL TEMA DEL "DINEROACUMULADO" QUE ACUMULE SOLO LOS QUE REALMENTE DECIDIO COMPRAR, SIN HABERSE CANSELADO POR ALGUNA RAZON-STOCK-Y X Q NO LE ALCANZO-
                             dineroAcumulado += totalItem; //Agrego al total de toda la compra (acumulo)
 
                             //cout << "DINERO ACUMULADO*******" << dineroAcumulado << endl;
@@ -3295,7 +3296,7 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
     regVenta.setIdCliente(regPais.getId());
     regVenta.setFecha(fecha);
     regVenta.setCantidadItems(cantProductos);
-    regVenta.setMontoTotal(dineroAcumulado);//DINERO ACUMULADO = TOTAL DE LOS ITEMS DE LA VENTA
+    regVenta.setMontoTotal(dineroAcumulado);//ACA OJO POR QUE LE MANDO TODOS INCLUSIVE LAS COMPRAS QUE NO SE PUDIERON REALIZAR DINERO ACUMULADO = TOTAL DE LOS ITEMS DE LA VENTA
 
     //TODO:: ACÁ NOS QUEDAMOS, VERIFICAR CUÁNDO GUARDAR LA VENTA CONTEMPLANDO DETALLES DE VENTA CONTEMPLANDO LOS PRODUCTOS QUE REALMENTE SE PUDIERON COMPRAR DE LOS QUE NO
     if(archivoVenta.guardar(regVenta))
@@ -3311,6 +3312,8 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
 
         ///CON LA FUNCION GRABAR REGISTROS LE PASA EL VECTOR DE DETALLE DE VENTA Y LA CANTIDAD DE PRODUCTOS QUE QUIZO COMPRAR
         ///Y LO GUARDA EN EL ARCHIVO.
+
+        //TODO:: ACÁ ANTES DE GRABAR LOS REGS DETALLE DE VENTAS
 
         if(archivoDetalle.grabarRegistros(vecDetalleVenta, cantProductos))
         {
@@ -3358,6 +3361,8 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
             ///modificacion de dinero en caja del pais
             posReg = archivoPais.buscarXId(regPais.getId());
             registroPais = archivoPais.leer(posReg);
+            //ACA VER QUE ONDA POR QUE EL DINERO ACUMULADO TIENE EL DE TODAS LAS COMPRAS EFECTUADAS O NO Y
+            //LO QUE PASA ES QUE EL SALDO PUEDE QUEDAR NEGATIVO VER QUE HACER PARA QUE NO PASE ESO.. UN CONDICIONAL
             registroPais.setDineroCaja(registroPais.getDineroCaja() - dineroAcumulado);
             archivoPais.guardar(registroPais,posReg);
 
