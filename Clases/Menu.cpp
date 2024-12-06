@@ -3459,15 +3459,15 @@ void Menu::comprasRealizadas(Pais &regPais)
 
         //while (posVenta != -1)
         //{
-			regVenta = archivoVenta.leer(posVenta);
-			if (regPais.getId() == regVenta.getId()){
-            //regVenta = archivoVenta.leer(posVenta);
-            regVenta.mostrar();
-            posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
-			}
-        }
+        regVenta = archivoVenta.leer(i);
+        if (regPais.getId()== regVenta.getIdCliente()){
 
-    //}
+            regVenta.mostrar();
+            //posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
+        }
+        //}
+
+    }
 
 }
 
