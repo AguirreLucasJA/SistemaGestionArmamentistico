@@ -92,7 +92,7 @@ public:
     void comprarMisil (Pais &regPais, int &cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil, int posDetalleVenta);
 
     void confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductosAComprar, int cantProductosComprados, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque);
-
+    void comprasRealizadas(Pais &regPais);
 private:
     int opcion;
 };

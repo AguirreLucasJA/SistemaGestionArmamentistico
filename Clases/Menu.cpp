@@ -2821,7 +2821,7 @@ void Menu::menuPrincipalPais(Pais &regPais)
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            comprasRealizadas(regPais);
             system("pause");
             break;
 
@@ -3440,6 +3440,26 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
         }
     }
 //TODO:: Acá llega si la venta NO TIENE DETALLES DE VENTAS COMPRADOS;
+
+}
+
+void Menu::comprasRealizadas(Pais &regPais)
+{
+    ArchivoVenta archivoVenta;
+    int cantRegVenta;
+    int Venta regVenta;
+
+
+    regPais.getId();
+
+    cantRegVenta = archivoVenta.getCantidadReg();
+
+
+
+    for(int i=0; i<cantRegVenta; i++)
+    {
+        vecVenta[i].mostrar();
+    }
 
 }
 
