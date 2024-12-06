@@ -81,6 +81,41 @@ int ArchivoVenta::buscarXId(int id)
 
 }
 
+int ArchivoVenta::buscarXIdCliente(int id)
+{
+    FILE *pFile;
+    Venta registro;
+    int pos = 0;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+    if(pFile == nullptr)
+    {
+        return -1;
+    }
+
+    while(fread(&registro, _tamReg, 1, pFile)==1)
+    {
+        if(registro.getIdCliente() == id)
+        {
+            break;
+        }
+        pos++;
+    }
+
+    fclose(pFile);
+
+    if(registro.getIdCliente() == id)
+    {
+        return pos;
+    }
+    else
+    {
+        return -1;
+    }
+
+}
+
 int ArchivoVenta::getCantidadReg()
 {
     int totalByte;

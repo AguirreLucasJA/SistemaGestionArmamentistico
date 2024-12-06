@@ -3447,7 +3447,7 @@ void Menu::comprasRealizadas(Pais &regPais)
 {
     ArchivoVenta archivoVenta;
     int cantRegVenta;
-	Venta regVenta;
+    Venta regVenta;
     int posVenta;
 
     cantRegVenta = archivoVenta.getCantidadReg();
@@ -3455,16 +3455,13 @@ void Menu::comprasRealizadas(Pais &regPais)
     for (int i=0; i<cantRegVenta; i++)
     {
 
-        posVenta = archivoVenta.buscarXId(regPais.getId());
+        posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
 
         while (posVenta != -1)
         {
-
             regVenta = archivoVenta.leer(posVenta);
             regVenta.mostrar();
-
-
-
+            posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
         }
 
     }
