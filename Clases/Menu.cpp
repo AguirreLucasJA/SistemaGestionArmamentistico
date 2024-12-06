@@ -2804,6 +2804,7 @@ void Menu::menuPrincipalPais(Pais &regPais)
         case 1:
             system("cls");
             solicitudDeAdquisiciones(regPais);
+            system("pause");
             break;
 
         case 2:
@@ -3103,10 +3104,10 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 //CANTPRODUCTOS COMPRADOS TIENE LA CANTIDAD DE COMPRAS QUE SI SE REALIZARON, CONSULTAMOS QUE AL MENOS UN DETALLE DE VENTA SE HAYA PODIDO EFECTUAR.
     if (cantProductosComprados > 0)
     {
-/// Confirmar Compra.
+
         cls();
         cabecera();
-//TODO:: !!ACA NOS QUEDAMOS CONDICIONAL PARA CUANDO NO ALCANZA LA PLATA O NO HAY STOCK.
+
         gotoxy(10,8);
         cout << "CONFIRMAR COMPRA?" << endl;
         gotoxy(10,9);
@@ -3137,7 +3138,7 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
         case 2:
             gotoxy(10,14);
             cout<<"COMPRA CANCELADA"<<endl;
-            system ("pause");
+            //system ("pause");
             delete[] vecDetalleVenta;
             delete[] vecProductosMisil;
             delete[] vecProductosAvion;
@@ -3147,13 +3148,16 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
         }
 
     }
-//TODO:: VER SI CREAR CONSTRUCTOR POR DEFECTO PARA VENTA, EN CASO DE QUE NO HAYA NINGUNA COMPRA, ES DECIR =0
+    else
+    {
+        cout<<"COMPRA CANCELADA"<<endl;
+    }
 }
 
 
 ///COMPRAR MISIL
 
-void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil, int posDetalleVenta)
+void Menu::comprarMisil(Pais &regPais, int &cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil, int posDetalleVenta)
 {
     Misil regMisil;
     ArchivoMisil archMisil;
