@@ -3208,12 +3208,12 @@ void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta 
 
                     if(vecProductosMisil[j].getId() == id)  // Recorre la tabla intermedia buscando ID ingresado de MISIL
                     {
+                        totalItem = cantidad * regMisil.getPrecio();
                         //Tenes que tener stock mayor a 0 y además tenes que tener stock suficiente para la cantidad que queres comprar.
                         if ((vecProductosMisil[j].getStock() >= cantidad) && (vecProductosMisil[j].getStock()>0))
                         {
                             stock=true;
                             //vecProductosMisil[j].setStock(vecProductosMisil[j].getStock() - cantidad);//le actualiza el stock a la tabla intermedia
-                            totalItem = cantidad * regMisil.getPrecio();
 
                             //Agrego al total de toda la compra (acumulo)
 
@@ -3225,7 +3225,7 @@ void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta 
                         }
                         else
                         {
-                            cout << "NO HAY SUFICIENTE STOCK DEL MISIL " << endl;
+                            cout << endl << "NO HAY SUFICIENTE STOCK DEL MISIL " << endl;
                             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
                             stock=false;
 
@@ -3248,7 +3248,7 @@ void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta 
                         }
                         else
                         {
-                            cout << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
+                            cout << endl << "SALDO INSUFICIENTE PARA REALIZAR LA COMPRA " << endl;
                             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
                             dinero=false;
 
@@ -3281,7 +3281,7 @@ void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta 
             }
             else
             {
-                cout << "EL MISIL NO SE AGREGO A SU COMPRA" << endl;
+                cout << endl << "EL MISIL NO SE AGREGO A SU COMPRA" << endl;
                 vecDetalleVenta[posDetalleVenta] = DetalleVenta();
 
             }
@@ -3294,7 +3294,11 @@ void Menu::comprarMisil(Pais &regPais, int cantProductosComprados, DetalleVenta 
         }
 
     }
-
+    else
+    {
+        cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+        vecDetalleVenta[posDetalleVenta] = DetalleVenta();
+    }
 
 }
 
