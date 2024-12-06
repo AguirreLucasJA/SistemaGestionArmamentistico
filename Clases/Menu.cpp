@@ -3457,14 +3457,17 @@ void Menu::comprasRealizadas(Pais &regPais)
 
         posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
 
-        while (posVenta != -1)
-        {
-            regVenta = archivoVenta.leer(posVenta);
+        //while (posVenta != -1)
+        //{
+			regVenta = archivoVenta.leer(posVenta);
+			if (regPais.getId() == regVenta.getId()){
+            //regVenta = archivoVenta.leer(posVenta);
             regVenta.mostrar();
             posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
+			}
         }
 
-    }
+    //}
 
 }
 
