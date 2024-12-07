@@ -79,8 +79,8 @@ long long  DetalleVenta::getPrecioTotal()
 //METODOS
 void DetalleVenta::mostrar()
 {
-    cout << "------------------------------------------------------------"<<endl;
-    cout << "ID VENTA: " << getIdVenta() << endl;
+    cout << "----------------------" <<endl;
+    //cout << "ID VENTA: " << getIdVenta() << endl;
     cout << "ID PRODUCTO: " << getIdProducto() << endl;
     cout << "CANTIDAD: " << getCantidad() << endl;
     cout << "NOMBRE PRODUCTO:  " << getNombreProducto()<< endl;

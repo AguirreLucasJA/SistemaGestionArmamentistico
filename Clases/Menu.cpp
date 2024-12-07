@@ -2771,6 +2771,62 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 /// MOSTRAR FACTURAS
 void Menu::verFacturas()
 {
+    ArchivoVenta archivoVenta;
+    int cantRegVenta;
+    Venta *vecRegVenta = nullptr;
+    int cantRegDetalle;
+    ArchivoDetalleVenta archivoDetalle;
+    DetalleVenta *vecDetalleVenta = nullptr;
+
+    cantRegDetalle = archivoDetalle.getCantidadReg();
+    vecDetalleVenta = new DetalleVenta [cantRegDetalle];
+
+    if (vecDetalleVenta == nullptr)
+    {
+        return;
+    }
+
+    cantRegVenta = archivoVenta.getCantidadReg();
+    vecRegVenta = new Venta[cantRegVenta];
+
+    if (vecRegVenta == nullptr)
+    {
+        return;
+    }
+
+
+    cout<< "<< FACTURAS EMITIDAS >> "<<endl;
+
+    archivoDetalle.leerTodos(vecDetalleVenta, cantRegDetalle);
+
+    archivoVenta.leerTodos(vecRegVenta, cantRegVenta);
+
+    for (int i=0; i<cantRegVenta; i++)
+    {
+        vecRegVenta[i].mostrar();
+        cout<<"  VENTA  " << vecRegVenta[i].getId()<<endl<<endl;
+        cout <<"Detalle: "<<endl;
+
+        for (int j=0; j<cantRegDetalle; j++)
+        {
+
+            if (vecRegVenta[i].getId()== vecDetalleVenta[j].getIdVenta())
+            {
+
+                if(vecDetalleVenta[j].getIdProducto()!=-1)
+                {
+
+                    vecDetalleVenta[j].mostrar();
+                }
+            }
+
+
+        }
+
+    }
+
+    delete [] vecRegVenta;
+    delete [] vecDetalleVenta;
 
 
 
@@ -3457,27 +3513,33 @@ void Menu::comprasRealizadas(Pais &regPais)
 {
     ArchivoVenta archivoVenta;
     int cantRegVenta;
-    Venta regVenta;
     int posVenta;
+    Venta *vecRegVenta = nullptr;
 
     cantRegVenta = archivoVenta.getCantidadReg();
+    vecRegVenta = new Venta[cantRegVenta];
+
+    if (vecRegVenta == nullptr)
+    {
+        return;
+    }
+
+
     cout<< "<< COMPRAS REALIZADAS >> CLIENTE : " <<regPais.getUsuario()<<endl;
+
+    archivoVenta.leerTodos(vecRegVenta, cantRegVenta);
 
     for (int i=0; i<cantRegVenta; i++)
     {
-
-        posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
-
-        //while (posVenta != -1)
-        //{
-        regVenta = archivoVenta.leer(i);
-        if (regPais.getId()== regVenta.getIdCliente()){
-            regVenta.mostrar();
-            //posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
+        //regVenta = archivoVenta.leer(i);
+        if (regPais.getId()== vecRegVenta[i].getIdCliente())
+        {
+            vecRegVenta[i].mostrar();
         }
-        //}
 
     }
+
+    delete[] vecRegVenta;
 
 }
 
