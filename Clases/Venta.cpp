@@ -60,9 +60,9 @@ void Venta::mostrar()
 {
 
     cout << "------------------------------------------------------------"<<endl;
-    cout << "ID: " << getId() << endl;
-    cout << "ID CLIENTE: " << getIdCliente() << endl;
-    cout << "FECHA: " << getFecha().toString() << endl;
-    cout <<"CANTIDAD DE ITEMS: " << getCantidadItems() << endl;
-    cout << "MONTO TOTAL: " << getMontoTotal()<< endl;
+    cout << "* ID VENTA: " << getId() << endl;
+    cout << "* ID CLIENTE: " << getIdCliente() << endl;
+    cout << "* FECHA: " << getFecha().toString() << endl;
+    cout << "* CANTIDAD DE ITEMS: " << getCantidadItems() << endl;
+    cout << "* MONTO TOTAL: " << getMontoTotal()<< endl;
 }

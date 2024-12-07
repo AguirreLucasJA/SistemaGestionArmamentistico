@@ -2734,7 +2734,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 1:
             system("cls");
-            //TODO:FALTA HACER**
+            verFacturas();
             system("pause");
             break;
 
@@ -2768,6 +2768,15 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         }
     }
 }
+/// MOSTRAR FACTURAS
+void Menu::verFacturas()
+{
+
+
+
+}
+
+
 
 /// MENU PRINCIPAL PAIS
 void Menu::menuPrincipalPais(Pais &regPais)
@@ -3443,6 +3452,7 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
 
 }
 
+/// COMPRAS REALIZADAS
 void Menu::comprasRealizadas(Pais &regPais)
 {
     ArchivoVenta archivoVenta;
@@ -3451,6 +3461,7 @@ void Menu::comprasRealizadas(Pais &regPais)
     int posVenta;
 
     cantRegVenta = archivoVenta.getCantidadReg();
+    cout<< "<< COMPRAS REALIZADAS >> CLIENTE : " <<regPais.getUsuario()<<endl;
 
     for (int i=0; i<cantRegVenta; i++)
     {
@@ -3461,7 +3472,6 @@ void Menu::comprasRealizadas(Pais &regPais)
         //{
         regVenta = archivoVenta.leer(i);
         if (regPais.getId()== regVenta.getIdCliente()){
-
             regVenta.mostrar();
             //posVenta = archivoVenta.buscarXIdCliente(regPais.getId());
         }

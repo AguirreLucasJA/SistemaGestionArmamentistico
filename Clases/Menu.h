@@ -83,6 +83,10 @@ public:
     void ordenarPorEstado(Tanque *vecTanque, int cantidad);//ACTIVOS PRIMERO
 
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
+    void verFacturas();
+
+
+
 ///-------------------------------------------------------------------------------//
     void menuPrincipalPais(Pais &regPais);//MENU PRINCIPAL PAIS CLIENTE
 
