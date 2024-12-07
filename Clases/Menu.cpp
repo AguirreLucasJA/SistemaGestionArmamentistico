@@ -2718,7 +2718,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         gotoxy (2,9);
         cout<<"1 - VER FACTURAS";
         gotoxy (2,10);
-        cout<<"2 - BUSCAR FACTURAS";
+        cout<<"2 - BUSCAR FACTURAS POR PAIS";
         gotoxy (2,11);
         cout<<"3 - RANKING DE CLIENTES";
         gotoxy (2,12);
@@ -2740,7 +2740,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 2:
             system("cls");
-            buscarFacturas();
+            buscarFacturasPais();
             system("pause");
             break;
 
@@ -2777,6 +2777,7 @@ void Menu::verFacturas()
     int cantRegDetalle;
     ArchivoDetalleVenta archivoDetalle;
     DetalleVenta *vecDetalleVenta = nullptr;
+    int item=0;
 
     cantRegDetalle = archivoDetalle.getCantidadReg();
     vecDetalleVenta = new DetalleVenta [cantRegDetalle];
@@ -2802,7 +2803,7 @@ void Menu::verFacturas()
     archivoVenta.leerTodos(vecRegVenta, cantRegVenta);
 
     for (int i=0; i<cantRegVenta; i++)
-    {
+    {   item=0;
         vecRegVenta[i].mostrar();
         cout<<"  VENTA  " << vecRegVenta[i].getId()<<endl<<endl;
         cout <<"Detalle: "<<endl;
@@ -2815,8 +2816,11 @@ void Menu::verFacturas()
 
                 if(vecDetalleVenta[j].getIdProducto()!=-1)
                 {
+                	item++;
+                    	cout << "----------------------" <<endl;
+						cout<<"NUMERO ITEM: "<< item<<endl;
+                        vecDetalleVenta[j].mostrar();
 
-                    vecDetalleVenta[j].mostrar();
                 }
             }
 
@@ -2828,8 +2832,8 @@ void Menu::verFacturas()
     delete [] vecDetalleVenta;
 }
 
-/// BUSCAR FACTURAS
-void buscarFacturas()
+/// BUSCAR FACTURAS POR PAIS
+void Menu::buscarFacturasPais()
 {
     ArchivoVenta archivoVenta;
     int cantRegVenta;
@@ -2837,6 +2841,13 @@ void buscarFacturas()
     int cantRegDetalle;
     ArchivoDetalleVenta archivoDetalle;
     DetalleVenta *vecDetalleVenta = nullptr;
+    string respuesta;
+    int posPais;
+    Pais regPais;
+    ArchivoPais archPais;
+    int id;
+    int item=0;
+
 
     cantRegVenta = archivoVenta.getCantidadReg();
     vecRegVenta = new Venta[cantRegVenta];
@@ -2854,28 +2865,52 @@ void buscarFacturas()
         return;
     }
 
-
-    cout<< "<< COMPRAS REALIZADAS >> CLIENTE : " <<regPais.getUsuario()<<endl;
-
     archivoVenta.leerTodos(vecRegVenta, cantRegVenta);
     archivoDetalle.leerTodos(vecDetalleVenta, cantRegDetalle);
 
-    for (int i=0; i<cantRegVenta; i++)
+    cin.ignore();//arregla de subMenuAdmin REPORTES el "cin>>opcion;"
+    cout << "LISTAR PAISES? (s / n): ";
+    getline(cin, respuesta);
+
+    if(respuesta == "s" || respuesta == "S")
     {
+        mostrarPaises(false);
+    }
 
-        if (regPais.getId()== vecRegVenta[i].getIdCliente())
-        {
-            vecRegVenta[i].mostrar();
+    cout << "INGRESE EL ID DEL PAIS DEL QUE DESEA VER LAS FACTURAS: ";
+    cin >> id;
+    cin.ignore();//sino esta se saltea "INGRESE EL ID DEL PAIS DEL QUE DESEA VER LAS FACTURAS"
+    system ("cls");
+
+    posPais = archPais.buscarXId(id);
+
+    if(posPais != -1) // SI encontro el pais
+    {
+        regPais = archPais.leer(posPais);
+
+        cout<< "<< COMPRAS REALIZADAS >> CLIENTE : " <<regPais.getUsuario()<<endl;
 
 
-            for (int j=0; j<cantRegDetalle; j++)
+        for (int i=0; i<cantRegVenta; i++)
+        { item=0;
+
+            if (regPais.getId()== vecRegVenta[i].getIdCliente())
             {
-                if(vecRegVenta[i].getId() == vecDetalleVenta[j].getIdVenta())
-                {
-                    if(vecDetalleVenta[j].getIdProducto()!=-1)
-                    {
+                vecRegVenta[i].mostrar();
 
+
+                for (int j=0; j<cantRegDetalle; j++)
+                {
+                    if(vecRegVenta[i].getId() == vecDetalleVenta[j].getIdVenta())
+                    {
+                        if(vecDetalleVenta[j].getIdProducto()!=-1)
+                        {
+
+                            item++;
+                    	cout << "----------------------" <<endl;
+						cout<<"NUMERO ITEM: "<< item<<endl;
                         vecDetalleVenta[j].mostrar();
+                        }
                     }
                 }
             }
@@ -3186,19 +3221,19 @@ void Menu::solicitudDeAdquisiciones(Pais &regPais)
 
         case 2:
             system("cls");
-            //TODO:FALTA HACER**
+            comprarAvion (regPais, cantProductosComprados,vecDetalleVenta, dineroAcumulado, vecProductosAvion, tamanioAvion, posDetalleVenta);
             system("pause");
             break;
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            comprarBuque (regPais, cantProductosComprados, vecDetalleVenta, dineroAcumulado, vecProductosBuque, tamanioBuque, posDetalleVenta);
             system("pause");
             break;
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            comprarTanque (regPais,cantProductosComprados, vecDetalleVenta, dineroAcumulado, vecProductosTanque, tamanioTanque, posDetalleVenta);
             system("pause");
             break;
 
@@ -3373,7 +3408,7 @@ void Menu::comprarMisil(Pais &regPais, int &cantProductosComprados, DetalleVenta
                             vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regMisil.getPrecio());
                             vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
                             cout << "SE AGREGO EL PRODUCTO A LA COMPRA"<< endl;
-                            cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
+                            //cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
                         }
 
 
@@ -3424,7 +3459,7 @@ void Menu::comprarAvion(Pais &regPais, int &cantProductosComprados, DetalleVenta
     bool dinero = false;
     bool stock=false;
 
-    cout << "LISTAR MISILES? (s / n): ";
+    cout << "LISTAR AVIONES? (s / n): ";
     getline(cin, respuesta);
 
     if (respuesta == "s" || respuesta == "S")
@@ -3432,7 +3467,7 @@ void Menu::comprarAvion(Pais &regPais, int &cantProductosComprados, DetalleVenta
         mostrarAviones(false);
     }
 
-    cout << "INGRESE EL ID DEL MISIL QUE DESEA COMPRAR: ";
+    cout << "INGRESE EL ID DEL AVION QUE DESEA COMPRAR: ";
     cin>> id;
 
     cin.ignore();
@@ -3455,7 +3490,7 @@ void Menu::comprarAvion(Pais &regPais, int &cantProductosComprados, DetalleVenta
             regAvion.mostrar();
 
             cout << endl;
-            cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (s / n): ";
+            cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE AVION? (s / n): ";
             getline(cin, respuesta);
 
             if (respuesta == "s" || respuesta == "S")
@@ -3477,7 +3512,7 @@ void Menu::comprarAvion(Pais &regPais, int &cantProductosComprados, DetalleVenta
                         }
                         else
                         {
-                            cout << endl << "NO HAY SUFICIENTE STOCK DEL MISIL " << endl;
+                            cout << endl << "NO HAY SUFICIENTE STOCK DEL AVION " << endl;
                             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
                             stock=false;
                         }
@@ -3506,7 +3541,7 @@ void Menu::comprarAvion(Pais &regPais, int &cantProductosComprados, DetalleVenta
                             vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regAvion.getPrecio());
                             vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
                             cout << "SE AGREGO EL PRODUCTO A LA COMPRA"<< endl;
-                            cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
+                            //cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
                         }
 
 
@@ -3518,7 +3553,7 @@ void Menu::comprarAvion(Pais &regPais, int &cantProductosComprados, DetalleVenta
             }
             else
             {
-                cout << endl << "EL MISIL NO SE AGREGO A SU COMPRA" << endl;
+                cout << endl << "EL AVION NO SE AGREGO A SU COMPRA" << endl;
                 vecDetalleVenta[posDetalleVenta] = DetalleVenta();
 
             }
@@ -3526,14 +3561,14 @@ void Menu::comprarAvion(Pais &regPais, int &cantProductosComprados, DetalleVenta
         }
         else
         {
-            cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+            cout << "EL AVION NO SE ENCUENTRA EN EL SISTEMA"<< endl;
             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
         }
 
     }
     else
     {
-        cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+        cout << "EL AVION NO SE ENCUENTRA EN EL SISTEMA"<< endl;
         vecDetalleVenta[posDetalleVenta] = DetalleVenta();
     }
 
@@ -3557,15 +3592,15 @@ void Menu::comprarBuque(Pais &regPais, int &cantProductosComprados, DetalleVenta
     bool dinero = false;
     bool stock=false;
 
-    cout << "LISTAR MISILES? (s / n): ";
+    cout << "LISTAR BUQUE? (s / n): ";
     getline(cin, respuesta);
 
     if (respuesta == "s" || respuesta == "S")
     {
-        mostrarAviones(false);
+        mostrarBuques(false);
     }
 
-    cout << "INGRESE EL ID DEL MISIL QUE DESEA COMPRAR: ";
+    cout << "INGRESE EL ID DEL BUQUE QUE DESEA COMPRAR: ";
     cin>> id;
 
     cin.ignore();
@@ -3588,7 +3623,7 @@ void Menu::comprarBuque(Pais &regPais, int &cantProductosComprados, DetalleVenta
             regBuque.mostrar();
 
             cout << endl;
-            cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (s / n): ";
+            cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE BUQUE? (s / n): ";
             getline(cin, respuesta);
 
             if (respuesta == "s" || respuesta == "S")
@@ -3610,7 +3645,7 @@ void Menu::comprarBuque(Pais &regPais, int &cantProductosComprados, DetalleVenta
                         }
                         else
                         {
-                            cout << endl << "NO HAY SUFICIENTE STOCK DEL MISIL " << endl;
+                            cout << endl << "NO HAY SUFICIENTE STOCK DEL BUQUE " << endl;
                             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
                             stock=false;
                         }
@@ -3639,7 +3674,7 @@ void Menu::comprarBuque(Pais &regPais, int &cantProductosComprados, DetalleVenta
                             vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regBuque.getPrecio());
                             vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
                             cout << "SE AGREGO EL PRODUCTO A LA COMPRA"<< endl;
-                            cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
+                            //cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
                         }
 
 
@@ -3651,7 +3686,7 @@ void Menu::comprarBuque(Pais &regPais, int &cantProductosComprados, DetalleVenta
             }
             else
             {
-                cout << endl << "EL MISIL NO SE AGREGO A SU COMPRA" << endl;
+                cout << endl << "EL BUQUE NO SE AGREGO A SU COMPRA" << endl;
                 vecDetalleVenta[posDetalleVenta] = DetalleVenta();
 
             }
@@ -3659,14 +3694,14 @@ void Menu::comprarBuque(Pais &regPais, int &cantProductosComprados, DetalleVenta
         }
         else
         {
-            cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+            cout << "EL BUQUE NO SE ENCUENTRA EN EL SISTEMA"<< endl;
             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
         }
 
     }
     else
     {
-        cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+        cout << "EL BUQUE NO SE ENCUENTRA EN EL SISTEMA"<< endl;
         vecDetalleVenta[posDetalleVenta] = DetalleVenta();
     }
 
@@ -3690,15 +3725,15 @@ void Menu::comprarTanque(Pais &regPais, int &cantProductosComprados, DetalleVent
     bool dinero = false;
     bool stock=false;
 
-    cout << "LISTAR MISILES? (s / n): ";
+    cout << "LISTAR TANQUES? (s / n): ";
     getline(cin, respuesta);
 
     if (respuesta == "s" || respuesta == "S")
     {
-        mostrarAviones(false);
+        mostrarTanques(false);
     }
 
-    cout << "INGRESE EL ID DEL MISIL QUE DESEA COMPRAR: ";
+    cout << "INGRESE EL ID DEL TANQUE QUE DESEA COMPRAR: ";
     cin>> id;
 
     cin.ignore();
@@ -3721,7 +3756,7 @@ void Menu::comprarTanque(Pais &regPais, int &cantProductosComprados, DetalleVent
             regTanque.mostrar();
 
             cout << endl;
-            cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE MISIL? (s / n): ";
+            cout << "ESTA SEGURO QUE DESEA AGREGAR ESTE TANQUE? (s / n): ";
             getline(cin, respuesta);
 
             if (respuesta == "s" || respuesta == "S")
@@ -3743,7 +3778,7 @@ void Menu::comprarTanque(Pais &regPais, int &cantProductosComprados, DetalleVent
                         }
                         else
                         {
-                            cout << endl << "NO HAY SUFICIENTE STOCK DEL MISIL " << endl;
+                            cout << endl << "NO HAY SUFICIENTE STOCK DEL TANQUE " << endl;
                             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
                             stock=false;
                         }
@@ -3772,7 +3807,7 @@ void Menu::comprarTanque(Pais &regPais, int &cantProductosComprados, DetalleVent
                             vecDetalleVenta[posDetalleVenta].setPrecioUnitario(regTanque.getPrecio());
                             vecDetalleVenta[posDetalleVenta].setPrecioTotal(totalItem);
                             cout << "SE AGREGO EL PRODUCTO A LA COMPRA"<< endl;
-                            cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
+                            //cout << "DINERO ACUMULADO*" << dineroAcumulado << endl;
                         }
 
 
@@ -3784,7 +3819,7 @@ void Menu::comprarTanque(Pais &regPais, int &cantProductosComprados, DetalleVent
             }
             else
             {
-                cout << endl << "EL MISIL NO SE AGREGO A SU COMPRA" << endl;
+                cout << endl << "EL TANQUE NO SE AGREGO A SU COMPRA" << endl;
                 vecDetalleVenta[posDetalleVenta] = DetalleVenta();
 
             }
@@ -3792,14 +3827,14 @@ void Menu::comprarTanque(Pais &regPais, int &cantProductosComprados, DetalleVent
         }
         else
         {
-            cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+            cout << "EL TANQUE NO SE ENCUENTRA EN EL SISTEMA"<< endl;
             vecDetalleVenta[posDetalleVenta] = DetalleVenta();
         }
 
     }
     else
     {
-        cout << "EL MISIL NO SE ENCUENTRA EN EL SISTEMA"<< endl;
+        cout << "EL TANQUE NO SE ENCUENTRA EN EL SISTEMA"<< endl;
         vecDetalleVenta[posDetalleVenta] = DetalleVenta();
     }
 
@@ -3911,8 +3946,6 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
                 //TODO:: NO VERIFICAMOS SI EL STOCK DE LOS PRODUCTOS  Y EL DINERO EN CAJA DEL PAIS SE ACTUALIZO BIEN.
                 cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE."<<endl<<endl;
 
-                system("pause");
-
 
             }
             else
@@ -3945,6 +3978,7 @@ void Menu::comprasRealizadas(Pais &regPais)
     int cantRegDetalle;
     ArchivoDetalleVenta archivoDetalle;
     DetalleVenta *vecDetalleVenta = nullptr;
+    int item=0;
 
     cantRegVenta = archivoVenta.getCantidadReg();
     vecRegVenta = new Venta[cantRegVenta];
@@ -3969,7 +4003,7 @@ void Menu::comprasRealizadas(Pais &regPais)
     archivoDetalle.leerTodos(vecDetalleVenta, cantRegDetalle);
 
     for (int i=0; i<cantRegVenta; i++)
-    {
+    { item =0;
 
         if (regPais.getId()== vecRegVenta[i].getIdCliente())
         {
@@ -3978,11 +4012,14 @@ void Menu::comprasRealizadas(Pais &regPais)
 
             for (int j=0; j<cantRegDetalle; j++)
             {
+
                 if(vecRegVenta[i].getId() == vecDetalleVenta[j].getIdVenta())
                 {
                     if(vecDetalleVenta[j].getIdProducto()!=-1)
                     {
-
+                    	item++;
+                    	cout << "----------------------" <<endl;
+						cout<<"NUMERO ITEM: "<< item<<endl;
                         vecDetalleVenta[j].mostrar();
                     }
                 }

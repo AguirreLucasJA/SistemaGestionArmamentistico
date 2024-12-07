@@ -84,7 +84,7 @@ public:
 
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
     void verFacturas();
-    void buscarFacturas();
+    void buscarFacturasPais();
 
 
 
