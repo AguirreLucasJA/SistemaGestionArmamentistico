@@ -84,6 +84,7 @@ public:
 
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
     void verFacturas();
+    void buscarFacturas();
 
 
 
@@ -94,6 +95,9 @@ public:
     void consultaDinero(Pais &regPais);
     void ingresoDinero(Pais &regPais);
     void comprarMisil (Pais &regPais, int &cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosMisil, int tamanioMisil, int posDetalleVenta);
+    void comprarAvion (Pais &regPais, int &cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosAvion, int tamanioAvion, int posDetalleVenta);
+    void comprarBuque (Pais &regPais, int &cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosBuque, int tamanioBuque, int posDetalleVenta);
+    void comprarTanque (Pais &regPais, int &cantProductosComprados, DetalleVenta *vecDetalleVenta, long long &dineroAcumulado, StockProducto *vecProductosTanque, int tamanioTanque, int posDetalleVenta);
 
     void confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductosAComprar, int cantProductosComprados, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque);
     void comprasRealizadas(Pais &regPais);
