@@ -85,8 +85,9 @@ public:
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
     void verFacturas();
     void buscarFacturasPais();
+    void rankingClientes();
 
-
+    void ordenarDecreciente(long long *v, int tam);
 
 ///-------------------------------------------------------------------------------//
     void menuPrincipalPais(Pais &regPais);//MENU PRINCIPAL PAIS CLIENTE

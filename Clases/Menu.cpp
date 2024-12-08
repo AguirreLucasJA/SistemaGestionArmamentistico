@@ -2746,7 +2746,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 3:
             system("cls");
-            //TODO:FALTA HACER**
+            rankingClientes();
             system("pause");
             break;
 
@@ -2803,7 +2803,8 @@ void Menu::verFacturas()
     archivoVenta.leerTodos(vecRegVenta, cantRegVenta);
 
     for (int i=0; i<cantRegVenta; i++)
-    {   item=0;
+    {
+        item=0;
         vecRegVenta[i].mostrar();
         cout<<"  VENTA  " << vecRegVenta[i].getId()<<endl<<endl;
         cout <<"Detalle: "<<endl;
@@ -2816,10 +2817,10 @@ void Menu::verFacturas()
 
                 if(vecDetalleVenta[j].getIdProducto()!=-1)
                 {
-                	item++;
-                    	cout << "----------------------" <<endl;
-						cout<<"NUMERO ITEM: "<< item<<endl;
-                        vecDetalleVenta[j].mostrar();
+                    item++;
+                    cout << "----------------------" <<endl;
+                    cout<<"NUMERO ITEM: "<< item<<endl;
+                    vecDetalleVenta[j].mostrar();
 
                 }
             }
@@ -2877,9 +2878,9 @@ void Menu::buscarFacturasPais()
         mostrarPaises(false);
     }
 
-    cout << "INGRESE EL ID DEL PAIS DEL QUE DESEA VER LAS FACTURAS: ";
+    cout << "INGRESE EL ID DEL PAIS QUE DESEA VER LAS FACTURAS: ";
     cin >> id;
-    cin.ignore();//sino esta se saltea "INGRESE EL ID DEL PAIS DEL QUE DESEA VER LAS FACTURAS"
+    cin.ignore();//sino esta se saltea "INGRESE EL ID DEL PAIS QUE DESEA VER LAS FACTURAS"
     system ("cls");
 
     posPais = archPais.buscarXId(id);
@@ -2892,7 +2893,8 @@ void Menu::buscarFacturasPais()
 
 
         for (int i=0; i<cantRegVenta; i++)
-        { item=0;
+        {
+            item=0;
 
             if (regPais.getId()== vecRegVenta[i].getIdCliente())
             {
@@ -2907,9 +2909,9 @@ void Menu::buscarFacturasPais()
                         {
 
                             item++;
-                    	cout << "----------------------" <<endl;
-						cout<<"NUMERO ITEM: "<< item<<endl;
-                        vecDetalleVenta[j].mostrar();
+                            cout << "----------------------" <<endl;
+                            cout<<"NUMERO ITEM: "<< item<<endl;
+                            vecDetalleVenta[j].mostrar();
                         }
                     }
                 }
@@ -2921,6 +2923,75 @@ void Menu::buscarFacturasPais()
     delete [] vecDetalleVenta;
 }
 
+
+void Menu::ordenarDecreciente(long long *v, int tam)
+{
+    int i, j;
+    long long aux;
+
+    for(i=0; i<tam-1; i++)
+    {
+
+        for(j=i+1; j<tam; j++)
+        {
+
+            if(v[j] < v[i]) /// DECRECIENTE
+            {
+                aux = v[j];
+                v[j] = v[i];
+                v[i] = aux;
+            }
+        }
+    }
+}
+
+///RANKING DE CLIENTES
+void Menu::rankingClientes()
+{
+    ArchivoVenta archVenta;
+    Venta regVenta;
+    ArchivoPais archPais;
+    Pais regPais;
+    int cantRegPais;
+    int cantRegVenta;
+    int totalAcumulado;
+
+    long long *vecTotalVentasXPais = nullptr;
+
+    cantRegPais = archPais.getCantidadReg();
+    vecTotalVentasXPais = new long long[cantRegPais];
+
+    if (vecTotalVentasXPais == nullptr)
+    {
+        return;
+    }
+
+    for (int i = 0; i < cantRegPais; i++)
+    {
+        vecTotalVentasXPais[i] = 0;
+    }
+
+    cantRegVenta = archVenta.getCantidadReg();
+
+    for(int i=0; i < cantRegVenta; i++)
+    {
+        regVenta = archVenta.leer(i);
+
+        vecTotalVentasXPais[regVenta.getIdCliente() - 1] += regVenta.getMontoTotal();
+    }
+
+    ordenarDecreciente(vecTotalVentasXPais, cantRegPais);
+
+
+    cout << "Vector ordenado: " << endl;
+    for(int i = 0; i < cantRegPais; i++)
+    {
+        cout << "#" << i + 1 << ": " << vecTotalVentasXPais[i] << endl;
+    }
+
+
+    delete[] vecTotalVentasXPais;
+}
 
 /// MENU PRINCIPAL PAIS
 void Menu::menuPrincipalPais(Pais &regPais)
@@ -4003,7 +4074,8 @@ void Menu::comprasRealizadas(Pais &regPais)
     archivoDetalle.leerTodos(vecDetalleVenta, cantRegDetalle);
 
     for (int i=0; i<cantRegVenta; i++)
-    { item =0;
+    {
+        item =0;
 
         if (regPais.getId()== vecRegVenta[i].getIdCliente())
         {
@@ -4017,9 +4089,9 @@ void Menu::comprasRealizadas(Pais &regPais)
                 {
                     if(vecDetalleVenta[j].getIdProducto()!=-1)
                     {
-                    	item++;
-                    	cout << "----------------------" <<endl;
-						cout<<"NUMERO ITEM: "<< item<<endl;
+                        item++;
+                        cout << "----------------------" <<endl;
+                        cout<<"NUMERO ITEM: "<< item<<endl;
                         vecDetalleVenta[j].mostrar();
                     }
                 }
