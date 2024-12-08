@@ -2935,7 +2935,7 @@ void Menu::ordenarDecreciente(long long *v, int tam)
         for(j=i+1; j<tam; j++)
         {
 
-            if(v[j] < v[i]) /// DECRECIENTE
+            if(v[j] > v[i]) /// DECRECIENTE
             {
                 aux = v[j];
                 v[j] = v[i];
@@ -2983,10 +2983,17 @@ void Menu::rankingClientes()
     ordenarDecreciente(vecTotalVentasXPais, cantRegPais);
 
 
-    cout << "Vector ordenado: " << endl;
+    cout << " <<RANKING DE CLIENTES>> " << endl;
     for(int i = 0; i < cantRegPais; i++)
     {
-        cout << "#" << i + 1 << ": " << vecTotalVentasXPais[i] << endl;
+    	regPais = archPais.leer(i);
+
+		for(int j=0; j<cantRegPais; j++){
+		if (j+1 == regPais.getId()){
+        cout << regPais.getUsuario() << ": " << vecTotalVentasXPais[j] << endl;
+		}
+    	}
+
     }
 
 
