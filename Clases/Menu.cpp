@@ -3110,7 +3110,7 @@ void Menu::rankingProductos()
         regDetalleVenta = archDetalleVenta.leer(i);
 
         vecNombreProductoCantidadRepetido[i].setNombre(regDetalleVenta.getNombreProducto());
-        vecNombreProductoCantidadRepetido[i].setCantidad(0);
+        vecNombreProductoCantidadRepetido[i].setCantidad(regDetalleVenta.getCantidad());
 
     }
 
@@ -3121,21 +3121,47 @@ void Menu::rankingProductos()
 
     //TODO::ULTIMO!
     ////ACA FALTA CARGAR LAS CANTIDADES AL VECTOR PROCESADO!!!
-    for(int i = 0; i < cantRegProductos; i++)
+   /* for(int i = 0; i < cantRegProductos; i++)
     {
-
 
         for(int j = 0; j < cantRegDetalleVenta; j++)
         {
-
             if (vecNombreProductoCantidad[i].getNombre() == vecNombreProductoCantidadRepetido[j].getNombre())
             {
-
-              vecNombreProductoCantidad[i].setCantidad(vecNombreProductoCantidad[i].getCantidad() + vecNombreProductoCantidadRepetido[j].getCantidad());
+            	cout <<"VECTOR REPETIDO "<< vecNombreProductoCantidadRepetido[j].getNombre();
+				cout << "VECTOR SIN REPETIDOS" << vecNombreProductoCantidad[i].getNombre();
+				//cout <<"VECTOR REPETIDO "<< vecNombreProductoCantidadRepetido[j].getCantidad();
+				//cout << "VECTOR REAL" << vecNombreProductoCantidad[i].getCantidad();
+                vecNombreProductoCantidad[i].setCantidad(vecNombreProductoCantidad[i].getCantidad() + vecNombreProductoCantidadRepetido[j].getCantidad());
+				cout<< vecNombreProductoCantidad[i].getCantidad()<<endl;
             }
 
         }
     }
+    */
+
+
+
+
+    for (int i=0; i<cantRegDetalleVenta; i++){
+			cout << "VECTOR DE REPETIDOS: ";
+			cout << vecNombreProductoCantidadRepetido[i].getCantidad()<<endl;
+			cout << vecNombreProductoCantidadRepetido[i].getNombre()<<endl;
+
+    }
+
+		for(int j=0; j<cantRegProductos;j++ ){
+				cout << "VECTOR SIN REPETIR: ";
+			cout << vecNombreProductoCantidad[j].getCantidad()<<endl;
+			cout << vecNombreProductoCantidad[j].getNombre()<<endl;
+
+			//vecNombreProductoCantidad.setCantidad(vecNombreProductoCantidad[j].setCantidad()+ vecNombreProductoCantidadRepetido[i].getCantidad());
+
+
+		}
+
+
+
 
 
 //vecNombreProductoCantidadRepetido
