@@ -90,7 +90,9 @@ public:
     void rankingProductos();
 
     void ordenarDecreciente(long long *vec, std::string *vecString, int tam);
-    void quitarRepetidos(NombreProductoCantidad *vectorSinProcesar, int cantSinProcesar, NombreProductoCantidad *vectorSinRepetidos, int cantProcesado);
+    void ordenarDecreciente(NombreProductoCantidad *vec, int tam);
+
+    void quitarRepetidos(NombreProductoCantidad *vectorSinProcesar, int cantSinProcesar, NombreProductoCantidad *vectorSinRepetidos, int &cantProcesado);
 
 
 ///-------------------------------------------------------------------------------//

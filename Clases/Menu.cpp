@@ -2924,7 +2924,7 @@ void Menu::buscarFacturasPais()
     delete [] vecDetalleVenta;
 }
 
-
+///ORDENAR DECRECIENTE SOBRECARGADO
 void Menu::ordenarDecreciente(long long *vec, string *vecString, int tam)
 {
     int i, j;
@@ -2946,6 +2946,28 @@ void Menu::ordenarDecreciente(long long *vec, string *vecString, int tam)
                 auxString = vecString[j];
                 vecString[j] = vecString[i];
                 vecString[i] = auxString;
+            }
+        }
+    }
+}
+
+///ORDENAR DECRECIENTE SOBRECARGADO
+void Menu::ordenarDecreciente(NombreProductoCantidad *vec, int tam)
+{
+    int i, j;
+    NombreProductoCantidad aux;
+
+    for(i=0; i<tam-1; i++)
+    {
+
+        for(j=i+1; j<tam; j++)
+        {
+
+            if(vec[j].getCantidad() > vec[i].getCantidad()) /// DECRECIENTE
+            {
+                aux = vec[j];
+                vec[j] = vec[i];
+                vec[i] = aux;
             }
         }
     }
@@ -3018,7 +3040,7 @@ void Menu::rankingPaises()
     delete[] vecNombrePais;
 }
 
-void Menu::quitarRepetidos(NombreProductoCantidad *vectorSinProcesar, int cantSinProcesar, NombreProductoCantidad *vectorSinRepetidos, int cantProcesado)
+void Menu::quitarRepetidos(NombreProductoCantidad *vectorSinProcesar, int cantSinProcesar, NombreProductoCantidad *vectorSinRepetidos, int &cantProcesado)
 {
     int i, j;
     cantProcesado = 0; // Inicializamos la cantidad procesada a 0
@@ -3095,17 +3117,41 @@ void Menu::rankingProductos()
     quitarRepetidos(vecNombreProductoCantidadRepetido, cantRegDetalleVenta, vecNombreProductoCantidad, cantRegProductos);
 
 
-    for(int i= 0; i < cantRegProductos; i++)
+    ordenarDecreciente(vecNombreProductoCantidad, cantRegProductos);
+
+    //TODO::ULTIMO!
+    ////ACA FALTA CARGAR LAS CANTIDADES AL VECTOR PROCESADO!!!
+    for(int i = 0; i < cantRegProductos; i++)
     {
-    cout << "----------------------" << endl;
-    cout << vecNombreProductoCantidad[i].getNombre() << endl;
-    cout << vecNombreProductoCantidad[i].getCantidad() << endl;
+
+
+        for(int j = 0; j < cantRegDetalleVenta; j++)
+        {
+
+            if (vecNombreProductoCantidad[i].getNombre() == vecNombreProductoCantidadRepetido[j].getNombre())
+            {
+
+              vecNombreProductoCantidad[i].setCantidad(vecNombreProductoCantidad[i].getCantidad() + vecNombreProductoCantidadRepetido[j].getCantidad());
+            }
+
+        }
     }
 
 
+//vecNombreProductoCantidadRepetido
+
+//vecNombreProductoCantidad
 
 
+    cout << " <<RANKING DE PRODUCTOS>> " << endl;
 
+    for(int i = 0; i < cantRegProductos; i++)
+    {
+        if(vecNombreProductoCantidad[i].getNombre() != "S/N")
+        {
+            cout << vecNombreProductoCantidad[i].getNombre() << " CANTIDAD VENDIDOS:" << vecNombreProductoCantidad[i].getCantidad() << endl;
+        }
+    }
 
     delete[] vecNombreProductoCantidadRepetido;
     delete[] vecNombreProductoCantidad;
