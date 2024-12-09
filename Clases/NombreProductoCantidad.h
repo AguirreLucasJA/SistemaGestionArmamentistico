@@ -13,9 +13,6 @@ public:
     std::string getNombre();
     int getCantidad();
 
-
-
-
 private:
     char _nombre[30];
     int _cantidad;

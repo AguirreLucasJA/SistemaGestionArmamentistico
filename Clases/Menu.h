@@ -8,6 +8,7 @@
 #include "DetalleVenta.h"
 #include "Venta.h"
 #include "StockProducto.h"
+#include "NombreProductoCantidad.h"
 
 
 class Menu
@@ -89,6 +90,7 @@ public:
     void rankingProductos();
 
     void ordenarDecreciente(long long *vec, std::string *vecString, int tam);
+    void quitarRepetidos(NombreProductoCantidad *vectorSinProcesar, int cantSinProcesar, NombreProductoCantidad *vectorSinRepetidos, int cantProcesado);
 
 
 ///-------------------------------------------------------------------------------//

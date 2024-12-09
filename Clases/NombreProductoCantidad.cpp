@@ -5,9 +5,7 @@ using namespace std;//PARA NO ANDAR HACIENDO STD::COUT
 //SETTERS
 void NombreProductoCantidad::setNombre(string nombre)
 {
-
     strcpy(_nombre, nombre.c_str());//devuelve el puntero que tiene en la heap
-
 }
 
 void NombreProductoCantidad::setCantidad (int cantidad)

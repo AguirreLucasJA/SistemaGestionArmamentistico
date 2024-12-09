@@ -3022,79 +3022,97 @@ void Menu::rankingPaises()
     delete[] vecNombrePais;
 }
 
+void Menu::quitarRepetidos(NombreProductoCantidad *vectorSinProcesar, int cantSinProcesar, NombreProductoCantidad *vectorSinRepetidos, int cantProcesado)
+{
+    int i, j;
+    cantProcesado = 0; // Inicializamos la cantidad procesada a 0
+
+    for (i = 0; i < cantSinProcesar; i++)
+    {
+        bool estaRepetido = false;
+
+        // Verificar si vectorSinProcesar[i] está en vectorSinRepetidos
+        for (j = 0; j < cantProcesado; j++)
+        {
+            if (vectorSinProcesar[i].getNombre() == vectorSinRepetidos[j].getNombre())
+            {
+                estaRepetido = true;
+                break;
+            }
+        }
+
+        // Si el elemento no está en vectorSinRepetidos, lo añadimos
+        if (!estaRepetido)
+        {
+            vectorSinRepetidos[cantProcesado] = vectorSinProcesar[i]; // Añadimos el elemento
+            cantProcesado++; // Incrementamos la cantidad de elementos únicos
+        }
+    }
+}
+
 /// RANKING DE PRODUCTOS
 
 void Menu::rankingProductos()
 {
-    ArchivoDetalleVenta archDetalle;
-    DetalleVenta regDetalle;
-    NombreProductoCantidad *vecNombreCantidad = nullptr;
+    NombreProductoCantidad *vecNombreProductoCantidadRepetido = nullptr;
+    NombreProductoCantidad *vecNombreProductoCantidad = nullptr;
+    ArchivoDetalleVenta archDetalleVenta;
     ArchivoMisil archMisil;
     ArchivoAvion archAvion;
     ArchivoBuque archBuque;
     ArchivoTanque archTanque;
-    Misil regMisil;
-    Avion regAvion;
-    Buque regBuque;
-    Tanque regTanque;
-    int cantDetalleVenta;
-    int cantRegMisil;
-    int cantRegAvion;
-    int cantRegBuque;
-    int cantRegTanque;
-    int totalProductos = 0;
+    DetalleVenta regDetalleVenta;
+    int cantRegProductos = 0;
+    int cantRegDetalleVenta;
 
-    cantDetalleVenta = archDetalle.getCantidadReg();
-    cantRegMisil = archMisil.getCantidadReg();
-    cantRegAvion = archAvion.getCantidadReg();
-    cantRegBuque = archBuque.getCantidadReg();
-    cantRegTanque = archTanque.getCantidadReg();
+    cantRegDetalleVenta = archDetalleVenta.getCantidadReg();
 
-    totalProductos = cantRegMisil + cantRegAvion +cantRegBuque  +cantRegTanque;
+    vecNombreProductoCantidadRepetido = new NombreProductoCantidad[cantRegDetalleVenta];
 
-    vecNombreCantidad = new NombreProductoCantidad [totalProductos];
+    if (vecNombreProductoCantidadRepetido == nullptr)
+    {
+        return;
+    }
 
-    if (vecNombreCantidad == nullptr)
+    cantRegProductos += archMisil.getCantidadReg();
+    cantRegProductos += archAvion.getCantidadReg();
+    cantRegProductos += archBuque.getCantidadReg();
+    cantRegProductos += archTanque.getCantidadReg();
+
+    vecNombreProductoCantidad = new NombreProductoCantidad[cantRegProductos];
+
+    if (vecNombreProductoCantidad == nullptr)
     {
         return;
     }
 
 
-    for(int i=0; i<cantRegMisil; i++ )
+    for(int i = 0; i < cantRegDetalleVenta; i++)
     {
-        regMisil = archMisil.leer(i);
-        vecNombreCantidad[i].setNombre = regMisil.getNombre();
+        regDetalleVenta = archDetalleVenta.leer(i);
+
+        vecNombreProductoCantidadRepetido[i].setNombre(regDetalleVenta.getNombreProducto());
+        vecNombreProductoCantidadRepetido[i].setCantidad(0);
+
     }
 
-    for(int j=i; j<cantRegAvion+cantRegMisil; j++ )
+    quitarRepetidos(vecNombreProductoCantidadRepetido, cantRegDetalleVenta, vecNombreProductoCantidad, cantRegProductos);
+
+
+    for(int i= 0; i < cantRegProductos; i++)
     {
-        regAvion =archAvion.leer(j);
-        vecNombreCantidad[j].setNombre = regAvion.getNombre();
+    cout << "----------------------" << endl;
+    cout << vecNombreProductoCantidad[i].getNombre() << endl;
+    cout << vecNombreProductoCantidad[i].getCantidad() << endl;
     }
 
-    for (int k=j; k<cantRegBuque +cantRegAvion+cantRegMisil; k++)
-    {
-        regBuque = archBuque.leer(k);
-        vecNombreCantidad[k].setNombre = regBuque.getNombre();
-
-        for (int l=k; l<cantRegTanque +cantRegBuque +cantRegAvion+cantRegMisil; l++)
-        {
-            regTanque = archBuque.leer(l);
-            vecNombreCantidad[l].setNombre = regTanque.getNombre();
-
-        }
-
-    }
-}
-
-}
 
 
 
 
 
-
-delete[] vecNombreCantidad;
+    delete[] vecNombreProductoCantidadRepetido;
+    delete[] vecNombreProductoCantidad;
 }
 
 
