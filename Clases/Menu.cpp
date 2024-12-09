@@ -2778,7 +2778,7 @@ void Menu::verFacturas()
     int cantRegDetalle;
     ArchivoDetalleVenta archivoDetalle;
     DetalleVenta *vecDetalleVenta = nullptr;
-    int item=0;
+    //int item=0;
 
     cantRegDetalle = archivoDetalle.getCantidadReg();
     vecDetalleVenta = new DetalleVenta [cantRegDetalle];
@@ -2805,10 +2805,8 @@ void Menu::verFacturas()
 
     for (int i=0; i<cantRegVenta; i++)
     {
-        item=0;
+        //item=0;
         vecRegVenta[i].mostrar();
-        cout<<"  VENTA  " << vecRegVenta[i].getId()<<endl<<endl;
-        cout <<"Detalle: "<<endl;
 
         for (int j=0; j<cantRegDetalle; j++)
         {
@@ -2818,9 +2816,9 @@ void Menu::verFacturas()
 
                 if(vecDetalleVenta[j].getIdProducto()!=-1)
                 {
-                    item++;
-                    cout << "----------------------" <<endl;
-                    cout<<"NUMERO ITEM: "<< item<<endl;
+                    //item++;
+                    //cout << "----------------------" <<endl;
+                    //cout<<"NUMERO ITEM: "<< item<<endl;
                     vecDetalleVenta[j].mostrar();
 
                 }
@@ -3026,12 +3024,14 @@ void Menu::rankingPaises()
     ordenarDecreciente(vecTotalVentasXPais, vecNombrePais, cantRegPais);
 
 
-    cout << " <<RANKING DE CLIENTES>> " << endl;
+    cout << "============================================================" << endl;
+    cout << "                        RANKING DE PAISES                   " << endl;
+    cout << "============================================================" << endl;
 
     for(int i = 0; i < cantRegPais; i++)
     {
 
-        cout << vecNombrePais[i] << ": $" << vecTotalVentasXPais[i] << endl;
+        cout << vecNombrePais[i] << " TOTAL GASTADO: $" << vecTotalVentasXPais[i] << endl;
 
     }
 
@@ -3117,59 +3117,26 @@ void Menu::rankingProductos()
     quitarRepetidos(vecNombreProductoCantidadRepetido, cantRegDetalleVenta, vecNombreProductoCantidad, cantRegProductos);
 
 
-    ordenarDecreciente(vecNombreProductoCantidad, cantRegProductos);
-
-    //TODO::ULTIMO!
-    ////ACA FALTA CARGAR LAS CANTIDADES AL VECTOR PROCESADO!!!
-   /* for(int i = 0; i < cantRegProductos; i++)
+    for(int i = 0; i < cantRegProductos; i++)
     {
-
+        vecNombreProductoCantidad[i].setCantidad(0);
         for(int j = 0; j < cantRegDetalleVenta; j++)
         {
             if (vecNombreProductoCantidad[i].getNombre() == vecNombreProductoCantidadRepetido[j].getNombre())
             {
-            	cout <<"VECTOR REPETIDO "<< vecNombreProductoCantidadRepetido[j].getNombre();
-				cout << "VECTOR SIN REPETIDOS" << vecNombreProductoCantidad[i].getNombre();
-				//cout <<"VECTOR REPETIDO "<< vecNombreProductoCantidadRepetido[j].getCantidad();
-				//cout << "VECTOR REAL" << vecNombreProductoCantidad[i].getCantidad();
                 vecNombreProductoCantidad[i].setCantidad(vecNombreProductoCantidad[i].getCantidad() + vecNombreProductoCantidadRepetido[j].getCantidad());
-				cout<< vecNombreProductoCantidad[i].getCantidad()<<endl;
+
             }
 
         }
     }
-    */
 
 
+    ordenarDecreciente(vecNombreProductoCantidad, cantRegProductos);
 
-
-    for (int i=0; i<cantRegDetalleVenta; i++){
-			cout << "VECTOR DE REPETIDOS: ";
-			cout << vecNombreProductoCantidadRepetido[i].getCantidad()<<endl;
-			cout << vecNombreProductoCantidadRepetido[i].getNombre()<<endl;
-
-    }
-
-		for(int j=0; j<cantRegProductos;j++ ){
-				cout << "VECTOR SIN REPETIR: ";
-			cout << vecNombreProductoCantidad[j].getCantidad()<<endl;
-			cout << vecNombreProductoCantidad[j].getNombre()<<endl;
-
-			//vecNombreProductoCantidad.setCantidad(vecNombreProductoCantidad[j].setCantidad()+ vecNombreProductoCantidadRepetido[i].getCantidad());
-
-
-		}
-
-
-
-
-
-//vecNombreProductoCantidadRepetido
-
-//vecNombreProductoCantidad
-
-
-    cout << " <<RANKING DE PRODUCTOS>> " << endl;
+    cout << "============================================================" << endl;
+    cout << "                      RANKING DE PRODUCTOS                  " << endl;
+    cout << "============================================================" << endl;
 
     for(int i = 0; i < cantRegProductos; i++)
     {
@@ -4241,7 +4208,7 @@ void Menu::comprasRealizadas(Pais &regPais)
     int cantRegDetalle;
     ArchivoDetalleVenta archivoDetalle;
     DetalleVenta *vecDetalleVenta = nullptr;
-    int item=0;
+    //int item=0;
 
     cantRegVenta = archivoVenta.getCantidadReg();
     vecRegVenta = new Venta[cantRegVenta];
@@ -4267,7 +4234,7 @@ void Menu::comprasRealizadas(Pais &regPais)
 
     for (int i=0; i<cantRegVenta; i++)
     {
-        item =0;
+        //item =0;
 
         if (regPais.getId()== vecRegVenta[i].getIdCliente())
         {
@@ -4281,9 +4248,9 @@ void Menu::comprasRealizadas(Pais &regPais)
                 {
                     if(vecDetalleVenta[j].getIdProducto()!=-1)
                     {
-                        item++;
-                        cout << "----------------------" <<endl;
-                        cout<<"NUMERO ITEM: "<< item<<endl;
+                        //item++;
+                        //cout << "----------------------" <<endl;
+                        //cout<<"NUMERO ITEM: "<< item<<endl;
                         vecDetalleVenta[j].mostrar();
                     }
                 }

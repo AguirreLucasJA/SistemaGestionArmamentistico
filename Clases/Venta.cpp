@@ -59,10 +59,17 @@ long long Venta::getMontoTotal()
 void Venta::mostrar()
 {
 
-    cout << "------------------------------------------------------------"<<endl;
-    cout << "* ID VENTA: " << getId() << endl;
-    cout << "* ID CLIENTE: " << getIdCliente() << endl;
-    cout << "* FECHA: " << getFecha().toString() << endl;
-    cout << "* CANTIDAD DE ITEMS: " << getCantidadItems() << endl;
-    cout << "* MONTO TOTAL: " << getMontoTotal()<< endl;
+    cout << "============================================================" << endl;
+    cout << "                        FACTURA DE VENTA                   " << endl;
+    cout << "============================================================" << endl;
+    cout << "ID VENTA:        " << getId() << endl;
+    cout << "ID CLIENTE:      " << getIdCliente() << endl;
+    cout << "FECHA:           " << getFecha().toString() << endl;
+    cout << "CANTIDAD ITEMS:  " << getCantidadItems() << endl;
+    cout << "MONTO TOTAL:     $" << getMontoTotal()<< endl;
+	cout << "                                                            " << endl;
+    cout << "                      DETALLE DE VENTA                      " << endl;
+    cout << "                                                            " << endl;
 }
+
+
