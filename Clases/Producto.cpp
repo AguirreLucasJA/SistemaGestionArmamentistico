@@ -120,7 +120,7 @@ void Producto::cargar(int id) //le pasas el id autonumerico
     while(!validar.esStringValido(nombre,30) || !validar.esNombreProductoValido(nombre))
     {
 
-       if(!validar.esStringValido(nombre,30))
+        if(!validar.esStringValido(nombre,30))
         {
             cout << "ERROR SOBREPASO LIMITE DE CARACTERES" << endl;
             system("pause");
@@ -145,14 +145,43 @@ void Producto::cargar(int id) //le pasas el id autonumerico
 
     cout<<"ING PRECIO: u$d ";
     cin>> precio;
+
+    while(precio < 0)
+    {
+        cout << "Cantidad ingresada incorrecta, re ingrese..." << endl;
+        system("pause");
+        system("cls");
+        cout<<"ING PRECIO: u$d ";
+        cin >> precio;
+    }
     setPrecio(precio);
 
     cout<<"ING STOCK: ";
     cin>> stock;
+
+    while(stock < 0)
+    {
+        cout << "Cantidad ingresada incorrecta, re ingrese..." << endl;
+        system("pause");
+        system("cls");
+        cout<<"ING STOCK: ";
+        cin >> stock;
+    }
+
     setStock(stock);
 
     cout<<"ING LOTE: ";
     cin>> lote;
+
+    while(lote <= 0)
+    {
+        cout << "Cantidad ingresada incorrecta, re ingrese..." << endl;
+        system("pause");
+        system("cls");
+        cout << "ING LOTE: ";
+        cin >> lote;
+    }
+
     setLote(lote);
 
     cin.ignore();
