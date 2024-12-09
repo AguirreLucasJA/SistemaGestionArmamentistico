@@ -2746,7 +2746,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 3:
             system("cls");
-            rankingClientes();
+            rankingPaises();
             system("pause");
             break;
 
@@ -2924,10 +2924,11 @@ void Menu::buscarFacturasPais()
 }
 
 
-void Menu::ordenarDecreciente(long long *v, int tam)
+void Menu::ordenarDecreciente(long long *vec, string *vecString, int tam)
 {
     int i, j;
     long long aux;
+    string auxString;
 
     for(i=0; i<tam-1; i++)
     {
@@ -2935,33 +2936,47 @@ void Menu::ordenarDecreciente(long long *v, int tam)
         for(j=i+1; j<tam; j++)
         {
 
-            if(v[j] > v[i]) /// DECRECIENTE
+            if(vec[j] > vec[i]) /// DECRECIENTE
             {
-                aux = v[j];
-                v[j] = v[i];
-                v[i] = aux;
+                aux = vec[j];
+                vec[j] = vec[i];
+                vec[i] = aux;
+
+                auxString = vecString[j];
+                vecString[j] = vecString[i];
+                vecString[i] = auxString;
             }
         }
     }
 }
 
 ///RANKING DE CLIENTES
-void Menu::rankingClientes()
+void Menu::rankingPaises()
 {
     ArchivoVenta archVenta;
     Venta regVenta;
     ArchivoPais archPais;
     Pais regPais;
+    int posPais;
     int cantRegPais;
     int cantRegVenta;
     int totalAcumulado;
+    int i, j;
+    int indiceMax;
 
     long long *vecTotalVentasXPais = nullptr;
+    string *vecNombrePais = nullptr;
 
     cantRegPais = archPais.getCantidadReg();
     vecTotalVentasXPais = new long long[cantRegPais];
+    vecNombrePais = new string[cantRegPais];
 
     if (vecTotalVentasXPais == nullptr)
+    {
+        return;
+    }
+
+    if (vecNombrePais == nullptr)
     {
         return;
     }
@@ -2980,24 +2995,30 @@ void Menu::rankingClientes()
         vecTotalVentasXPais[regVenta.getIdCliente() - 1] += regVenta.getMontoTotal();
     }
 
-    ordenarDecreciente(vecTotalVentasXPais, cantRegPais);
+    for(int i=0; i < cantRegPais; i++)
+    {
+        regPais = archPais.leer(i);
+
+        vecNombrePais[regPais.getId() - 1] = regPais.getUsuario();
+    }
+
+
+
+    ordenarDecreciente(vecTotalVentasXPais, vecNombrePais, cantRegPais);
 
 
     cout << " <<RANKING DE CLIENTES>> " << endl;
-    for(int i = 0; i < cantRegPais; i++)
-    {
-    	regPais = archPais.leer(i);
 
-		for(int j=0; j<cantRegPais; j++){
-		if (j+1 == regPais.getId()){
-        cout << regPais.getUsuario() << ": " << vecTotalVentasXPais[j] << endl;
-		}
-    	}
+    for(i = 0; i < cantRegPais; i++)
+    {
+
+        cout << vecNombrePais[i] << ": $" << vecTotalVentasXPais[i] << endl;
 
     }
 
 
     delete[] vecTotalVentasXPais;
+    delete[] vecNombrePais;
 }
 
 /// MENU PRINCIPAL PAIS

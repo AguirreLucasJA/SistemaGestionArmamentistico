@@ -85,9 +85,10 @@ public:
     void menuReportes();//SUBMENU REPORTES DENTRO DEL MENU PRINCIPAL ADMIN STOCK
     void verFacturas();
     void buscarFacturasPais();
-    void rankingClientes();
+    void rankingPaises();
 
-    void ordenarDecreciente(long long *v, int tam);
+    void ordenarDecreciente(long long *vec, std::string *vecString, int tam);
+
 
 ///-------------------------------------------------------------------------------//
     void menuPrincipalPais(Pais &regPais);//MENU PRINCIPAL PAIS CLIENTE
