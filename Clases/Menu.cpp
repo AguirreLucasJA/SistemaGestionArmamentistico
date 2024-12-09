@@ -978,7 +978,7 @@ void Menu::altaMisil()//CARGA UN NUEVO MISIL AL ARCHIVO
 }
 
 /// MOSTRAR MISILES
-void Menu::mostrarMisiles(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+void Menu::mostrarMisiles(bool ordenadoPorEstado, bool mostrarEliminados)
 {
     ArchivoMisil ArchMisil;
     Misil *vecMisil = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
@@ -1347,7 +1347,7 @@ void Menu::altaAvion()//CARGA UN NUEVO AVION AL ARCHIVO
 }
 
 /// MOSTRAR AVIONES
-void Menu::mostrarAviones(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+void Menu::mostrarAviones(bool ordenadoPorEstado, bool mostrarEliminados)
 {
     ArchivoAvion ArchAvion;
     Avion *vecAvion = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
@@ -1713,7 +1713,7 @@ void Menu::altaBuque()//CARGA UN NUEVO BUQUE AL ARCHIVO
 }
 
 /// MOSTRAR BUQUES
-void Menu::mostrarBuques(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+void Menu::mostrarBuques(bool ordenadoPorEstado, bool mostrarEliminados)
 {
     ArchivoBuque ArchBuque;
     Buque *vecBuque = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
@@ -2077,7 +2077,7 @@ void Menu::altaTanque()//CARGA UN NUEVO BUQUE AL ARCHIVO
 }
 
 /// MOSTRAR TANQUES
-void Menu::mostrarTanques(bool ordenadoPorEstado, bool mostrarEliminados) //TODO::FALTA HACER LA PARTE DE ORDENADO
+void Menu::mostrarTanques(bool ordenadoPorEstado, bool mostrarEliminados)
 {
     ArchivoTanque ArchTanque;
     Tanque *vecTanque = nullptr;//OJO!!! DINAMICO inicializar/verificar/delete corchetes? XQ NOC CUANTOS REGISTROS PUEDEN LLEGAR A SER
@@ -3281,7 +3281,7 @@ void Menu::ingresoDinero(Pais &regPais)
     archPais.guardar(registroPais,posicion);
 }
 
-/// SOLICITUD DE ADQUISICIONES //TODO::ARREGLAR EL PRESIONE LA TECLA PARA CONTINUAR Y CUANDO PONES UNA OPCION QUE NO ES VALIDA SE SALE UN MENU PARA ATRAS
+/// SOLICITUD DE ADQUISICIONES
 void Menu::solicitudDeAdquisiciones(Pais &regPais)
 {
     long long dineroAcumulado = 0;
@@ -4173,7 +4173,6 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
                 cls();
                 cabecera();
                 gotoxy(10,8);
-                //TODO:: NO VERIFICAMOS SI EL STOCK DE LOS PRODUCTOS  Y EL DINERO EN CAJA DEL PAIS SE ACTUALIZO BIEN.
                 cout << "SE HA GUARDADO SU COMPRA SATISFACTORIAMENTE."<<endl<<endl;
 
 
@@ -4195,7 +4194,7 @@ void Menu::confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVent
             cout << "LO SENTIMOS, NO HEMOS PODIDO CONFIRMAR SU COMPRA.";
         }
     }
-//TODO:: Acá llega si la venta NO TIENE DETALLES DE VENTAS COMPRADOS;
+// Acá llega si la venta NO TIENE DETALLES DE VENTAS COMPRADOS;
 
 }
 

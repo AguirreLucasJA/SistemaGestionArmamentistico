@@ -75,7 +75,7 @@ int Entidad::getId()
 
 void Entidad::cargar(int id, int tipoUsuario)
 {
-    //TODO: HACER LA CLASE INTERMEDIA + SU CLASE ARCHIVO PARA VALIDAR USUARIO.
+
     Validar validar;
     string usuario;
     string clave;
