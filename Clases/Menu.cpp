@@ -2951,19 +2951,15 @@ void Menu::ordenarDecreciente(long long *vec, string *vecString, int tam)
     }
 }
 
-///RANKING DE CLIENTES
+///RANKING DE PAISES
 void Menu::rankingPaises()
 {
     ArchivoVenta archVenta;
     Venta regVenta;
     ArchivoPais archPais;
     Pais regPais;
-    int posPais;
     int cantRegPais;
     int cantRegVenta;
-    int totalAcumulado;
-    int i, j;
-    int indiceMax;
 
     long long *vecTotalVentasXPais = nullptr;
     string *vecNombrePais = nullptr;
@@ -3010,7 +3006,7 @@ void Menu::rankingPaises()
 
     cout << " <<RANKING DE CLIENTES>> " << endl;
 
-    for(i = 0; i < cantRegPais; i++)
+    for(int i = 0; i < cantRegPais; i++)
     {
 
         cout << vecNombrePais[i] << ": $" << vecTotalVentasXPais[i] << endl;
