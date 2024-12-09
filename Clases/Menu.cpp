@@ -11,6 +11,7 @@ using namespace rlutil;//rlutil::
 #include "Menu.h"
 #include"NombreUsuario.h"//tablas intermedias
 #include"NombreProducto.h"//tablas intermedias
+#include "NombreProductoCantidad.h" //tablas intermedias
 #include"StockProducto.h"//tablas intermedias
 
 #include "ClasesArchivos/ArchivoAdmin.h"
@@ -2720,7 +2721,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
         gotoxy (2,10);
         cout<<"2 - BUSCAR FACTURAS POR PAIS";
         gotoxy (2,11);
-        cout<<"3 - RANKING DE CLIENTES";
+        cout<<"3 - RANKING DE PAISES";
         gotoxy (2,12);
         cout<<"4 - RANKING DE PRODUCTOS";
         gotoxy (2,13);
@@ -2752,7 +2753,7 @@ void Menu::menuReportes()//SUBMENU REPORTES QUE ESTA DENTRO DE LAS OPCIONES DEL 
 
         case 4:
             system("cls");
-            //TODO:FALTA HACER**
+            rankingProductos();
             system("pause");
             break;
 
@@ -3020,6 +3021,83 @@ void Menu::rankingPaises()
     delete[] vecTotalVentasXPais;
     delete[] vecNombrePais;
 }
+
+/// RANKING DE PRODUCTOS
+
+void Menu::rankingProductos()
+{
+    ArchivoDetalleVenta archDetalle;
+    DetalleVenta regDetalle;
+    NombreProductoCantidad *vecNombreCantidad = nullptr;
+    ArchivoMisil archMisil;
+    ArchivoAvion archAvion;
+    ArchivoBuque archBuque;
+    ArchivoTanque archTanque;
+    Misil regMisil;
+    Avion regAvion;
+    Buque regBuque;
+    Tanque regTanque;
+    int cantDetalleVenta;
+    int cantRegMisil;
+    int cantRegAvion;
+    int cantRegBuque;
+    int cantRegTanque;
+    int totalProductos = 0;
+
+    cantDetalleVenta = archDetalle.getCantidadReg();
+    cantRegMisil = archMisil.getCantidadReg();
+    cantRegAvion = archAvion.getCantidadReg();
+    cantRegBuque = archBuque.getCantidadReg();
+    cantRegTanque = archTanque.getCantidadReg();
+
+    totalProductos = cantRegMisil + cantRegAvion +cantRegBuque  +cantRegTanque;
+
+    vecNombreCantidad = new NombreProductoCantidad [totalProductos];
+
+    if (vecNombreCantidad == nullptr)
+    {
+        return;
+    }
+
+
+    for(int i=0; i<cantRegMisil; i++ )
+    {
+        regMisil = archMisil.leer(i);
+        vecNombreCantidad[i].setNombre = regMisil.getNombre();
+    }
+
+    for(int j=i; j<cantRegAvion+cantRegMisil; j++ )
+    {
+        regAvion =archAvion.leer(j);
+        vecNombreCantidad[j].setNombre = regAvion.getNombre();
+    }
+
+    for (int k=j; k<cantRegBuque +cantRegAvion+cantRegMisil; k++)
+    {
+        regBuque = archBuque.leer(k);
+        vecNombreCantidad[k].setNombre = regBuque.getNombre();
+
+        for (int l=k; l<cantRegTanque +cantRegBuque +cantRegAvion+cantRegMisil; l++)
+        {
+            regTanque = archBuque.leer(l);
+            vecNombreCantidad[l].setNombre = regTanque.getNombre();
+
+        }
+
+    }
+}
+
+}
+
+
+
+
+
+
+delete[] vecNombreCantidad;
+}
+
+
 
 /// MENU PRINCIPAL PAIS
 void Menu::menuPrincipalPais(Pais &regPais)

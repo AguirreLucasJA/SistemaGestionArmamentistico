@@ -73,6 +73,8 @@
 		<Unit filename="Clases/Misil.h" />
 		<Unit filename="Clases/NombreProducto.cpp" />
 		<Unit filename="Clases/NombreProducto.h" />
+		<Unit filename="Clases/NombreProductoCantidad.cpp" />
+		<Unit filename="Clases/NombreProductoCantidad.h" />
 		<Unit filename="Clases/NombreUsuario.cpp" />
 		<Unit filename="Clases/NombreUsuario.h" />
 		<Unit filename="Clases/Pais.cpp" />

@@ -86,6 +86,7 @@ public:
     void verFacturas();
     void buscarFacturasPais();
     void rankingPaises();
+    void rankingProductos();
 
     void ordenarDecreciente(long long *vec, std::string *vecString, int tam);
 

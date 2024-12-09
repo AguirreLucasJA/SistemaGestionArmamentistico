@@ -28,7 +28,7 @@ private:
     int _idVenta;
     int _idProducto;
     int _cantidad;
-    char _nombreProducto[50];
+    char _nombreProducto[30];
     long long _precioUnitario;
     long long _precioTotal;
 };
