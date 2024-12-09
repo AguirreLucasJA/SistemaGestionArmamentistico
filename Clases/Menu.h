@@ -76,6 +76,7 @@ public:
     void listarBuques();
     void listarTanques();
 
+    ///SOBRECARGA
     void ordenarPorEstado(Admin *vecAdmin, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Pais *vecPais, int cantidad);//ACTIVOS PRIMERO
     void ordenarPorEstado(Misil *vecMisil, int cantidad);//ACTIVOS PRIMERO
@@ -89,6 +90,7 @@ public:
     void rankingPaises();
     void rankingProductos();
 
+    ///SOBRECARGA
     void ordenarDecreciente(long long *vec, std::string *vecString, int tam);
     void ordenarDecreciente(NombreProductoCantidad *vec, int tam);
 
@@ -108,6 +110,8 @@ public:
 
     void confirmarCompra(Pais &regPais, long long dineroAcumulado, DetalleVenta *vecDetalleVenta, int cantProductosAComprar, int cantProductosComprados, StockProducto *vecProductosMisil, StockProducto *vecProductosAvion, StockProducto *vecProductosBuque, StockProducto *vecProductosTanque);
     void comprasRealizadas(Pais &regPais);
+
+
 private:
     int opcion;
 };
